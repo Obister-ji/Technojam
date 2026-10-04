@@ -5,12 +5,12 @@ import { NETWORK_KINDS as KINDS } from "./network";
 
 /**
  * people → ideas → projects → events.
- * A network of nodes that drifts in from noise and resolves into the TJ
- * mark. Signals travel along edges; the cursor gently parts the nodes.
+ * A network of nodes that drifts in from noise and resolves into the
+ * official TechnoJam ribbon, each node taking the logo colour beneath it. Signals travel along edges; the cursor gently parts the nodes.
  * Purely decorative (aria-hidden); static under prefers-reduced-motion.
  */
 
-const MARK_PATHS = ["M3 7.5h15M10.5 7.5V26", "M23.5 7.5v11.5a7 7 0 0 1-7 7h-1"];
+const LOGO_SRC = "/brand/tj-logo.webp";
 
 interface Node {
   x: number;
@@ -20,6 +20,7 @@ interface Node {
   vx: number;
   vy: number;
   kind: number;
+  color: string;
   r: number;
   phase: number;
   links: number[];
@@ -32,31 +33,27 @@ interface Signal {
   speed: number;
 }
 
-function samplePoints(w: number, h: number, count: number, rng: () => number) {
-  if (w < 2 || h < 2) return [];
-  const size = Math.min(w * 0.82, h * 0.7);
-  const ox = w - size - w * 0.06;
-  const oy = h * 0.58 - size / 2;
-  const scale = size / 32;
+function samplePoints(w: number, h: number, count: number, rng: () => number, img: HTMLImageElement) {
+  if (w < 2 || h < 2 || !img.naturalWidth) return [];
+  const aspect = img.naturalWidth / img.naturalHeight;
+  const lh = Math.min(h * 0.74, (w * 0.62) / aspect);
+  const lw = lh * aspect;
+  const ox = w - lw - w * 0.14;
+  const oy = h * 0.54 - lh / 2;
   const off = document.createElement("canvas");
   off.width = Math.ceil(w);
   off.height = Math.ceil(h);
   const ctx = off.getContext("2d", { willReadFrequently: true });
   if (!ctx) return [];
-  ctx.translate(ox, oy);
-  ctx.scale(scale, scale);
-  ctx.lineWidth = 3.6;
-  ctx.lineCap = "square";
-  ctx.strokeStyle = "#000";
-  for (const d of MARK_PATHS) ctx.stroke(new Path2D(d));
-  ctx.beginPath();
-  ctx.arc(23.5, 7.5, 3.4, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.drawImage(img, ox, oy, lw, lh);
   const data = ctx.getImageData(0, 0, off.width, off.height).data;
-  const filled: [number, number][] = [];
-  const step = Math.max(3, Math.round(size / 90));
+  const filled: [number, number, string][] = [];
+  const step = Math.max(3, Math.round(lh / 110));
   for (let y = 0; y < off.height; y += step)
-    for (let x = 0; x < off.width; x += step) if (data[(y * off.width + x) * 4 + 3] > 128) filled.push([x, y]);
+    for (let x = 0; x < off.width; x += step) {
+      const i = (y * off.width + x) * 4;
+      if (data[i + 3] > 200) filled.push([x, y, `rgb(${data[i]},${data[i + 1]},${data[i + 2]})`]);
+    }
   // Shuffle and take `count`
   for (let i = filled.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));
@@ -109,10 +106,10 @@ export function HeroNetwork({ className = "" }: { className?: string }) {
 
       const rng = mulberry32(2015);
       const small = w < 640;
-      const markCount = small ? 70 : 170;
-      const points = samplePoints(w, h, markCount, rng);
+      const markCount = small ? 90 : 230;
+      const points = samplePoints(w, h, markCount, rng, logo);
 
-      nodes = points.map(([tx, ty]) => ({
+      nodes = points.map(([tx, ty, color]) => ({
         x: reduced ? tx : rng() * w,
         y: reduced ? ty : rng() * h,
         tx,
@@ -120,7 +117,8 @@ export function HeroNetwork({ className = "" }: { className?: string }) {
         vx: 0,
         vy: 0,
         // Flow left→right across the mark: people, ideas, projects, events
-        kind: Math.min(3, Math.floor(((tx / w) * 4 + rng() * 0.9 - 0.45 + 4) % 4)),
+        kind: 0,
+        color,
         r: 1 + rng() * 1.6,
         phase: rng() * Math.PI * 2,
         links: [],
@@ -141,7 +139,8 @@ export function HeroNetwork({ className = "" }: { className?: string }) {
       ambient = Array.from({ length: ambientCount }, () => {
         const x = rng() * w;
         const y = rng() * h;
-        return { x, y, tx: x, ty: y, vx: 0, vy: 0, kind: Math.floor(rng() * 4), r: 0.8 + rng(), phase: rng() * 6.28, links: [] };
+        const kind = Math.floor(rng() * 4);
+        return { x, y, tx: x, ty: y, vx: 0, vy: 0, kind, color: KINDS[kind].color, r: 0.8 + rng(), phase: rng() * 6.28, links: [] };
       });
       signals = [];
       start = performance.now();
@@ -205,7 +204,7 @@ export function HeroNetwork({ className = "" }: { className?: string }) {
       // Ambient
       for (const n of ambient) {
         const y = n.y + (reduced ? 0 : Math.sin(elapsed * 0.3 + n.phase) * 6);
-        ctx.fillStyle = KINDS[n.kind].color;
+        ctx.fillStyle = n.color;
         ctx.globalAlpha = 0.22;
         ctx.beginPath();
         ctx.arc(n.x, y, n.r, 0, Math.PI * 2);
@@ -215,7 +214,7 @@ export function HeroNetwork({ className = "" }: { className?: string }) {
 
       // Nodes
       for (const n of nodes) {
-        ctx.fillStyle = KINDS[n.kind].color;
+        ctx.fillStyle = n.color;
         ctx.globalAlpha = 0.55 + 0.45 * settle;
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
@@ -235,7 +234,7 @@ export function HeroNetwork({ className = "" }: { className?: string }) {
           const x = a.x + (b.x - a.x) * s.t;
           const y = a.y + (b.y - a.y) * s.t;
           // Soft halo without shadowBlur (which is very expensive per frame)
-          ctx.fillStyle = KINDS[b.kind].color;
+          ctx.fillStyle = b.color;
           ctx.globalAlpha = 0.18;
           ctx.beginPath();
           ctx.arc(x, y, 5, 0, Math.PI * 2);
@@ -285,7 +284,14 @@ export function HeroNetwork({ className = "" }: { className?: string }) {
     };
     const idle = (cb: () => void) =>
       typeof window.requestIdleCallback === "function" ? window.requestIdleCallback(cb, { timeout: 2500 }) : setTimeout(cb, 1200);
-    const onLoad = () => idle(begin);
+    // The network takes its shape and colours from the logo image.
+    const logo = new Image();
+    logo.src = LOGO_SRC;
+    const onLoad = () =>
+      logo
+        .decode()
+        .then(() => idle(begin))
+        .catch(() => {});
     if (document.readyState === "complete") onLoad();
     else window.addEventListener("load", onLoad, { once: true });
 

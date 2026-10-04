@@ -1,4 +1,10 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
+
+const logoDataUrl = readFile(join(process.cwd(), "public/brand/tj-logo.png")).then(
+  (buf) => `data:image/png;base64,${buf.toString("base64")}`,
+);
 
 export const OG_SIZE = { width: 1200, height: 630 };
 
@@ -26,7 +32,7 @@ export async function renderOg({
   kicker = "TechnoJam",
   title,
   meta,
-  accent = "#ff4d94",
+  accent = "#ec3f86",
 }: {
   kicker?: string;
   title: string;
@@ -36,7 +42,11 @@ export async function renderOg({
   const upperTitle = title.toUpperCase();
   const kickerText = kicker.toUpperCase();
   const metaText = (meta ?? "THROTTLE TO LEARN").toUpperCase();
-  const [black, medium] = await Promise.all([loadFont(upperTitle + kickerText, 900), loadFont(metaText + "TECHNOJAM", 500)]);
+  const [black, medium, logo] = await Promise.all([
+    loadFont(upperTitle + kickerText, 900),
+    loadFont(metaText + "TECHNOJAM", 500),
+    logoDataUrl,
+  ]);
   const fonts = [
     ...(black ? [{ name: "Archivo", data: black, weight: 900 as const, style: "normal" as const }] : []),
     ...(medium ? [{ name: "Archivo", data: medium, weight: 500 as const, style: "normal" as const }] : []),
@@ -62,11 +72,8 @@ export async function renderOg({
     >
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <svg width="56" height="56" viewBox="0 0 32 32" fill="none">
-            <path d="M3 7.5h15M10.5 7.5V26" stroke="#f3f0ea" strokeWidth="3.4" />
-            <path d="M23.5 7.5v11.5a7 7 0 0 1-7 7h-1" stroke="#f3f0ea" strokeWidth="3.4" />
-            <circle cx="23.5" cy="7.5" r="3.4" fill={accent} />
-          </svg>
+          {/* eslint-disable-next-line @next/next/no-img-element -- Satori renders plain <img> */}
+          <img src={logo} alt="" height={64} width={40} />
           <span style={{ fontSize: 30, fontWeight: 900, letterSpacing: 1 }}>{kickerText}</span>
         </div>
         <span style={{ fontSize: 22, fontWeight: 500, color: "#a5a3ab", letterSpacing: 3 }}>TECHNOJAM.IN</span>
@@ -75,7 +82,7 @@ export async function renderOg({
         {upperTitle}
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-        <div style={{ width: 120, height: 8, background: `linear-gradient(90deg, #4c7dff, #9d74ff, ${accent})` }} />
+        <div style={{ width: 120, height: 8, background: `linear-gradient(90deg, #31a8df, #b06fdc, ${accent})` }} />
         <span style={{ fontSize: 28, fontWeight: 500, color: "#a5a3ab", letterSpacing: 3 }}>{metaText}</span>
       </div>
     </div>,

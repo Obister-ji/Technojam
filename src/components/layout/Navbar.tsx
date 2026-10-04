@@ -37,7 +37,7 @@ export function Navbar({ recruitmentOpen }: { recruitmentOpen: boolean }) {
         <nav aria-label="Primary" className="container-site flex h-(--nav-h) items-center gap-6">
           <Link href="/" className="mr-auto shrink-0" aria-label="TechnoJam — home">
             <Wordmark className="hidden sm:inline-flex" />
-            <Mark className="size-8 sm:hidden" />
+            <Mark className="h-9 sm:hidden" />
           </Link>
 
           <ul className="hidden items-center gap-1 lg:flex">

@@ -2,7 +2,7 @@
 
 /* ------------------------------------------------------------------
    TechnoJam design tokens
-   Graphite base, warm off-white type, a blue → violet → pink signal
+   Graphite base, warm off-white type, the logo's cyan → blue → purple → pink
    spectrum used sparingly for interaction, status and storytelling.
    ------------------------------------------------------------------ */
 
@@ -19,9 +19,11 @@
   --color-fg-muted: #a5a3ab;
   --color-fg-subtle: #85838d;
 
-  --color-volt: #4c7dff;
-  --color-violet: #9d74ff;
-  --color-pulse: #ff4d94;
+  /* Sampled from the official TechnoJam logo ribbon (lifted where needed for AA contrast) */
+  --color-cyan: #56d3e4;
+  --color-volt: #31a8df;
+  --color-violet: #b06fdc;
+  --color-pulse: #ec3f86;
 
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
@@ -48,7 +50,7 @@
     color-scheme: dark;
     --gutter: 1rem;
     --nav-h: 4rem;
-    --spectrum: linear-gradient(90deg, var(--color-volt), var(--color-violet) 52%, var(--color-pulse));
+    --spectrum: linear-gradient(90deg, var(--color-cyan), var(--color-volt) 30%, #7b3fa6 62%, var(--color-pulse));
   }
 
   @media (min-width: 48rem) {

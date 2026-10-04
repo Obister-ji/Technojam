@@ -150,5 +150,5 @@ Integrity rules baked into the model:
 1. Canonical domain stays `https://www.technojam.in`.
 2. Recruitment 2026 is treated as **closed** (deadline 7 Sep 2026 passed); the next cycle is not announced.
 3. No approved photography is available yet — the site ships designed placeholders, not stock photos.
-4. The code-drawn TJ mark is interim; the official logo is uploaded via Site settings → Logo.
+4. The official TechnoJam ribbon logo lives in `public/brand/` (webp for the site, png for social cards); app icons are generated from it.
 5. The Discord invite from the previous website (`6ksUUABBkY`) is used; the 2026 task repo uses a different invite — confirm which is current.

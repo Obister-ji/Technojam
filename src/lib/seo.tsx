@@ -27,7 +27,7 @@ export function organizationJsonLd(s: SiteSettings) {
     slogan: s.tagline,
     description: s.description,
     url: SITE_URL,
-    logo: `${SITE_URL}/icon.svg`,
+    logo: `${SITE_URL}/brand/tj-logo.png`,
     foundingDate: String(s.foundedYear),
     email: s.email,
     parentOrganization: {

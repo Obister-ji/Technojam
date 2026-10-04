@@ -40,7 +40,7 @@ export function ThrottleMeter({ className = "" }: { className?: string }) {
             style={{
               background:
                 i < lit
-                  ? `color-mix(in oklab, var(--color-volt), var(--color-pulse) ${(i / SEGMENTS) * 100}%)`
+                  ? `color-mix(in oklab, var(--color-cyan), var(--color-pulse) ${(i / SEGMENTS) * 100}%)`
                   : "var(--color-line-strong)",
             }}
           />

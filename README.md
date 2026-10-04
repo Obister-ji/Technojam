@@ -36,7 +36,7 @@ src/
 │  ├─ studio/[[...tool]]/     embedded Sanity Studio (noindex)
 │  ├─ api/                    contact form · Sanity webhook revalidation · draft mode
 │  ├─ search-index.json/      static search index for ⌘K + console (loaded on demand)
-│  └─ sitemap.ts robots.ts manifest.ts icon.svg
+│  └─ sitemap.ts robots.ts manifest.ts icon.png apple-icon.png
 ├─ components/                UI by feature (home, projects, events, dexterix, join, team, command, layout, ui)
 ├─ content/seed/              verified fallback content + sources (used when Sanity isn't configured)
 ├─ lib/
