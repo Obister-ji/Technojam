@@ -19,17 +19,13 @@ export function Lines({ text }: { text: string }) {
   );
 }
 
-export function Eyebrow({ index, children, className }: { index?: string; children: ReactNode; className?: string }) {
-  return (
-    <p className={cx("label-mono flex items-center gap-3 text-fg-muted", className)}>
-      {index ? <span className="text-pulse">{index}</span> : null}
-      <span aria-hidden className="h-px w-8 bg-line-strong" />
-      <span>{children}</span>
-    </p>
-  );
+/** Quiet section label. The index prop is accepted for compatibility but no longer shown. */
+export function Eyebrow({ children, className }: { index?: string; children: ReactNode; className?: string }) {
+  return <p className={cx("label-mono text-fg-subtle", className)}>{children}</p>;
 }
 
 export function SectionHeading({
+  id,
   index,
   eyebrow,
   title,
@@ -39,6 +35,7 @@ export function SectionHeading({
   className,
   children,
 }: {
+  id?: string;
   index?: string;
   eyebrow: string;
   title: string;
@@ -53,9 +50,10 @@ export function SectionHeading({
       <div className="md:col-span-8">
         <Eyebrow index={index}>{eyebrow}</Eyebrow>
         <Tag
+          id={id}
           data-reveal="lines"
           className={cx(
-            "mt-5 font-extrabold tracking-[-0.03em] uppercase",
+            "mt-4 font-extrabold tracking-[-0.03em] uppercase",
             size === "display" ? "text-display font-wide" : "text-headline font-wide",
           )}
         >
@@ -120,7 +118,7 @@ const TONE = {
 
 export function Status({ tone = "muted", live, children }: { tone?: keyof typeof TONE; live?: boolean; children: ReactNode }) {
   return (
-    <span className={cx("label-mono inline-flex items-center gap-2", TONE[tone])}>
+    <span className={cx("inline-flex items-center gap-2 label-mono", TONE[tone])}>
       <span aria-hidden className={cx("size-1.5 rounded-full bg-current", live && "pulse-dot")} />
       {children}
     </span>
@@ -128,17 +126,16 @@ export function Status({ tone = "muted", live, children }: { tone?: keyof typeof
 }
 
 export function Tag({ children }: { children: ReactNode }) {
-  return <span className="label-mono inline-flex items-center border border-line px-2 py-1 text-fg-muted">{children}</span>;
+  return <span className="inline-flex items-center border border-line px-2 py-1 label-mono text-fg-muted">{children}</span>;
 }
 
-/** Honest empty state — used whenever verified content doesn't exist yet. */
+/** Honest empty state — a plain sentence, not a box. */
 export function EmptyState({ title, children, action }: { title: string; children?: ReactNode; action?: ReactNode }) {
   return (
-    <div className="relative border border-dashed border-line-strong p-6 md:p-10">
-      <p className="label-mono text-fg-subtle">{"// nothing here yet"}</p>
-      <p className="mt-3 max-w-xl text-xl font-semibold">{title}</p>
-      {children ? <div className="mt-3 max-w-xl text-fg-muted">{children}</div> : null}
-      {action ? <div className="mt-6">{action}</div> : null}
+    <div className="max-w-xl">
+      <p className="text-lg font-medium">{title}</p>
+      {children ? <div className="mt-2 text-fg-muted">{children}</div> : null}
+      {action ? <div className="mt-5">{action}</div> : null}
     </div>
   );
 }
@@ -149,7 +146,10 @@ export function ExternalLink({ href, children, className }: { href: string; chil
       href={href}
       target="_blank"
       rel="noreferrer"
-      className={cx("group inline-flex items-center gap-1.5 underline decoration-line-strong underline-offset-4 hover:decoration-pulse", className)}
+      className={cx(
+        "group inline-flex items-center gap-1.5 underline decoration-line-strong underline-offset-4 hover:decoration-pulse",
+        className,
+      )}
     >
       {children}
       <ArrowUpRight className="size-3.5 opacity-60 transition-opacity group-hover:opacity-100" />

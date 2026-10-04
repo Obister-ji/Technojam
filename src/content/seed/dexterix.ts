@@ -52,8 +52,7 @@ export const dexterixEditions: DexterixEdition[] = [
     durationHours: 36,
     format: "in-person",
     venue: "Galgotias University, Greater Noida",
-    summary:
-      "Twelve domains, corporate and student tracks, and a dedicated prize each for all-girls and all-freshers teams.",
+    summary: "Twelve domains, corporate and student tracks, and a dedicated prize each for all-girls and all-freshers teams.",
     themes: [
       "Fintech",
       "Sustainability",
@@ -79,10 +78,7 @@ export const dexterixEditions: DexterixEdition[] = [
     },
     institutionsActual: {
       value: 30,
-      verification: S.pending(
-        "University reporting (cited in project brief)",
-        "See participantsActual — source URL not yet located.",
-      ),
+      verification: S.pending("University reporting (cited in project brief)", "See participantsActual — source URL not yet located."),
     },
     institutionsTarget: { value: 100, suffix: "+", verification: S.dx4Commudle },
     prizes: [
@@ -92,8 +88,7 @@ export const dexterixEditions: DexterixEdition[] = [
       { label: "All-girls team", amount: "₹5,000" },
       { label: "All-freshers team", amount: "₹5,000" },
     ],
-    prizeNote:
-      "Prize tiers from the university page. Commudle lists a ₹21,000 total pool — the two first-party sources differ.",
+    prizeNote: "Prize tiers from the university page. Commudle lists a ₹21,000 total pool — the two first-party sources differ.",
     winners: [],
     judgesNote: "Around fifteen judges are listed on the university's Dexterix 4.0 page.",
     sponsors: [],
@@ -116,13 +111,11 @@ export const dexterixEditions: DexterixEdition[] = [
     startDate: "2022-03-11",
     endDate: "2022-03-12",
     durationHours: 24,
-    durationNote:
-      "The university report says 24 hours; the event's GitHub repository describes it as 36 hours.",
+    durationNote: "The university report says 24 hours; the event's GitHub repository describes it as 36 hours.",
     format: "hybrid",
     venue: "Galgotias University & online",
     tagline: "Finding the new Dexters",
-    summary:
-      "An international hybrid hackathon with SIH 2022 problem statements, hosted by TechnoJam with SCSE and ACM.",
+    summary: "An international hybrid hackathon with SIH 2022 problem statements, hosted by TechnoJam with SCSE and ACM.",
     themes: [
       "EdTech",
       "FinTech, blockchain & cyber security",
@@ -135,8 +128,7 @@ export const dexterixEditions: DexterixEdition[] = [
     ],
     tracks: ["Corporate", "Student"],
     prizes: [{ label: "Cash prizes", amount: "₹2 lakh+" }],
-    prizeNote:
-      "The university report states ₹2 lakh+; a separate university page states ₹2.5 lakh.",
+    prizeNote: "The university report states ₹2 lakh+; a separate university page states ₹2.5 lakh.",
     winners: [],
     sponsors: [],
     microsite: "https://technojam.github.io/dexterix3/",
@@ -178,8 +170,7 @@ export const dexterixEditions: DexterixEdition[] = [
     format: "in-person",
     venue: "Galgotias University, Greater Noida",
     tagline: "Smart Sustainable Solutions",
-    summary:
-      "Where it started: a hackathon on smart, sustainable solutions with awards in six categories.",
+    summary: "Where it started: a hackathon on smart, sustainable solutions with awards in six categories.",
     themes: ["Smart Sustainable Solutions"],
     tracks: [],
     participantsActual: { value: 500, suffix: "+", verification: S.tennews2018 },
@@ -196,8 +187,7 @@ export const dexterixEditions: DexterixEdition[] = [
     postEventDataAvailable: true,
     verification: {
       ...S.tennews2018,
-      notes:
-        "The Dexterix 5.0 site dates the series to 2018; a Commudle page says 2019. The 2018 press report settles it.",
+      notes: "The Dexterix 5.0 site dates the series to 2018; a Commudle page says 2019. The 2018 press report settles it.",
     },
   },
 ];

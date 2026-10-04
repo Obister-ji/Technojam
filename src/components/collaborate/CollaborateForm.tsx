@@ -66,13 +66,14 @@ export function CollaborateForm({ email }: { email: string }) {
     return (
       <div role="status" className="border border-line-strong p-8">
         <p className="label-mono text-pulse">Received</p>
-        <p className="font-wide mt-4 text-3xl font-extrabold uppercase">Thanks — we&apos;ll be in touch.</p>
+        <p className="mt-4 text-3xl font-extrabold uppercase font-wide">Thanks — we&apos;ll be in touch.</p>
         <p className="mt-3 text-fg-muted">A TechnoJam lead will reply by email. For anything urgent, write to {email}.</p>
       </div>
     );
   }
 
-  const field = "w-full border border-line bg-bg px-4 py-3 text-base text-fg outline-none transition-colors placeholder:text-fg-subtle focus:border-fg aria-[invalid=true]:border-pulse";
+  const field =
+    "w-full border border-line bg-bg px-4 py-3 text-base text-fg outline-none transition-colors placeholder:text-fg-subtle focus:border-fg aria-[invalid=true]:border-pulse";
   const err = (k: keyof InquiryInput) =>
     errors[k] ? (
       <p id={`${id}-${k}-err`} className="mt-2 text-sm text-pulse">
@@ -175,7 +176,10 @@ export function CollaborateForm({ email }: { email: string }) {
           <ArrowRight className="transition-transform group-hover:translate-x-1" />
         </button>
         <p className="text-sm text-fg-subtle">
-          Prefer email? <a href={`mailto:${email}`} className="underline underline-offset-4">{email}</a>
+          Prefer email?{" "}
+          <a href={`mailto:${email}`} className="underline underline-offset-4">
+            {email}
+          </a>
         </p>
       </div>
     </form>

@@ -30,14 +30,19 @@ export function ThrottleMeter({ className = "" }: { className?: string }) {
 
   const lit = Math.round(progress * SEGMENTS);
   return (
-    <div className={`label-mono items-center gap-2 pr-2 text-fg-subtle ${className}`} aria-hidden>
+    <div className={`items-center gap-2 pr-2 label-mono text-fg-subtle ${className}`} aria-hidden>
       <span>THR</span>
       <span className="flex gap-[3px]">
         {Array.from({ length: SEGMENTS }, (_, i) => (
           <span
             key={i}
             className="h-2.5 w-1 transition-colors duration-200"
-            style={{ background: i < lit ? `color-mix(in oklab, var(--color-volt), var(--color-pulse) ${(i / SEGMENTS) * 100}%)` : "var(--color-line-strong)" }}
+            style={{
+              background:
+                i < lit
+                  ? `color-mix(in oklab, var(--color-volt), var(--color-pulse) ${(i / SEGMENTS) * 100}%)`
+                  : "var(--color-line-strong)",
+            }}
           />
         ))}
       </span>

@@ -37,17 +37,7 @@ export type RichText = unknown[] | string[];
 /* ------------------------------------------------------------------ */
 
 export interface SocialLink {
-  platform:
-    | "github"
-    | "linkedin"
-    | "instagram"
-    | "x"
-    | "commudle"
-    | "discord"
-    | "facebook"
-    | "youtube"
-    | "email"
-    | "website";
+  platform: "github" | "linkedin" | "instagram" | "x" | "commudle" | "discord" | "facebook" | "youtube" | "email" | "website";
   label: string;
   url: string;
   handle?: string;
@@ -112,14 +102,7 @@ export interface Project {
   verification?: Verification;
 }
 
-export type EventType =
-  | "hackathon"
-  | "workshop"
-  | "meetup"
-  | "competition"
-  | "session"
-  | "collaboration"
-  | "recruitment";
+export type EventType = "hackathon" | "workshop" | "meetup" | "competition" | "session" | "collaboration" | "recruitment";
 
 export type EventMode = "in-person" | "online" | "hybrid";
 

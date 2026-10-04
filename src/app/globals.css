@@ -30,8 +30,8 @@
   --text-display-xl--line-height: 0.86;
   --text-display: clamp(2.3rem, 7.6vw, 7.25rem);
   --text-display--line-height: 0.9;
-  --text-headline: clamp(2rem, 5vw, 4.5rem);
-  --text-headline--line-height: 0.95;
+  --text-headline: clamp(1.75rem, 3.6vw, 3.25rem);
+  --text-headline--line-height: 1;
   --text-title: clamp(1.5rem, 2.6vw, 2.25rem);
   --text-title--line-height: 1.08;
   --text-meta: 0.75rem;
@@ -169,18 +169,6 @@
     linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
   background-size: 4rem 4rem;
-}
-
-/* ---------- Global texture ---------- */
-
-.noise::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ---------- Reveal-on-scroll (progressive enhancement) ---------- */

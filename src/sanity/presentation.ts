@@ -4,7 +4,12 @@ const at = (base: string) =>
   defineLocations({
     select: { title: "title", slug: "slug.current" },
     resolve: (doc) => ({
-      locations: doc?.slug ? [{ title: doc.title || "Untitled", href: `${base}/${doc.slug}` }, { title: "Index", href: base }] : [],
+      locations: doc?.slug
+        ? [
+            { title: doc.title || "Untitled", href: `${base}/${doc.slug}` },
+            { title: "Index", href: base },
+          ]
+        : [],
     }),
   });
 

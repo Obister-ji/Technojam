@@ -49,12 +49,12 @@ export function MobileMenu({ onClose, recruitmentOpen }: { onClose: () => void; 
                     aria-current={active ? "page" : undefined}
                     className="group flex items-baseline gap-4 py-4"
                   >
-                    <span className="label-mono w-6 text-fg-subtle">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="w-6 label-mono text-fg-subtle">{String(i + 1).padStart(2, "0")}</span>
                     <span className="flex-1">
-                      <span className={`font-wide block text-3xl font-extrabold uppercase ${active ? "text-pulse" : ""}`}>
+                      <span className={`block text-3xl font-extrabold uppercase font-wide ${active ? "text-pulse" : ""}`}>
                         {item.label}
                         {item.href === JOIN_NAV.href && recruitmentOpen ? (
-                          <span className="label-mono ml-3 align-middle text-pulse">● open</span>
+                          <span className="ml-3 align-middle label-mono text-pulse">● open</span>
                         ) : null}
                       </span>
                       <span className="mt-1 block text-sm text-fg-muted">{item.description}</span>

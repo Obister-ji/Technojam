@@ -24,7 +24,10 @@ export default async function TeamYearPage({ params }: PageProps<"/team/[year]">
   return (
     <>
       <PageHeader
-        crumbs={[{ label: "team", href: "/team" }, { label: team.slug, href: `/team/${team.slug}` }]}
+        crumbs={[
+          { label: "team", href: "/team" },
+          { label: team.slug, href: `/team/${team.slug}` },
+        ]}
         eyebrow={team.current ? "Current team" : "Past team"}
         title={`Team\n${team.label}`}
       />

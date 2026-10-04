@@ -8,7 +8,8 @@ export const revalidate = 3600;
 
 export const metadata = pageMetadata({
   title: "Projects",
-  description: "What TechnoJam members build and ship: event platforms, apps, open-source repositories and experiments — with honest status labels.",
+  description:
+    "What TechnoJam members build and ship: event platforms, apps, open-source repositories and experiments — with honest status labels.",
   path: "/projects",
 });
 
@@ -22,8 +23,8 @@ export default async function ProjectsPage() {
         title={"We ship\nthings."}
         intro={
           <p>
-            {projects.length} projects from {Math.min(...years)} to {Math.max(...years)} — the platforms behind our events, recruitment in the open,
-            apps, and experiments. Status labels are honest: archived means archived.
+            {projects.length} projects from {Math.min(...years)} to {Math.max(...years)} — the platforms behind our events, recruitment in
+            the open, apps, and experiments. Status labels are honest: archived means archived.
           </p>
         }
         aside={
@@ -31,8 +32,8 @@ export default async function ProjectsPage() {
             <p className="label-mono text-fg-subtle">Source of truth</p>
             <p className="mt-2 text-fg-muted">
               Everything here lives on{" "}
-              <ExternalLink href={`https://github.com/${settings.githubOrg}`}>github.com/{settings.githubOrg}</ExternalLink>. Want your project featured?
-              Open a PR or tell a lead.
+              <ExternalLink href={`https://github.com/${settings.githubOrg}`}>github.com/{settings.githubOrg}</ExternalLink>. Want your
+              project featured? Open a PR or tell a lead.
             </p>
           </div>
         }

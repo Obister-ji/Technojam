@@ -1,48 +1,50 @@
 import Link from "next/link";
 import type { NowItem } from "@/lib/content/now";
-import { ArrowRight, ArrowUpRight } from "@/components/ui/Icon";
+import { ArrowRight } from "@/components/ui/Icon";
 import { Status } from "@/components/ui/primitives";
 
+function Anchor({ item, className, children }: { item: NowItem; className: string; children: React.ReactNode }) {
+  return item.external ? (
+    <a href={item.href} target="_blank" rel="noreferrer" className={className}>
+      {children}
+    </a>
+  ) : (
+    <Link href={item.href} className={className}>
+      {children}
+    </Link>
+  );
+}
+
+/** One primary item, everything else as small links on the same line. */
 export function NowStrip({ items }: { items: NowItem[] }) {
-  if (!items.length) return null;
+  const [primary, ...rest] = items;
+  if (!primary) return null;
+
   return (
     <section id="now" aria-labelledby="now-title" className="scroll-mt-(--nav-h) border-y border-line bg-bg-raised">
-      <div className="container-site grid md:grid-cols-[12rem_1fr]">
-        <h2 id="now-title" className="label-mono flex items-center gap-2 border-line py-5 text-fg md:border-r md:py-8">
-          <span aria-hidden className="pulse-dot size-1.5 rounded-full bg-pulse" />
+      <div className="container-site flex flex-col gap-4 py-6 md:flex-row md:items-center md:justify-between md:gap-10">
+        <h2 id="now-title" className="sr-only">
           Now at TechnoJam
         </h2>
-        <ul className="grid divide-y divide-line md:grid-cols-3 md:divide-x md:divide-y-0">
-          {items.map((item) => {
-            const inner = (
-              <>
-                <Status tone={item.tone} live={item.live}>
-                  {item.label}
-                </Status>
-                <p className="mt-3 text-xl font-bold tracking-tight transition-colors group-hover:text-pulse">{item.title}</p>
-                <p className="label-mono mt-1 text-fg-muted normal-case tracking-normal">{item.detail}</p>
-                {item.external ? (
-                  <ArrowUpRight className="absolute top-6 right-5 text-fg-subtle md:top-8" />
-                ) : (
-                  <ArrowRight className="absolute top-6 right-5 text-fg-subtle transition-transform group-hover:translate-x-1 md:top-8" />
-                )}
-              </>
-            );
-            return (
-              <li key={item.key} className="relative">
-                {item.external ? (
-                  <a href={item.href} target="_blank" rel="noreferrer" className="group block py-6 pr-12 md:px-6 md:py-8">
-                    {inner}
-                  </a>
-                ) : (
-                  <Link href={item.href} className="group block py-6 pr-12 md:px-6 md:py-8">
-                    {inner}
-                  </Link>
-                )}
+        <Anchor item={primary} className="group flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          <Status tone={primary.tone} live={primary.live}>
+            {primary.label}
+          </Status>
+          <span className="text-lg font-bold group-hover:text-pulse">{primary.title}</span>
+          <span className="text-sm text-fg-muted">{primary.detail}</span>
+          <ArrowRight className="size-4 self-center text-fg-subtle transition-transform group-hover:translate-x-1" />
+        </Anchor>
+        {rest.length ? (
+          <ul className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-fg-muted">
+            {rest.map((item) => (
+              <li key={item.key}>
+                <Anchor item={item} className="hover:text-fg">
+                  {item.title}
+                </Anchor>
               </li>
-            );
-          })}
-        </ul>
+            ))}
+          </ul>
+        ) : null}
       </div>
     </section>
   );

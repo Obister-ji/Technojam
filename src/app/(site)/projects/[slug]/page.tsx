@@ -4,10 +4,11 @@ import { notFound } from "next/navigation";
 import { ProjectCover, STATUS_META } from "@/components/projects/ProjectCard";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { RepoLink } from "@/components/projects/RepoLink";
-import { ButtonLink, Status, Tag } from "@/components/ui/primitives";
+import { ButtonLink, Status } from "@/components/ui/primitives";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { RichText } from "@/components/ui/RichText";
 import { SourceNote } from "@/components/ui/SourceNote";
+import { MoreDetails } from "@/components/ui/MoreDetails";
 import { getProject, getProjects } from "@/lib/content";
 import { getRepoMeta } from "@/lib/github";
 import { JsonLd, breadcrumbJsonLd, pageMetadata, projectJsonLd } from "@/lib/seo";
@@ -44,10 +45,24 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
     .slice(0, 3);
 
   const facts: [string, React.ReactNode][] = [
-    ["Status", <Status key="s" tone={status.tone} live={status.live}>{status.label}</Status>],
+    [
+      "Status",
+      <Status key="s" tone={status.tone} live={status.live}>
+        {status.label}
+      </Status>,
+    ],
     ["Year", project.year],
     ["Language", meta?.language ?? project.language ?? "—"],
-    ...(meta ? ([["Last commit", <time key="t" dateTime={meta.pushedAt}>{relative(meta.pushedAt)}</time>]] as [string, React.ReactNode][]) : []),
+    ...(meta
+      ? ([
+          [
+            "Last commit",
+            <time key="t" dateTime={meta.pushedAt}>
+              {relative(meta.pushedAt)}
+            </time>,
+          ],
+        ] as [string, React.ReactNode][])
+      : []),
     ...(meta?.license ? ([["License", meta.license]] as [string, React.ReactNode][]) : []),
     ...(meta?.archived ? ([["GitHub", "Archived repository"]] as [string, React.ReactNode][]) : []),
   ];
@@ -55,7 +70,10 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
   return (
     <article>
       <PageHeader
-        crumbs={[{ label: "projects", href: "/projects" }, { label: project.slug, href: `/projects/${project.slug}` }]}
+        crumbs={[
+          { label: "projects", href: "/projects" },
+          { label: project.slug, href: `/projects/${project.slug}` },
+        ]}
         eyebrow={project.repoFullName ?? "Project"}
         title={project.title}
         intro={<p>{project.summary}</p>}
@@ -92,66 +110,42 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         </div>
 
         <aside className="lg:col-span-4">
-          <dl className="grid gap-px border border-line bg-line">
+          <dl className="grid gap-4">
             {facts.map(([k, v]) => (
-              <div key={k} className="flex items-center justify-between gap-4 bg-bg px-5 py-4">
-                <dt className="label-mono text-fg-subtle">{k}</dt>
-                <dd className="text-right">{v}</dd>
+              <div key={k}>
+                <dt className="text-sm text-fg-subtle">{k}</dt>
+                <dd className="mt-0.5 text-lg">{v}</dd>
               </div>
             ))}
           </dl>
-
-          <div className="mt-8">
-            <p className="label-mono text-fg-subtle">Stack</p>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {project.stack.map((s) => (
-                <li key={s}>
-                  <Tag>{s}</Tag>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {project.domains.length ? (
-            <div className="mt-8">
-              <p className="label-mono text-fg-subtle">Domains</p>
-              <ul className="mt-3 grid gap-1">
-                {project.domains.map((d) => (
-                  <li key={d.slug}>
+          <p className="mt-8 text-fg-muted">{project.stack.join(" · ")}</p>
+          {project.relatedEvent ? (
+            <Link href={`/events/${project.relatedEvent.slug}`} className="mt-6 inline-block hover:text-pulse">
+              Built for {project.relatedEvent.title} →
+            </Link>
+          ) : null}
+          <MoreDetails>
+            {project.domains.length ? (
+              <p className="text-fg-muted">
+                Domains:{" "}
+                {project.domains.map((d, i) => (
+                  <span key={d.slug}>
+                    {i ? " · " : ""}
                     <Link href={`/#explore-${d.slug}`} className="hover:text-pulse">
                       {d.title}
                     </Link>
-                  </li>
+                  </span>
                 ))}
-              </ul>
+              </p>
+            ) : null}
+            {project.maintainers.length || project.contributors.length ? (
+              <p className="text-fg-muted">People: {[...project.maintainers, ...project.contributors].map((x) => x.name).join(" · ")}</p>
+            ) : null}
+            <div>
+              <SourceNote verification={project.verification} />
+              {meta ? <p className="mt-2 text-sm text-fg-subtle">Repository details from the GitHub API, refreshed daily.</p> : null}
             </div>
-          ) : null}
-
-          {project.maintainers.length || project.contributors.length ? (
-            <div className="mt-8">
-              <p className="label-mono text-fg-subtle">People</p>
-              <ul className="mt-3 grid gap-1">
-                {[...project.maintainers.map((p) => ({ ...p, r: "Maintainer" })), ...project.contributors.map((p) => ({ ...p, r: "Contributor" }))].map((p) => (
-                  <li key={`${p.slug}-${p.r}`} className="flex justify-between gap-4">
-                    <span>{p.name}</span>
-                    <span className="label-mono text-fg-subtle">{p.r}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
-          {project.relatedEvent ? (
-            <div className="mt-8 border-t border-line pt-6">
-              <p className="label-mono text-fg-subtle">Built for</p>
-              <Link href={`/events/${project.relatedEvent.slug}`} className="mt-2 inline-block text-lg font-semibold hover:text-pulse">
-                {project.relatedEvent.title} →
-              </Link>
-            </div>
-          ) : null}
-
-          <SourceNote verification={project.verification} className="mt-8" />
-          {meta ? <p className="label-mono mt-2 text-fg-subtle normal-case tracking-normal">Repository metadata from the GitHub API, refreshed daily.</p> : null}
+          </MoreDetails>
         </aside>
       </div>
 

@@ -10,7 +10,6 @@ import { NETWORK_KINDS as KINDS } from "./network";
  * Purely decorative (aria-hidden); static under prefers-reduced-motion.
  */
 
-
 const MARK_PATHS = ["M3 7.5h15M10.5 7.5V26", "M23.5 7.5v11.5a7 7 0 0 1-7 7h-1"];
 
 interface Node {
@@ -339,4 +338,3 @@ export function HeroNetwork({ className = "" }: { className?: string }) {
 
   return <canvas ref={canvasRef} aria-hidden className={`block h-full w-full ${className}`} />;
 }
-

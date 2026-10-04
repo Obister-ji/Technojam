@@ -22,7 +22,8 @@ export const domains: Domain[] = [
     title: "App Development",
     shortTitle: "App",
     order: 2,
-    summary: "Native and cross-platform apps — calculators to notes apps to API-driven explorers. TechnoJam has shipped its own Android apps since 2019.",
+    summary:
+      "Native and cross-platform apps — calculators to notes apps to API-driven explorers. TechnoJam has shipped its own Android apps since 2019.",
     active: true,
     keywords: ["android", "kotlin", "flutter", "mobile"],
     verification: S.tasks2026,
@@ -32,7 +33,8 @@ export const domains: Domain[] = [
     title: "Artificial Intelligence",
     shortTitle: "AI / ML",
     order: 3,
-    summary: "NLP basics to perceptrons, CNNs in PyTorch and real-time voice agents. Plus sessions on agents, MCP and the maths that powers ML.",
+    summary:
+      "NLP basics to perceptrons, CNNs in PyTorch and real-time voice agents. Plus sessions on agents, MCP and the maths that powers ML.",
     active: true,
     keywords: ["machine learning", "ml", "deep learning", "llm", "agents", "pytorch"],
     verification: S.tasks2026,

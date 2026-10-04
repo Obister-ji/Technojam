@@ -9,7 +9,8 @@ export const revalidate = 3600;
 
 export const metadata = pageMetadata({
   title: "Events",
-  description: "TechnoJam hackathons, workshops, sessions and community collaborations — upcoming and past, from Dexterix to Build With AI.",
+  description:
+    "TechnoJam hackathons, workshops, sessions and community collaborations — upcoming and past, from Dexterix to Build With AI.",
   path: "/events",
 });
 
@@ -41,11 +42,11 @@ export default async function EventsPage() {
             </ul>
           ) : (
             <EmptyState title="No upcoming events are announced right now.">
-              Events are announced first on{" "}
-              {commudle ? <ExternalLink href={commudle.url}>Commudle</ExternalLink> : "Commudle"}
+              Events are announced first on {commudle ? <ExternalLink href={commudle.url}>Commudle</ExternalLink> : "Commudle"}
               {instagram ? (
                 <>
-                  {" "}and <ExternalLink href={instagram.url}>Instagram</ExternalLink>
+                  {" "}
+                  and <ExternalLink href={instagram.url}>Instagram</ExternalLink>
                 </>
               ) : null}
               , and appear here once they&apos;re confirmed.
@@ -55,7 +56,7 @@ export default async function EventsPage() {
       </section>
 
       <section aria-labelledby="past-title" className="container-site mt-28">
-        <h2 id="past-title" className="font-wide text-headline font-black tracking-[-0.03em] uppercase">
+        <h2 id="past-title" className="text-headline font-black tracking-[-0.03em] uppercase font-wide">
           Past events
         </h2>
         <div className="mt-8">

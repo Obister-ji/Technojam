@@ -46,7 +46,15 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
     },
     { id: "action-dexterix", group: "Actions", title: "Explore Dexterix", href: "/dexterix", keywords: "hackathon flagship" },
     ...(latestEvent
-      ? [{ id: "action-latest", group: "Actions" as const, title: "View latest event", subtitle: latestEvent.title, href: `/events/${latestEvent.slug}` }]
+      ? [
+          {
+            id: "action-latest",
+            group: "Actions" as const,
+            title: "View latest event",
+            subtitle: latestEvent.title,
+            href: `/events/${latestEvent.slug}`,
+          },
+        ]
       : []),
     {
       id: "action-github",
@@ -57,8 +65,21 @@ export async function buildSearchIndex(): Promise<SearchItem[]> {
       external: true,
       keywords: "code repositories open source",
     },
-    { id: "action-collab", group: "Actions", title: "Partner with TechnoJam", href: "/collaborate", keywords: "sponsor mentor judge speak" },
-    { id: "action-mail", group: "Actions", title: "Email TechnoJam", subtitle: settings.email, href: `mailto:${settings.email}`, external: true },
+    {
+      id: "action-collab",
+      group: "Actions",
+      title: "Partner with TechnoJam",
+      href: "/collaborate",
+      keywords: "sponsor mentor judge speak",
+    },
+    {
+      id: "action-mail",
+      group: "Actions",
+      title: "Email TechnoJam",
+      subtitle: settings.email,
+      href: `mailto:${settings.email}`,
+      external: true,
+    },
 
     ...ALL_PAGES.map((p) => ({ id: `page-${p.href}`, group: "Pages" as const, title: p.label, subtitle: p.description, href: p.href })),
 

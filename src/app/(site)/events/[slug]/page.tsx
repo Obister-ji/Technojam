@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { MODE_LABEL, PhaseStatus } from "@/components/events/EventRow";
 import { RegisterLink } from "@/components/events/RegisterLink";
 import { Gallery } from "@/components/ui/Gallery";
-import { ExternalLink, Tag } from "@/components/ui/primitives";
+import { ExternalLink } from "@/components/ui/primitives";
+import { MoreDetails } from "@/components/ui/MoreDetails";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { RichText } from "@/components/ui/RichText";
 import { SourceNote } from "@/components/ui/SourceNote";
@@ -42,7 +43,7 @@ function People({ title, people }: { title: string; people: Speaker[] }) {
           <li key={p.name}>
             <p className="text-xl font-semibold">{p.url ? <ExternalLink href={p.url}>{p.name}</ExternalLink> : p.name}</p>
             {p.affiliation ? <p className="text-fg-muted">{p.affiliation}</p> : null}
-            {p.topic ? <p className="label-mono mt-1 text-fg-subtle normal-case tracking-normal">{p.topic}</p> : null}
+            {p.topic ? <p className="mt-1 label-mono tracking-normal text-fg-subtle normal-case">{p.topic}</p> : null}
           </li>
         ))}
       </ul>
@@ -60,7 +61,10 @@ export default async function EventPage({ params }: PageProps<"/events/[slug]">)
   return (
     <article>
       <PageHeader
-        crumbs={[{ label: "events", href: "/events" }, { label: event.slug, href: `/events/${event.slug}` }]}
+        crumbs={[
+          { label: "events", href: "/events" },
+          { label: event.slug, href: `/events/${event.slug}` },
+        ]}
         eyebrow={`${EVENT_TYPE_LABEL[event.type]} · ${formatDateRange(event.startDate, event.endDate)}`}
         title={event.title}
         intro={<p>{event.shortDescription}</p>}
@@ -82,7 +86,11 @@ export default async function EventPage({ params }: PageProps<"/events/[slug]">)
       {event.heroImage ? (
         <div className="container-site">
           {/* eslint-disable-next-line @next/next/no-img-element -- Sanity CDN */}
-          <img src={`${event.heroImage.url}?w=2000&auto=format`} alt={event.heroImage.alt} className="aspect-[21/9] w-full border border-line object-cover" />
+          <img
+            src={`${event.heroImage.url}?w=2000&auto=format`}
+            alt={event.heroImage.alt}
+            className="aspect-[21/9] w-full border border-line object-cover"
+          />
         </div>
       ) : null}
 
@@ -96,7 +104,9 @@ export default async function EventPage({ params }: PageProps<"/events/[slug]">)
               <ul className="mt-6 grid gap-3">
                 {event.highlights.map((h) => (
                   <li key={h} className="flex gap-4 text-lg">
-                    <span aria-hidden className="text-pulse">→</span>
+                    <span aria-hidden className="text-pulse">
+                      →
+                    </span>
                     {h}
                   </li>
                 ))}
@@ -129,84 +139,57 @@ export default async function EventPage({ params }: PageProps<"/events/[slug]">)
         </div>
 
         <aside className="lg:col-span-4">
-          <dl className="grid gap-px border border-line bg-line">
+          <dl className="grid gap-4">
             {[
               ["When", formatDateRange(event.startDate, event.endDate)],
-              ["Format", MODE_LABEL[event.mode]],
-              ...(event.venue ? [["Where", event.venue]] : []),
-              ["Type", EVENT_TYPE_LABEL[event.type]],
+              ["Where", event.venue ?? MODE_LABEL[event.mode]],
+              ...(event.venue ? [["Format", MODE_LABEL[event.mode]]] : []),
             ].map(([k, v]) => (
-              <div key={k} className="flex justify-between gap-4 bg-bg px-5 py-4">
-                <dt className="label-mono text-fg-subtle">{k}</dt>
-                <dd className="text-right">{v}</dd>
+              <div key={k}>
+                <dt className="text-sm text-fg-subtle">{k}</dt>
+                <dd className="mt-0.5 text-lg">{v}</dd>
               </div>
             ))}
           </dl>
 
-          {figures.length ? (
-            <dl className="mt-8 grid grid-cols-2 gap-6">
-              {figures.map((f) => (
-                <div key={f.label} className="border-t border-line pt-4">
-                  <dt className="label-mono text-fg-muted">
-                    {f.label}{" "}
-                    <span className={f.kind === "target" ? "text-violet" : f.kind === "actual" ? "text-pulse" : "text-volt"}>
-                      · {FIGURE_LABEL[f.kind]}
-                    </span>
-                  </dt>
-                  <dd className="font-wide mt-2 text-4xl font-extrabold">{f.value}</dd>
-                </div>
-              ))}
-            </dl>
-          ) : null}
-
-          {event.topics.length ? (
-            <div className="mt-8">
-              <p className="label-mono text-fg-subtle">Topics</p>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {event.topics.map((t) => (
-                  <li key={t}>
-                    <Tag>{t}</Tag>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
-          {event.partners.length ? (
-            <div className="mt-8">
-              <p className="label-mono text-fg-subtle">With</p>
-              <p className="mt-2 text-lg">{event.partners.join(" · ")}</p>
-            </div>
-          ) : null}
-
-          {event.sponsors.length ? (
-            <div className="mt-8">
-              <p className="label-mono text-fg-subtle">Sponsors</p>
-              <ul className="mt-2 grid gap-1">
-                {event.sponsors.map((s) => (
-                  <li key={s.name}>{s.url ? <ExternalLink href={s.url}>{s.name}</ExternalLink> : s.name}</li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
           {event.externalLinks.length ? (
-            <div className="mt-8">
-              <p className="label-mono text-fg-subtle">Links</p>
-              <ul className="mt-3 grid gap-2">
-                {event.externalLinks.map((l) => (
-                  <li key={l.url}>
-                    <ExternalLink href={l.url}>{l.label}</ExternalLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ul className="mt-8 grid gap-2">
+              {event.externalLinks.map((l) => (
+                <li key={l.url}>
+                  <ExternalLink href={l.url}>{l.label}</ExternalLink>
+                </li>
+              ))}
+            </ul>
           ) : null}
 
-          {event.relatedProjects.length ? (
-            <div className="mt-8">
-              <p className="label-mono text-fg-subtle">Related projects</p>
-              <ul className="mt-3 grid gap-1">
+          <MoreDetails>
+            {figures.length ? (
+              <dl className="grid grid-cols-2 gap-6">
+                {figures.map((f) => (
+                  <div key={f.label}>
+                    <dt className="text-sm text-fg-muted">
+                      {f.label} <span className="text-fg-subtle">· {FIGURE_LABEL[f.kind]}</span>
+                    </dt>
+                    <dd className="mt-1 text-3xl font-extrabold font-wide">{f.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : null}
+            {event.topics.length ? <p className="text-fg-muted">Topics: {event.topics.join(" · ")}</p> : null}
+            {event.partners.length ? <p className="text-fg-muted">With {event.partners.join(" · ")}</p> : null}
+            {event.sponsors.length ? (
+              <p className="text-fg-muted">
+                Sponsors:{" "}
+                {event.sponsors.map((s, i) => (
+                  <span key={s.name}>
+                    {i ? " · " : ""}
+                    {s.url ? <ExternalLink href={s.url}>{s.name}</ExternalLink> : s.name}
+                  </span>
+                ))}
+              </p>
+            ) : null}
+            {event.relatedProjects.length ? (
+              <ul className="grid gap-1">
                 {event.relatedProjects.map((p) => (
                   <li key={p.slug}>
                     <Link href={`/projects/${p.slug}`} className="hover:text-pulse">
@@ -215,11 +198,12 @@ export default async function EventPage({ params }: PageProps<"/events/[slug]">)
                   </li>
                 ))}
               </ul>
+            ) : null}
+            <div>
+              <SourceNote verification={event.verification} />
+              {event.verification?.notes ? <p className="mt-2 text-sm text-fg-subtle">{event.verification.notes}</p> : null}
             </div>
-          ) : null}
-
-          <SourceNote verification={event.verification} className="mt-10" />
-          {event.verification?.notes ? <p className="mt-2 text-sm text-fg-subtle">{event.verification.notes}</p> : null}
+          </MoreDetails>
         </aside>
       </div>
 

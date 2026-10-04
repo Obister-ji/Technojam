@@ -19,7 +19,7 @@ export function PageHeader({
   return (
     <header className="container-site pt-[calc(var(--nav-h)+3rem)] pb-16 md:pt-[calc(var(--nav-h)+5rem)] md:pb-24">
       {crumbs?.length ? (
-        <nav aria-label="Breadcrumb" className="label-mono mb-10 text-fg-subtle">
+        <nav aria-label="Breadcrumb" className="mb-10 label-mono text-fg-subtle">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
               <Link href="/" className="hover:text-fg">
@@ -37,16 +37,14 @@ export function PageHeader({
           </ol>
         </nav>
       ) : null}
-      <p className="label-mono text-pulse">{eyebrow}</p>
-      <h1 className="rise-lines font-wide mt-5 text-display font-black tracking-[-0.04em] break-words uppercase">
+      <p className="label-mono text-fg-subtle">{eyebrow}</p>
+      <h1 className="rise-lines mt-5 text-display font-black tracking-[-0.04em] break-words uppercase font-wide">
         <Lines text={title} />
       </h1>
       {intro || aside ? (
         <div className="mt-10 grid gap-8 md:grid-cols-12">
           {intro ? (
-            <div className="rise text-[clamp(1.1rem,1.8vw,1.35rem)] leading-relaxed text-fg-muted md:col-span-7">
-              {intro}
-            </div>
+            <div className="rise text-[clamp(1.1rem,1.8vw,1.35rem)] leading-relaxed text-fg-muted md:col-span-7">{intro}</div>
           ) : null}
           {aside ? (
             <div className="rise md:col-span-4 md:col-start-9" style={{ ["--rise-delay" as string]: "200ms" }}>

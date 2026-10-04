@@ -12,7 +12,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...ALL_PAGES.map((p) => ({ url: url(p.href), changeFrequency: "weekly" as const, priority: p.href === "/" ? 1 : 0.8 })),
     ...projects.map((p) => ({ url: url(`/projects/${p.slug}`), changeFrequency: "monthly" as const, priority: 0.6 })),
-    ...events.map((e) => ({ url: url(`/events/${e.slug}`), lastModified: e.endDate ?? e.startDate, changeFrequency: "monthly" as const, priority: 0.7 })),
+    ...events.map((e) => ({
+      url: url(`/events/${e.slug}`),
+      lastModified: e.endDate ?? e.startDate,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
     ...editions
       .filter((e) => isPublishable(e.verification))
       .map((e) => ({ url: url(`/dexterix/${e.slug}`), changeFrequency: "yearly" as const, priority: 0.7 })),

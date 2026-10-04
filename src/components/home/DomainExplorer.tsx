@@ -43,15 +43,15 @@ export function DomainExplorer({ domains }: { domains: DomainNode[] }) {
                 aria-controls={panelId}
                 onClick={() => setSelected(isOpen ? "" : d.slug)}
                 onMouseEnter={() => window.matchMedia("(min-width: 64rem)").matches && setSelected(d.slug)}
-                className="group flex w-full items-baseline gap-4 py-4 text-left md:gap-6 md:py-5"
+                className="group flex w-full items-baseline gap-4 py-3.5 text-left md:gap-6 md:py-4"
               >
-                <span className={cx("label-mono w-7 shrink-0 transition-colors", isOpen ? "text-pulse" : "text-fg-subtle")}>
+                <span className={cx("w-7 shrink-0 label-mono transition-colors", isOpen ? "text-fg" : "text-fg-subtle")}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span
                   className={cx(
-                    "font-wide flex-1 text-[clamp(1.6rem,4.4vw,3.25rem)] leading-[0.95] font-extrabold tracking-tight uppercase transition-[color,transform] duration-500 ease-(--ease-out-expo)",
-                    isOpen ? "translate-x-2 text-fg" : "text-fg-muted group-hover:text-fg",
+                    "flex-1 text-[clamp(1.2rem,2.2vw,1.6rem)] font-semibold tracking-tight transition-[color,transform] duration-500 ease-(--ease-out-expo)",
+                    isOpen ? "translate-x-1 text-fg" : "text-fg-muted group-hover:text-fg",
                   )}
                 >
                   {d.title}
@@ -59,7 +59,13 @@ export function DomainExplorer({ domains }: { domains: DomainNode[] }) {
                 <Plus className={cx("size-5 shrink-0 transition-transform duration-500 lg:hidden", isOpen && "rotate-45")} />
               </button>
               {/* Mobile accordion panel */}
-              <div id={panelId} className={cx("grid transition-[grid-template-rows] duration-500 ease-(--ease-out-expo) lg:hidden", isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
+              <div
+                id={panelId}
+                className={cx(
+                  "grid transition-[grid-template-rows] duration-500 ease-(--ease-out-expo) lg:hidden",
+                  isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                )}
+              >
                 <div className="overflow-hidden">
                   <div className="pb-6 pl-11">
                     <DomainDetail domain={d} />
@@ -78,10 +84,10 @@ export function DomainExplorer({ domains }: { domains: DomainNode[] }) {
       </ol>
 
       <div className="hidden lg:col-span-5 lg:block">
-        <div className="sticky top-28 border border-line bg-bg-raised p-8" aria-live="polite">
+        <div className="sticky top-28 bg-bg-raised p-8 md:p-10" aria-live="polite">
           {current ? (
             <>
-              <p className="label-mono text-pulse">{"// "}{current.title}</p>
+              <p className="text-2xl font-bold">{current.title}</p>
               <div className="mt-5">
                 <DomainDetail domain={current} />
               </div>
@@ -134,19 +140,13 @@ function DomainDetail({ domain }: { domain: DomainNode }) {
           ))}
         </Related>
       ) : null}
-      {domain.task?.description ? (
-        <div className="border-t border-line pt-4">
-          <p className="label-mono text-fg-subtle">2026 recruitment task ladder</p>
-          <p className="mt-2 font-mono text-sm text-fg-muted">{domain.task.description}</p>
-        </div>
-      ) : null}
     </div>
   );
 }
 
 function Related({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="border-t border-line pt-4">
+    <div>
       <p className="label-mono text-fg-subtle">{title}</p>
       <ul className="mt-2 grid gap-1.5">{children}</ul>
     </div>

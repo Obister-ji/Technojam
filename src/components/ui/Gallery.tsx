@@ -23,7 +23,7 @@ export function Gallery({ gallery }: { gallery: GalleryType }) {
                 style={img.lqip ? { backgroundImage: `url(${img.lqip})`, backgroundSize: "cover" } : undefined}
                 className="h-full w-full object-cover"
               />
-              {img.caption ? <figcaption className="label-mono mt-1 text-fg-subtle">{img.caption}</figcaption> : null}
+              {img.caption ? <figcaption className="mt-1 label-mono text-fg-subtle">{img.caption}</figcaption> : null}
             </figure>
           </li>
         ))}

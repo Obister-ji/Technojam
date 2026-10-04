@@ -31,16 +31,26 @@ export function ProjectCover({ project, className }: { project: Project; classNa
   if (shot) {
     return (
       // eslint-disable-next-line @next/next/no-img-element -- Sanity CDN images, sized by the CMS
-      <img src={`${shot.url}?w=960&auto=format`} alt={shot.alt} loading="lazy" className={cx("aspect-[16/10] w-full object-cover", className)} />
+      <img
+        src={`${shot.url}?w=960&auto=format`}
+        alt={shot.alt}
+        loading="lazy"
+        className={cx("aspect-[16/10] w-full object-cover", className)}
+      />
     );
   }
   return (
-    <div aria-hidden className={cx("bg-grid relative flex min-w-0 gap-3 aspect-[16/10] w-full flex-col justify-between overflow-hidden bg-bg-raised p-5", className)}>
+    <div
+      aria-hidden
+      className={cx(
+        "relative flex aspect-[16/10] w-full min-w-0 flex-col justify-between gap-3 overflow-hidden bg-bg-raised p-5",
+        className,
+      )}
+    >
       <div className="flex items-center justify-between">
-        <span className="label-mono min-w-0 truncate text-fg-subtle">{project.repoFullName ?? "technojam"}</span>
-        <span className="label-mono shrink-0 text-fg-subtle">{project.year}</span>
+        <span className="min-w-0 truncate label-mono text-fg-subtle">{project.repoFullName ?? "technojam"}</span>
       </div>
-      <p className="font-wide line-clamp-2 [overflow-wrap:anywhere] text-[clamp(1.4rem,3.4vw,2.2rem)] leading-[0.95] font-extrabold tracking-tight break-words uppercase opacity-90 transition-transform duration-700 ease-(--ease-out-expo) group-hover:-translate-y-1">
+      <p className="line-clamp-2 text-[clamp(1.4rem,3.4vw,2.2rem)] leading-[0.95] font-extrabold tracking-tight [overflow-wrap:anywhere] break-words uppercase font-wide opacity-90 transition-transform duration-700 ease-(--ease-out-expo) group-hover:-translate-y-1">
         {project.title}
       </p>
       <div className="flex items-center gap-2">
@@ -51,12 +61,15 @@ export function ProjectCover({ project, className }: { project: Project; classNa
   );
 }
 
-export function ProjectCard({ project, priority }: { project: Project; priority?: boolean }) {
+export function ProjectCard({ project, priority, compact }: { project: Project; priority?: boolean; compact?: boolean }) {
   const status = STATUS_META[project.status];
   return (
-    <article className="group relative flex h-full min-w-0 flex-col border border-line bg-bg transition-colors duration-500 hover:border-line-strong" data-priority={priority || undefined}>
+    <article
+      className="group relative flex h-full min-w-0 flex-col border border-line bg-bg transition-colors duration-500 hover:border-line-strong"
+      data-priority={priority || undefined}
+    >
       <ProjectCover project={project} />
-      <div className="flex flex-1 flex-col gap-4 p-5">
+      <div className="flex flex-1 flex-col gap-3 p-6">
         <div className="flex items-center justify-between gap-3">
           <Status tone={status.tone} live={status.live}>
             {status.label}
@@ -69,15 +82,20 @@ export function ProjectCard({ project, priority }: { project: Project; priority?
           </Link>
         </h3>
         <p className="text-fg-muted">{project.summary}</p>
-        <ul className="mt-auto flex flex-wrap gap-x-3 gap-y-1 pt-2" aria-label="Stack">
-          {project.stack.slice(0, 4).map((s) => (
-            <li key={s} className="label-mono text-fg-subtle normal-case tracking-normal">
-              {s}
-            </li>
-          ))}
-        </ul>
+        {compact ? null : (
+          <ul className="mt-auto flex flex-wrap gap-x-3 gap-y-1 pt-2" aria-label="Stack">
+            {project.stack.slice(0, 4).map((s) => (
+              <li key={s} className="label-mono tracking-normal text-fg-subtle normal-case">
+                {s}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-      <ArrowRight aria-hidden className="absolute right-5 bottom-5 text-fg-subtle transition-all duration-300 group-hover:translate-x-1 group-hover:text-pulse" />
+      <ArrowRight
+        aria-hidden
+        className="absolute right-5 bottom-5 text-fg-subtle transition-all duration-300 group-hover:translate-x-1 group-hover:text-pulse"
+      />
     </article>
   );
 }

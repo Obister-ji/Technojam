@@ -36,18 +36,22 @@ export default async function CollaboratePage() {
         intro={
           <p>
             Sponsorship, workshops, mentoring, judging, talks and partnerships — this page is for organisations and professionals. Students
-            looking to join, head to <Link href="/join" className="text-fg underline underline-offset-4">Join</Link>.
+            looking to join, head to{" "}
+            <Link href="/join" className="text-fg underline underline-offset-4">
+              Join
+            </Link>
+            .
           </p>
         }
       />
 
       <section aria-label="Why partner" className="container-site">
-        <dl className="grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
+        <dl className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {proof.map(([v, l]) => (
-            <div key={l} className="bg-bg p-6">
+            <div key={l}>
               <dt className="sr-only">{l}</dt>
               <dd>
-                <span className="font-wide block text-4xl font-extrabold">{v}</span>
+                <span className="block text-4xl font-extrabold font-wide">{v}</span>
                 <span className="mt-2 block text-fg-muted">{l}</span>
               </dd>
             </div>
@@ -59,7 +63,7 @@ export default async function CollaboratePage() {
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-28">
             <Eyebrow>Start a conversation</Eyebrow>
-            <h2 id="form-title" className="font-wide mt-6 text-title font-extrabold uppercase">
+            <h2 id="form-title" className="mt-6 text-title font-extrabold uppercase font-wide">
               Tell us what you have in mind.
             </h2>
             <p className="mt-4 text-fg-muted">
@@ -68,7 +72,10 @@ export default async function CollaboratePage() {
             </p>
             <div className="mt-8 border-t border-line pt-6">
               <p className="label-mono text-fg-subtle">Or write directly</p>
-              <a href={`mailto:${settings.email}`} className="mt-2 inline-block break-all text-lg underline decoration-line-strong underline-offset-4 hover:decoration-pulse">
+              <a
+                href={`mailto:${settings.email}`}
+                className="mt-2 inline-block text-lg break-all underline decoration-line-strong underline-offset-4 hover:decoration-pulse"
+              >
                 {settings.email}
               </a>
               <p className="mt-4 text-sm text-fg-subtle">

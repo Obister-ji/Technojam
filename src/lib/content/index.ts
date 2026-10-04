@@ -72,7 +72,11 @@ export const getSiteSettings = source<SiteSettings>(
       "socialLink",
     ]);
     // Fall back field-by-field so a half-filled Studio never breaks the layout.
-    return { ...seed.siteSettings, ...stripNulls(res.settings ?? {}), socials: res.socials.length ? res.socials : seed.siteSettings.socials };
+    return {
+      ...seed.siteSettings,
+      ...stripNulls(res.settings ?? {}),
+      socials: res.socials.length ? res.socials : seed.siteSettings.socials,
+    };
   },
   () => seed.siteSettings,
 );
@@ -171,9 +175,7 @@ export async function getEventsByPhase(now = new Date()) {
 
 export async function getActiveAnnouncements(now = new Date()) {
   const today = now.toISOString().slice(0, 10);
-  return (await getAnnouncements()).filter(
-    (a) => (!a.activeFrom || a.activeFrom <= today) && (!a.activeUntil || a.activeUntil >= today),
-  );
+  return (await getAnnouncements()).filter((a) => (!a.activeFrom || a.activeFrom <= today) && (!a.activeUntil || a.activeUntil >= today));
 }
 
 function stripNulls<T extends object>(obj: T): Partial<T> {

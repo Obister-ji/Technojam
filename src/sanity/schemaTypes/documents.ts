@@ -95,7 +95,8 @@ export const homepageFeature = defineType({
   name: "homepageFeature",
   title: "Homepage feature",
   type: "document",
-  description: "Pin a document to the top of the homepage. If none are active, the site picks the most relevant live content automatically.",
+  description:
+    "Pin a document to the top of the homepage. If none are active, the site picks the most relevant live content automatically.",
   fields: [
     defineField({ name: "label", type: "string", initialValue: "NOW AT TECHNOJAM" }),
     defineField({
@@ -133,7 +134,10 @@ export const domain = defineType({
     defineField({ name: "verification", type: "verification" }),
   ],
   orderings: [{ title: "Order", name: "order", by: [{ field: "order", direction: "asc" }] }],
-  preview: { select: { title: "title", active: "active" }, prepare: ({ title, active }) => ({ title, subtitle: active ? "Active" : "Historical" }) },
+  preview: {
+    select: { title: "title", active: "active" },
+    prepare: ({ title, active }) => ({ title, subtitle: active ? "Active" : "Historical" }),
+  },
 });
 
 /* ---------------- Work ---------------- */
@@ -222,7 +226,13 @@ export const event = defineType({
       description: "Leave empty — upcoming / live / past is worked out from the dates.",
       options: { list: ["cancelled", "postponed"] },
     }),
-    defineField({ name: "mode", type: "string", group: "details", options: { list: ["in-person", "online", "hybrid"] }, initialValue: "in-person" }),
+    defineField({
+      name: "mode",
+      type: "string",
+      group: "details",
+      options: { list: ["in-person", "online", "hybrid"] },
+      initialValue: "in-person",
+    }),
     defineField({ name: "venue", type: "string", group: "details" }),
     defineField({ name: "registrationUrl", type: "url", group: "details" }),
     defineField({ name: "externalLinks", type: "array", of: [{ type: "link" }], group: "details" }),
@@ -294,7 +304,16 @@ export const dexterixEdition = defineType({
       name: "prizes",
       type: "array",
       group: "numbers",
-      of: [defineArrayMember({ type: "object", name: "prize", fields: [{ name: "label", type: "string" }, { name: "amount", type: "string" }] })],
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "prize",
+          fields: [
+            { name: "label", type: "string" },
+            { name: "amount", type: "string" },
+          ],
+        }),
+      ],
     }),
     defineField({ name: "prizeNote", type: "string", group: "numbers" }),
     defineField({
@@ -405,7 +424,10 @@ export const teamYear = defineType({
     defineField({ name: "verification", type: "verification" }),
   ],
   orderings: [{ title: "Newest", name: "startDesc", by: [{ field: "startYear", direction: "desc" }] }],
-  preview: { select: { title: "label", current: "current" }, prepare: ({ title, current }) => ({ title, subtitle: current ? "Current team" : "Past team" }) },
+  preview: {
+    select: { title: "label", current: "current" },
+    prepare: ({ title, current }) => ({ title, subtitle: current ? "Current team" : "Past team" }),
+  },
 });
 
 /* ---------------- Recruitment ---------------- */
@@ -552,11 +574,24 @@ export const milestone = defineType({
     defineField({ name: "date", type: "date" }),
     defineField({ name: "title", type: "string", validation: (r) => r.required() }),
     defineField({ name: "description", type: "text", rows: 3, validation: (r) => r.required() }),
-    defineField({ name: "kind", type: "string", options: { list: ["origin", "dexterix", "event", "community", "recruitment", "open-source"] } }),
+    defineField({
+      name: "kind",
+      type: "string",
+      options: { list: ["origin", "dexterix", "event", "community", "recruitment", "open-source"] },
+    }),
     defineField({ name: "href", type: "string", description: "Internal path (/dexterix/…) or full URL" }),
     defineField({ name: "verification", type: "verification" }),
   ],
-  orderings: [{ title: "Chronological", name: "yearAsc", by: [{ field: "year", direction: "asc" }, { field: "date", direction: "asc" }] }],
+  orderings: [
+    {
+      title: "Chronological",
+      name: "yearAsc",
+      by: [
+        { field: "year", direction: "asc" },
+        { field: "date", direction: "asc" },
+      ],
+    },
+  ],
   preview: { select: { title: "title", subtitle: "year" } },
 });
 

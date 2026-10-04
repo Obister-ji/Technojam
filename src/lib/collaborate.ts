@@ -1,12 +1,24 @@
 export const INTENTS = [
-  { value: "sponsor-dexterix", label: "Sponsor Dexterix", detail: "Put your name — and your problem statements — in front of the builders." },
+  {
+    value: "sponsor-dexterix",
+    label: "Sponsor Dexterix",
+    detail: "Put your name — and your problem statements — in front of the builders.",
+  },
   { value: "sponsor-technojam", label: "Sponsor TechnoJam", detail: "Back a year of workshops, sessions and projects." },
   { value: "host-workshop", label: "Host a workshop", detail: "Teach a tool or a technique, hands-on, to people who'll use it." },
   { value: "mentor", label: "Become a mentor", detail: "Help teams get unstuck during hackathons or across a semester." },
   { value: "judge", label: "Judge a hackathon", detail: "Ask the hard questions at demo time." },
   { value: "speak", label: "Speak at an event", detail: "Talks, AMAs and fireside chats with the community." },
-  { value: "community-partnership", label: "Community partnership", detail: "Co-host events with your club, GDG, user group or community." },
-  { value: "industry-collaboration", label: "University / industry collaboration", detail: "Research, internships, challenges or longer engagements." },
+  {
+    value: "community-partnership",
+    label: "Community partnership",
+    detail: "Co-host events with your club, GDG, user group or community.",
+  },
+  {
+    value: "industry-collaboration",
+    label: "University / industry collaboration",
+    detail: "Research, internships, challenges or longer engagements.",
+  },
 ] as const;
 
 export type Intent = (typeof INTENTS)[number]["value"];
@@ -22,7 +34,9 @@ export interface InquiryInput {
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 /** Shared validation — runs on the server; the client mirrors it for instant feedback. */
-export function validateInquiry(raw: Record<string, unknown>): { ok: true; data: InquiryInput } | { ok: false; errors: Partial<Record<keyof InquiryInput, string>> } {
+export function validateInquiry(
+  raw: Record<string, unknown>,
+): { ok: true; data: InquiryInput } | { ok: false; errors: Partial<Record<keyof InquiryInput, string>> } {
   const s = (k: string, max: number) => (typeof raw[k] === "string" ? (raw[k] as string).trim().slice(0, max) : "");
   const data = {
     name: s("name", 120),

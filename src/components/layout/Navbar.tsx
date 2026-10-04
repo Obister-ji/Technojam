@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Mark, Wordmark } from "@/components/brand/Logo";
 import { useChrome } from "@/components/command/ChromeProvider";
-import { Search, Terminal } from "@/components/ui/Icon";
+import { Search } from "@/components/ui/Icon";
 import { cx } from "@/components/ui/primitives";
 import { JOIN_NAV, PRIMARY_NAV } from "@/lib/nav";
 import { MobileMenu } from "./MobileMenu";
@@ -13,7 +13,7 @@ import { ThrottleMeter } from "./ThrottleMeter";
 
 export function Navbar({ recruitmentOpen }: { recruitmentOpen: boolean }) {
   const pathname = usePathname();
-  const { openPalette, openConsole } = useChrome();
+  const { openPalette } = useChrome();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -41,8 +41,9 @@ export function Navbar({ recruitmentOpen }: { recruitmentOpen: boolean }) {
           </Link>
 
           <ul className="hidden items-center gap-1 lg:flex">
-            {PRIMARY_NAV.map((item) => (
-              <li key={item.href}>
+            {PRIMARY_NAV.map((item, i) => (
+              // Mid-size screens show the first three; the rest live in the menu.
+              <li key={item.href} className={i > 2 ? "hidden xl:block" : undefined}>
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
@@ -65,25 +66,17 @@ export function Navbar({ recruitmentOpen }: { recruitmentOpen: boolean }) {
           </ul>
 
           <div className="flex items-center gap-2">
-            <ThrottleMeter className={cx("hidden transition-opacity duration-500 xl:flex", scrolled ? "opacity-100" : "opacity-0")} />
+            {pathname === "/" ? (
+              <ThrottleMeter className={cx("hidden transition-opacity duration-500 xl:flex", scrolled ? "opacity-100" : "opacity-0")} />
+            ) : null}
             <button
               type="button"
               onClick={openPalette}
               aria-label="Search (Ctrl K)"
-              className="group hidden h-10 items-center gap-2 border border-line px-3 text-sm text-fg-muted transition-colors hover:border-line-strong hover:text-fg md:inline-flex"
+              className="group hidden h-10 items-center gap-2 px-3 text-sm text-fg-muted transition-colors hover:text-fg md:inline-flex"
             >
               <Search className="size-4" />
-              <span className="lg:hidden xl:inline">Search</span>
-              <kbd className="label-mono ml-1 whitespace-nowrap text-fg-subtle">Ctrl K</kbd>
-            </button>
-            <button
-              type="button"
-              onClick={openConsole}
-              aria-label="Open console"
-              title="Open console"
-              className="hidden size-10 items-center justify-center border border-line text-fg-muted transition-colors hover:border-line-strong hover:text-fg md:inline-flex"
-            >
-              <Terminal className="size-4" />
+              <kbd className="hidden label-mono whitespace-nowrap text-fg-subtle xl:inline">Ctrl K</kbd>
             </button>
             <Link
               href={JOIN_NAV.href}
@@ -107,7 +100,7 @@ export function Navbar({ recruitmentOpen }: { recruitmentOpen: boolean }) {
               onClick={() => setMenuOpen(true)}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              className="inline-flex h-11 items-center gap-2.5 pl-2 text-sm font-semibold lg:hidden"
+              className="inline-flex h-11 items-center gap-2.5 pl-2 text-sm font-semibold xl:hidden"
             >
               <span aria-hidden className="grid gap-1.5">
                 <span className="block h-px w-6 bg-fg" />

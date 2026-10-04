@@ -13,8 +13,9 @@ export async function generateStaticParams() {
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const event = await getEvent((await params).slug);
   if (!event) return renderOg({ title: "Events" });
-  const meta = event.type === "hackathon" && event.figures.some((f) => f.label === "Hours")
-    ? `${event.figures.find((f) => f.label === "Hours")?.value} hours of building · ${formatDateRange(event.startDate, event.endDate)}`
-    : formatDateRange(event.startDate, event.endDate);
+  const meta =
+    event.type === "hackathon" && event.figures.some((f) => f.label === "Hours")
+      ? `${event.figures.find((f) => f.label === "Hours")?.value} hours of building · ${formatDateRange(event.startDate, event.endDate)}`
+      : formatDateRange(event.startDate, event.endDate);
   return renderOg({ title: event.title, meta });
 }

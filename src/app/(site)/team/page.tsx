@@ -34,7 +34,7 @@ export default async function TeamPage() {
 
       <section aria-labelledby="current-title" className="container-site">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6">
-          <h2 id="current-title" className="font-wide text-title font-extrabold uppercase">
+          <h2 id="current-title" className="text-title font-extrabold uppercase font-wide">
             Current team{current ? ` · ${current.label}` : ""}
           </h2>
         </div>
@@ -56,7 +56,7 @@ export default async function TeamPage() {
       </section>
 
       <section aria-labelledby="past-title" className="container-site mt-28">
-        <h2 id="past-title" className="font-wide text-title font-extrabold uppercase">
+        <h2 id="past-title" className="text-title font-extrabold uppercase font-wide">
           Alumni &amp; past teams
         </h2>
         <p className="mt-4 max-w-2xl text-fg-muted">Find your batch. Each year keeps its own permanent page.</p>
@@ -66,8 +66,8 @@ export default async function TeamPage() {
               {past.map((t) => (
                 <li key={t.slug}>
                   <Link href={`/team/${t.slug}`} className="group flex items-baseline justify-between gap-4 border-b border-line py-6">
-                    <span className="font-wide text-4xl font-black tracking-tight group-hover:text-pulse">{t.label}</span>
-                    <span className="label-mono flex items-center gap-2 text-fg-muted">
+                    <span className="text-4xl font-black tracking-tight font-wide group-hover:text-pulse">{t.label}</span>
+                    <span className="flex items-center gap-2 label-mono text-fg-muted">
                       {t.members.length} people <ArrowRight className="size-3.5" />
                     </span>
                   </Link>
@@ -76,7 +76,8 @@ export default async function TeamPage() {
             </ul>
           ) : (
             <EmptyState title="No past teams archived yet.">
-              Alumni: if you were part of TechnoJam, reach out — we&apos;d like to put every generation back on the record, from 2015 onwards.
+              Alumni: if you were part of TechnoJam, reach out — we&apos;d like to put every generation back on the record, from 2015
+              onwards.
             </EmptyState>
           )}
         </div>

@@ -28,20 +28,30 @@ export function HistoryGraph({ milestones, compact }: { milestones: Milestone[];
         const onBranch = m.kind === "dexterix";
         const content = (
           <>
-            <p className="label-mono flex flex-wrap items-center gap-x-3 text-fg-subtle">
+            <p className="flex flex-wrap items-center gap-x-3 label-mono text-fg-subtle">
               <span className="text-fg">{m.date ? formatMonthYear(m.date) : m.year}</span>
-              <span style={{ color: k.color }}>{onBranch ? "◆" : "●"} {k.branch}</span>
+              <span style={{ color: k.color }}>
+                {onBranch ? "◆" : "●"} {k.branch}
+              </span>
             </p>
             <h3 className={cx("mt-2 font-bold tracking-tight", compact ? "text-lg" : "text-xl md:text-2xl")}>{m.title}</h3>
             <p className="mt-1.5 max-w-xl text-fg-muted">{m.description}</p>
           </>
         );
         return (
-          <li key={`${m.year}-${m.title}`} data-reveal style={{ ["--reveal-delay" as string]: `${Math.min(i, 6) * 60}ms` }} className="relative pb-10 pl-16 last:pb-0">
+          <li
+            key={`${m.year}-${m.title}`}
+            data-reveal
+            style={{ ["--reveal-delay" as string]: `${Math.min(i, 6) * 60}ms` }}
+            className="relative pb-10 pl-16 last:pb-0"
+          >
             {/* node on trunk or branch */}
             <span
               aria-hidden
-              className={cx("absolute top-1.5 size-[0.6875rem] rounded-full ring-4 ring-bg", onBranch ? "left-[1.875rem]" : "left-[0.375rem]")}
+              className={cx(
+                "absolute top-1.5 size-[0.6875rem] rounded-full ring-4 ring-bg",
+                onBranch ? "left-[1.875rem]" : "left-[0.375rem]",
+              )}
               style={{ background: k.color }}
             />
             {onBranch ? <span aria-hidden className="absolute top-[0.6rem] left-3 h-px w-5 bg-pulse/40" /> : null}

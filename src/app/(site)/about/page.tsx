@@ -41,7 +41,11 @@ export default async function AboutPage() {
       <section aria-label="The loop" className="overflow-hidden border-y border-line bg-bg-sunken py-6">
         <div className="marquee-track flex w-max gap-12 whitespace-nowrap" aria-hidden>
           {[...LOOP, ...LOOP, ...LOOP, ...LOOP].map((w, i) => (
-            <span key={i} className="font-wide text-5xl font-black uppercase md:text-7xl" style={{ color: i % 5 === 2 ? "var(--color-pulse)" : undefined }}>
+            <span
+              key={i}
+              className="text-5xl font-black uppercase font-wide md:text-7xl"
+              style={{ color: i % 5 === 2 ? "var(--color-pulse)" : undefined }}
+            >
               {w}
             </span>
           ))}
@@ -49,10 +53,10 @@ export default async function AboutPage() {
         <p className="sr-only">{LOOP.join(" ")}</p>
       </section>
 
-      <section aria-labelledby="what-title" className="container-site grid gap-16 py-28 md:py-36 lg:grid-cols-12">
+      <section aria-labelledby="what-title" className="container-site grid gap-16 py-20 md:py-32 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <Eyebrow index="01">What it is</Eyebrow>
-          <h2 id="what-title" data-reveal="lines" className="font-wide mt-6 text-headline font-black tracking-[-0.03em] uppercase">
+          <h2 id="what-title" data-reveal="lines" className="mt-6 text-headline font-black tracking-[-0.03em] uppercase font-wide">
             <Lines text={"A club that\nships."} />
           </h2>
         </div>
@@ -69,23 +73,23 @@ export default async function AboutPage() {
           <p data-reveal>
             What doesn&apos;t change is the habit: learn something, build something with it, break it, fix it, and teach the next person.
           </p>
-          <p data-reveal className="label-mono text-fg-subtle normal-case tracking-normal">
+          <p data-reveal className="label-mono tracking-normal text-fg-subtle normal-case">
             Quote: <ExternalLink href="https://www.galgotiasuniversity.edu.in/p/TechnoJam">Galgotias University — TechnoJam</ExternalLink>
           </p>
         </div>
       </section>
 
-      <section aria-labelledby="how-title" className="border-y border-line bg-bg-raised py-28 md:py-36">
+      <section aria-labelledby="how-title" className="border-y border-line bg-bg-raised py-20 md:py-32">
         <div className="container-site">
           <Eyebrow index="02">How we work</Eyebrow>
           <h2 id="how-title" className="sr-only">
             How we work
           </h2>
-          <ol className="mt-12 grid gap-px bg-line md:grid-cols-2 lg:grid-cols-4">
+          <ol className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             {PRINCIPLES.map(([t, d], i) => (
-              <li key={t} data-reveal style={{ ["--reveal-delay" as string]: `${i * 80}ms` }} className="bg-bg-raised p-6 md:p-8">
-                <p className="label-mono text-pulse">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="font-wide mt-6 text-2xl font-extrabold uppercase">{t}</h3>
+              <li key={t} data-reveal style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}>
+                <p className="label-mono text-fg-subtle">{String(i + 1).padStart(2, "0")}</p>
+                <h3 className="mt-4 text-xl font-extrabold uppercase font-wide">{t}</h3>
                 <p className="mt-3 text-fg-muted">{d}</p>
               </li>
             ))}
@@ -93,16 +97,16 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section aria-labelledby="history-title" className="container-site grid gap-16 py-28 md:py-36 lg:grid-cols-12">
+      <section aria-labelledby="history-title" className="container-site grid gap-16 py-20 md:py-32 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-28">
             <Eyebrow index="03">History</Eyebrow>
-            <h2 id="history-title" data-reveal="lines" className="font-wide mt-6 text-headline font-black tracking-[-0.03em] uppercase">
+            <h2 id="history-title" data-reveal="lines" className="mt-6 text-headline font-black tracking-[-0.03em] uppercase font-wide">
               <Lines text={"git log\n--reverse"} />
             </h2>
             <p className="mt-6 text-fg-muted">
-              Every entry is backed by a first-party record or press coverage. Gaps are gaps we&apos;re still filling — if you have records from
-              2015–2021, we want them.
+              Every entry is backed by a first-party record or press coverage. Gaps are gaps we&apos;re still filling — if you have records
+              from 2015–2021, we want them.
             </p>
           </div>
         </div>
@@ -128,11 +132,11 @@ export default async function AboutPage() {
       ) : null}
 
       <section aria-labelledby="facts-title" className="container-site">
-        <div className="grid gap-10 border border-line p-6 sm:p-10 md:grid-cols-12">
-          <h2 id="facts-title" className="font-wide text-title font-extrabold uppercase md:col-span-4">
+        <div className="grid gap-10 md:grid-cols-12">
+          <h2 id="facts-title" className="text-title font-extrabold uppercase font-wide md:col-span-4">
             The short version
           </h2>
-          <dl className="grid gap-px bg-line sm:grid-cols-2 md:col-span-8">
+          <dl className="grid gap-x-8 gap-y-6 sm:grid-cols-2 md:col-span-8">
             {[
               ["Name", settings.name],
               ["Tagline", settings.tagline],
@@ -141,7 +145,7 @@ export default async function AboutPage() {
               ["Location", settings.location],
               ["Contact", settings.email],
             ].map(([k, v]) => (
-              <div key={k} className="bg-bg p-5">
+              <div key={k}>
                 <dt className="label-mono text-fg-subtle">{k}</dt>
                 <dd className="mt-1 break-words">{v}</dd>
               </div>

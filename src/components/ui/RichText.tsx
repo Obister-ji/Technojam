@@ -12,7 +12,12 @@ const components: PortableTextComponents = {
     link: ({ children, value }) => {
       const href = typeof value?.href === "string" && /^(https?:|mailto:)/.test(value.href) ? value.href : undefined;
       return href ? (
-        <a href={href} target="_blank" rel="noreferrer" className="underline decoration-line-strong underline-offset-4 hover:decoration-pulse">
+        <a
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          className="underline decoration-line-strong underline-offset-4 hover:decoration-pulse"
+        >
           {children}
         </a>
       ) : (
@@ -26,7 +31,7 @@ const components: PortableTextComponents = {
         <figure className="my-4">
           {/* eslint-disable-next-line @next/next/no-img-element -- Sanity CDN handles sizing via query params */}
           <img src={`${value.url}?w=1600&auto=format`} alt={value.alt ?? ""} loading="lazy" className="w-full" />
-          {value.caption ? <figcaption className="label-mono mt-2 text-fg-subtle">{value.caption}</figcaption> : null}
+          {value.caption ? <figcaption className="mt-2 label-mono text-fg-subtle">{value.caption}</figcaption> : null}
         </figure>
       ) : null,
   },
@@ -38,7 +43,11 @@ export function RichText({ value, className = "" }: { value?: RichTextValue; cla
   const isPlain = value.every((v) => typeof v === "string");
   return (
     <div className={`grid gap-5 text-lg leading-relaxed text-fg-muted ${className}`}>
-      {isPlain ? (value as string[]).map((p, i) => <p key={i}>{p}</p>) : <PortableText value={value as PortableTextBlock[]} components={components} />}
+      {isPlain ? (
+        (value as string[]).map((p, i) => <p key={i}>{p}</p>)
+      ) : (
+        <PortableText value={value as PortableTextBlock[]} components={components} />
+      )}
     </div>
   );
 }

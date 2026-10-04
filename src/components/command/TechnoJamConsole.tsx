@@ -35,15 +35,7 @@ const ROUTES: Record<string, string> = {
   resources: "/resources",
 };
 
-export default function TechnoJamConsole({
-  index,
-  data,
-  onClose,
-}: {
-  index: SearchItem[];
-  data: ConsoleData;
-  onClose: () => void;
-}) {
+export default function TechnoJamConsole({ index, data, onClose }: { index: SearchItem[]; data: ConsoleData; onClose: () => void }) {
   const ref = useModalDialog(onClose);
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -62,8 +54,7 @@ export default function TechnoJamConsole({
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
   }, [lines]);
 
-  const print = (kind: Line["kind"], content: ReactNode) =>
-    setLines((l) => [...l, { id: nextId.current++, kind, content }]);
+  const print = (kind: Line["kind"], content: ReactNode) => setLines((l) => [...l, { id: nextId.current++, kind, content }]);
 
   const go = (href: string, label: string) => {
     print("out", `→ opening ${label}…`);
@@ -129,7 +120,10 @@ export default function TechnoJamConsole({
       case "about":
       case "whoami":
         if (cmd.toLowerCase() === "whoami") return print("out", "guest — but that's easy to change. Try `join`.");
-        print("out", "TechnoJam is the student-led technical community at Galgotias University's School of Computing Science & Engineering.");
+        print(
+          "out",
+          "TechnoJam is the student-led technical community at Galgotias University's School of Computing Science & Engineering.",
+        );
         print("out", "We learn technology by building it: projects, hackathons, workshops, open source — and Dexterix.");
         return;
       case "projects":
@@ -183,7 +177,11 @@ export default function TechnoJamConsole({
           <ul className="grid gap-0.5">
             {hits.slice(0, 10).map((i) => (
               <li key={i.id}>
-                <button type="button" className="text-left hover:underline" onClick={() => (i.external ? window.open(i.href, "_blank", "noopener") : go(i.href, i.title))}>
+                <button
+                  type="button"
+                  className="text-left hover:underline"
+                  onClick={() => (i.external ? window.open(i.href, "_blank", "noopener") : go(i.href, i.title))}
+                >
                   <span className="text-fg-subtle">[{i.group.toLowerCase()}]</span> {i.title}
                 </button>
               </li>

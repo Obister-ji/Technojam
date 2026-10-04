@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DexterixFigure } from "@/components/dexterix/Figure";
-import { EmptyState, ExternalLink, Tag } from "@/components/ui/primitives";
+import { EmptyState, ExternalLink } from "@/components/ui/primitives";
+import { MoreDetails } from "@/components/ui/MoreDetails";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SourceNote } from "@/components/ui/SourceNote";
 import { getDexterixEdition, getDexterixEditions } from "@/lib/content";
@@ -35,7 +36,10 @@ export default async function EditionPage({ params }: PageProps<"/dexterix/[slug
   return (
     <article>
       <PageHeader
-        crumbs={[{ label: "dexterix", href: "/dexterix" }, { label: e.slug, href: `/dexterix/${e.slug}` }]}
+        crumbs={[
+          { label: "dexterix", href: "/dexterix" },
+          { label: e.slug, href: `/dexterix/${e.slug}` },
+        ]}
         eyebrow={`Dexterix · ${e.startDate ? formatDateRange(e.startDate, e.endDate) : e.year}`}
         title={e.edition === "1.0" ? "Dexterix\nthe origin" : e.title}
         intro={
@@ -61,14 +65,14 @@ export default async function EditionPage({ params }: PageProps<"/dexterix/[slug
             {e.durationHours ? (
               <div className="border-t border-line pt-4">
                 <dt className="label-mono text-fg-muted">Duration</dt>
-                <dd className="font-wide mt-2 text-5xl font-extrabold md:text-6xl">{e.durationHours}h</dd>
+                <dd className="mt-2 text-5xl font-extrabold font-wide md:text-6xl">{e.durationHours}h</dd>
                 {e.durationNote ? <p className="mt-1 text-sm text-fg-subtle">{e.durationNote}</p> : null}
               </div>
             ) : null}
             {e.themes.length > 1 ? (
               <div className="border-t border-line pt-4">
                 <dt className="label-mono text-fg-muted">Domains</dt>
-                <dd className="font-wide mt-2 text-5xl font-extrabold md:text-6xl">{e.themes.length}</dd>
+                <dd className="mt-2 text-5xl font-extrabold font-wide md:text-6xl">{e.themes.length}</dd>
               </div>
             ) : null}
           </dl>
@@ -79,7 +83,7 @@ export default async function EditionPage({ params }: PageProps<"/dexterix/[slug
               <ol className="mt-6 grid gap-x-8 sm:grid-cols-2">
                 {e.themes.map((t, i) => (
                   <li key={t} className="flex gap-4 border-b border-line py-3">
-                    <span className="label-mono w-6 text-fg-subtle">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="w-6 label-mono text-fg-subtle">{String(i + 1).padStart(2, "0")}</span>
                     {t}
                   </li>
                 ))}
@@ -94,7 +98,7 @@ export default async function EditionPage({ params }: PageProps<"/dexterix/[slug
                 {e.prizes.map((p) => (
                   <li key={p.label} className="flex items-baseline justify-between gap-4 bg-bg py-4 pr-4">
                     <span className="text-fg-muted">{p.label}</span>
-                    <span className="font-wide text-2xl font-extrabold">{p.amount}</span>
+                    <span className="text-2xl font-extrabold font-wide">{p.amount}</span>
                   </li>
                 ))}
               </ul>
@@ -127,58 +131,43 @@ export default async function EditionPage({ params }: PageProps<"/dexterix/[slug
         </div>
 
         <aside className="lg:col-span-4">
-          <dl className="grid gap-px border border-line bg-line">
+          <dl className="grid gap-4">
             {[
-              ["Edition", e.edition],
-              ["Year", String(e.year)],
-              ...(e.startDate ? [["Dates", formatDateRange(e.startDate, e.endDate)]] : []),
+              ...(e.startDate ? [["Dates", formatDateRange(e.startDate, e.endDate)]] : [["Year", String(e.year)]]),
               ...(e.format ? [["Format", FORMAT[e.format]]] : []),
               ...(e.venue ? [["Venue", e.venue]] : []),
             ].map(([k, v]) => (
-              <div key={k} className="flex justify-between gap-4 bg-bg px-5 py-4">
-                <dt className="label-mono text-fg-subtle">{k}</dt>
-                <dd className="text-right">{v}</dd>
+              <div key={k}>
+                <dt className="text-sm text-fg-subtle">{k}</dt>
+                <dd className="mt-0.5 text-lg">{v}</dd>
               </div>
             ))}
           </dl>
-
-          {e.tracks.length ? (
-            <div className="mt-8">
-              <p className="label-mono text-fg-subtle">Tracks</p>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {e.tracks.map((t) => (
-                  <li key={t}>
-                    <Tag>{t}</Tag>
-                  </li>
-                ))}
-              </ul>
+          <ul className="mt-8 grid gap-2">
+            {e.event ? (
+              <li>
+                <Link
+                  href={`/events/${e.event.slug}`}
+                  className="underline decoration-line-strong underline-offset-4 hover:decoration-pulse"
+                >
+                  Event page
+                </Link>
+              </li>
+            ) : null}
+            {e.links.map((l) => (
+              <li key={l.url}>
+                <ExternalLink href={l.url}>{l.label}</ExternalLink>
+              </li>
+            ))}
+          </ul>
+          <MoreDetails>
+            {e.tracks.length ? <p className="text-fg-muted">Tracks: {e.tracks.join(" · ")}</p> : null}
+            {e.judgesNote ? <p className="text-fg-muted">{e.judgesNote}</p> : null}
+            <div>
+              <SourceNote verification={e.verification} />
+              {e.verification?.notes ? <p className="mt-2 text-sm text-fg-subtle">{e.verification.notes}</p> : null}
             </div>
-          ) : null}
-
-          {e.judgesNote ? <p className="mt-8 text-fg-muted">{e.judgesNote}</p> : null}
-
-          {e.links.length || e.event ? (
-            <div className="mt-8">
-              <p className="label-mono text-fg-subtle">Links</p>
-              <ul className="mt-3 grid gap-2">
-                {e.event ? (
-                  <li>
-                    <Link href={`/events/${e.event.slug}`} className="underline decoration-line-strong underline-offset-4 hover:decoration-pulse">
-                      Event page
-                    </Link>
-                  </li>
-                ) : null}
-                {e.links.map((l) => (
-                  <li key={l.url}>
-                    <ExternalLink href={l.url}>{l.label}</ExternalLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
-          <SourceNote verification={e.verification} className="mt-10" />
-          {e.verification?.notes ? <p className="mt-2 text-sm text-fg-subtle">{e.verification.notes}</p> : null}
+          </MoreDetails>
         </aside>
       </div>
 
@@ -186,7 +175,7 @@ export default async function EditionPage({ params }: PageProps<"/dexterix/[slug
         {prev ? (
           <Link href={`/dexterix/${prev.slug}`} className="group">
             <span className="label-mono text-fg-subtle">← Previous</span>
-            <span className="font-wide mt-2 block text-2xl font-extrabold uppercase group-hover:text-pulse">{prev.title}</span>
+            <span className="mt-2 block text-2xl font-extrabold uppercase font-wide group-hover:text-pulse">{prev.title}</span>
           </Link>
         ) : (
           <span />
@@ -194,7 +183,7 @@ export default async function EditionPage({ params }: PageProps<"/dexterix/[slug
         {next ? (
           <Link href={`/dexterix/${next.slug}`} className="group text-right">
             <span className="label-mono text-fg-subtle">Next →</span>
-            <span className="font-wide mt-2 block text-2xl font-extrabold uppercase group-hover:text-pulse">{next.title}</span>
+            <span className="mt-2 block text-2xl font-extrabold uppercase font-wide group-hover:text-pulse">{next.title}</span>
           </Link>
         ) : null}
       </nav>

@@ -32,13 +32,18 @@ export default async function ResourcesPage() {
       <div className="container-site grid gap-16">
         {ordered.map(([group, items]) => (
           <section key={group} aria-labelledby={`g-${group}`} className="grid gap-6 lg:grid-cols-12">
-            <h2 id={`g-${group}`} className="font-wide text-2xl font-extrabold uppercase lg:col-span-4">
+            <h2 id={`g-${group}`} className="text-2xl font-extrabold uppercase font-wide lg:col-span-4">
               {group}
             </h2>
             <ul className="border-t border-line lg:col-span-8">
               {items.map((r) => (
                 <li key={r.slug} className="border-b border-line">
-                  <a href={r.url} target="_blank" rel="noreferrer" className="group grid gap-2 py-5 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-6">
+                  <a
+                    href={r.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group grid gap-2 py-5 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-6"
+                  >
                     <span>
                       <span className="text-lg font-semibold group-hover:text-pulse">{r.title}</span>
                       <span className="mt-1 block text-fg-muted">{r.description}</span>

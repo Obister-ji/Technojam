@@ -15,7 +15,11 @@ export function EventList({ events }: { events: TJEvent[] }) {
 
   return (
     <>
-      <div role="group" aria-label="Filter by type" className="-mx-(--gutter) flex gap-2 overflow-x-auto border-y border-line px-(--gutter) py-5 lg:mx-0 lg:px-0">
+      <div
+        role="group"
+        aria-label="Filter by type"
+        className="-mx-(--gutter) flex gap-2 overflow-x-auto border-y border-line px-(--gutter) py-5 lg:mx-0 lg:px-0"
+      >
         {(["all", ...types] as const).map((t) => (
           <button
             key={t}
@@ -23,7 +27,7 @@ export function EventList({ events }: { events: TJEvent[] }) {
             aria-pressed={type === t}
             onClick={() => setType(t)}
             className={cx(
-              "label-mono h-9 shrink-0 border px-3 transition-colors",
+              "h-9 shrink-0 border px-3 label-mono transition-colors",
               type === t ? "border-fg bg-fg text-bg" : "border-line text-fg-muted hover:border-line-strong hover:text-fg",
             )}
           >
@@ -36,7 +40,7 @@ export function EventList({ events }: { events: TJEvent[] }) {
       </p>
       {years.map((year) => (
         <section key={year} aria-labelledby={`y-${year}`} className="mt-16 grid gap-6 lg:grid-cols-12">
-          <h3 id={`y-${year}`} className="font-wide text-5xl font-black tracking-tight text-fg-subtle lg:col-span-2 lg:text-6xl">
+          <h3 id={`y-${year}`} className="text-5xl font-black tracking-tight text-fg-subtle font-wide lg:col-span-2 lg:text-6xl">
             {year}
           </h3>
           <ul className="border-t border-line lg:col-span-10">

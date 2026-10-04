@@ -5,10 +5,7 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title("TechnoJam")
     .items([
-      S.listItem()
-        .title("Site settings")
-        .id("siteSettings")
-        .child(S.document().schemaType("siteSettings").documentId("siteSettings")),
+      S.listItem().title("Site settings").id("siteSettings").child(S.document().schemaType("siteSettings").documentId("siteSettings")),
       S.documentTypeListItem("socialLink").title("Social links"),
       S.divider(),
       S.documentTypeListItem("homepageFeature").title("Homepage features"),
@@ -29,9 +26,7 @@ export const structure: StructureResolver = (S) =>
               S.listItem()
                 .title("Current members")
                 .child(S.documentList().title("Current members").filter('_type == "person" && currentMember == true')),
-              S.listItem()
-                .title("Alumni")
-                .child(S.documentList().title("Alumni").filter('_type == "person" && currentMember != true')),
+              S.listItem().title("Alumni").child(S.documentList().title("Alumni").filter('_type == "person" && currentMember != true')),
               S.documentTypeListItem("teamYear").title("Team years"),
             ]),
         ),

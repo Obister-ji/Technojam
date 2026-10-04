@@ -15,9 +15,7 @@ export function pageMetadata({ title, description, path }: { title: string; desc
 
 /** Safe JSON-LD: escape "<" so CMS strings can't close the script tag. */
 export function JsonLd({ data }: { data: object }) {
-  return (
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />
-  );
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
 }
 
 export function organizationJsonLd(s: SiteSettings) {
@@ -52,7 +50,11 @@ export function eventJsonLd(e: TJEvent) {
   const location =
     e.mode === "online"
       ? { "@type": "VirtualLocation", url: e.registrationUrl || e.externalLinks[0]?.url || `${SITE_URL}/events/${e.slug}` }
-      : { "@type": "Place", name: e.venue || "Galgotias University", address: { "@type": "PostalAddress", addressLocality: "Greater Noida", addressCountry: "IN" } };
+      : {
+          "@type": "Place",
+          name: e.venue || "Galgotias University",
+          address: { "@type": "PostalAddress", addressLocality: "Greater Noida", addressCountry: "IN" },
+        };
   return {
     "@context": "https://schema.org",
     "@type": e.type === "workshop" || e.type === "session" ? "EducationEvent" : "Event",

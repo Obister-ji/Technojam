@@ -31,7 +31,12 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
     <>
       <div className="flex flex-col gap-4 border-y border-line py-5 lg:flex-row lg:items-center lg:justify-between">
         <div role="group" aria-label="Filter by status" className="-mx-(--gutter) flex gap-2 overflow-x-auto px-(--gutter) lg:mx-0 lg:px-0">
-          <button type="button" aria-pressed={filter.kind === "all"} onClick={() => setFilter({ kind: "all" })} className={chip(filter.kind === "all")}>
+          <button
+            type="button"
+            aria-pressed={filter.kind === "all"}
+            onClick={() => setFilter({ kind: "all" })}
+            className={chip(filter.kind === "all")}
+          >
             All · {projects.length}
           </button>
           {statuses.map((s) => (

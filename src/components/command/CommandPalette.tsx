@@ -79,7 +79,7 @@ export default function CommandPalette({
             onKeyDown={onKeyDown}
             className="h-14 w-full bg-transparent text-lg outline-none placeholder:text-fg-subtle"
           />
-          <kbd className="label-mono hidden border border-line px-1.5 py-0.5 text-fg-subtle sm:block">ESC</kbd>
+          <kbd className="hidden border border-line px-1.5 py-0.5 label-mono text-fg-subtle sm:block">ESC</kbd>
         </div>
 
         <ul id={listId} role="listbox" aria-label="Results" className="max-h-[min(60vh,32rem)] overflow-y-auto overscroll-contain p-2">
@@ -91,7 +91,7 @@ export default function CommandPalette({
           {results.map((item, i) => {
             const header =
               item.group !== results[i - 1]?.group ? (
-                <li key={`h-${item.group}`} role="presentation" className="label-mono px-3 pt-3 pb-1.5 text-fg-subtle">
+                <li key={`h-${item.group}`} role="presentation" className="px-3 pt-3 pb-1.5 label-mono text-fg-subtle">
                   {item.group}
                 </li>
               ) : null;
@@ -123,14 +123,14 @@ export default function CommandPalette({
         </ul>
 
         <div className="flex items-center justify-between gap-4 border-t border-line px-4 py-2.5">
-          <p className="label-mono hidden text-fg-subtle sm:block">↑↓ navigate · ↵ open</p>
+          <p className="hidden label-mono text-fg-subtle sm:block">↑↓ navigate · ↵ open</p>
           <button
             type="button"
             onClick={() => {
               onClose();
               setTimeout(onOpenConsole, 0);
             }}
-            className="label-mono inline-flex items-center gap-2 text-fg-muted hover:text-fg"
+            className="inline-flex items-center gap-2 label-mono text-fg-muted hover:text-fg"
           >
             <Terminal className="size-4" /> Open console
           </button>

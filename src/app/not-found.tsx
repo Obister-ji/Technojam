@@ -8,7 +8,7 @@ export default function GlobalNotFound() {
       <Link href="/" aria-label="TechnoJam — home">
         <Wordmark />
       </Link>
-      <h1 className="font-wide text-display-xl font-black tracking-[-0.045em] uppercase">
+      <h1 className="text-display-xl font-black tracking-[-0.045em] uppercase font-wide">
         404<span className="text-pulse">.</span>
       </h1>
       <p className="max-w-lg text-lg text-fg-muted">This page doesn&apos;t exist — or someone broke production.</p>

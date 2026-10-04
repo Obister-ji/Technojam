@@ -8,7 +8,12 @@ const MODE_LABEL = { "in-person": "In person", online: "Online", hybrid: "Hybrid
 
 export function PhaseStatus({ event }: { event: TJEvent }) {
   const phase = eventPhase(event);
-  if (phase === "live") return <Status tone="pulse" live>Happening now</Status>;
+  if (phase === "live")
+    return (
+      <Status tone="pulse" live>
+        Happening now
+      </Status>
+    );
   if (phase === "upcoming") return <Status tone="volt">Upcoming</Status>;
   if (phase === "cancelled") return <Status tone="muted">Cancelled</Status>;
   if (phase === "postponed") return <Status tone="muted">Postponed</Status>;
@@ -56,14 +61,14 @@ export function EventCard({ event }: { event: TJEvent }) {
           <time dateTime={event.startDate}>{formatDateRange(event.startDate, event.endDate)}</time>
           {event.venue ? ` · ${event.venue}` : ` · ${MODE_LABEL[event.mode]}`}
         </p>
-        <h3 className="font-wide mt-3 text-3xl leading-none font-extrabold tracking-tight uppercase md:text-4xl">
+        <h3 className="mt-3 text-3xl leading-none font-extrabold tracking-tight uppercase font-wide md:text-4xl">
           <Link href={`/events/${event.slug}`} className="after:absolute after:inset-0">
             {event.title}
           </Link>
         </h3>
         <p className="mt-4 max-w-md text-fg-muted">{event.shortDescription}</p>
       </div>
-      <span className="label-mono inline-flex items-center gap-2 text-fg">
+      <span className="inline-flex items-center gap-2 label-mono text-fg">
         Details <ArrowRight className="transition-transform group-hover:translate-x-1" />
       </span>
     </article>

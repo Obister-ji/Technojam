@@ -42,11 +42,11 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
     >
       <a
         href="#main"
-        className="label-mono fixed top-3 left-3 z-[70] -translate-y-24 bg-fg px-4 py-3 text-bg transition-transform focus:translate-y-0"
+        className="fixed top-3 left-3 z-[70] -translate-y-24 bg-fg px-4 py-3 label-mono text-bg transition-transform focus:translate-y-0"
       >
         Skip to content
       </a>
-      <div className="noise">
+      <div>
         <Navbar recruitmentOpen={recruitment?.status === "open"} />
         <main id="main" tabIndex={-1} className="outline-none">
           {children}

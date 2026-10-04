@@ -26,7 +26,8 @@ export const projects: Project[] = [
     ...gh("Dexterix-5.0"),
     slug: "dexterix-5-0-platform",
     title: "Dexterix 5.0 platform",
-    summary: "The site and team hub for Dexterix 5.0 — schedule, prizes, and a hub where teams managed participation and picked challenges.",
+    summary:
+      "The site and team hub for Dexterix 5.0 — schedule, prizes, and a hub where teams managed participation and picked challenges.",
     description: [
       "Built for the fifth edition of Dexterix: a space-themed public site plus a hub, admin area and API routes behind it.",
       "Stack from the repository's manifest: Next.js 16, React 19, Tailwind CSS 4, Motion, Radix UI, react-hook-form with Zod, Firebase, and Azure Cosmos DB / Blob Storage.",
@@ -46,7 +47,8 @@ export const projects: Project[] = [
     ...gh("TechXPO-Registration"),
     slug: "techxpo-registration",
     title: "TechXPO registration",
-    summary: "An event registration platform built for TechXPO 2026 — custom form builder, admin dashboard, CSV export and 13 event categories.",
+    summary:
+      "An event registration platform built for TechXPO 2026 — custom form builder, admin dashboard, CSV export and 13 event categories.",
     description: [
       "A registration system for TechXPO 2026 covering everything from hackathons and CTFs to drone arenas and quizzes.",
       "Built on Next.js 16 with TypeScript and Tailwind, Azure Cosmos DB and Blob Storage, Azure Functions for email, Firebase Admin auth with HttpOnly cookies, and Zod validation. MIT licensed.",
@@ -122,7 +124,8 @@ export const projects: Project[] = [
     ...gh("technojam-x"),
     slug: "technojam-x",
     title: "technojam-x",
-    summary: "“A community web experience, re-imagined” — a 2024 attempt at a new TechnoJam site, with hooks and conventions set up from day one.",
+    summary:
+      "“A community web experience, re-imagined” — a 2024 attempt at a new TechnoJam site, with hooks and conventions set up from day one.",
     status: "archived",
     year: 2024,
     liveUrl: "https://technojam-x.vercel.app",
