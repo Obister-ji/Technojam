@@ -1,0 +1,203 @@
+import type { DexterixEdition } from "@/lib/content/types";
+import { S } from "./sources";
+
+/**
+ * Dexterix editions. `*Actual` and `*Target` are deliberately separate —
+ * a promotional target is never rendered as an outcome.
+ */
+export const dexterixEditions: DexterixEdition[] = [
+  {
+    slug: "dexterix-5-0",
+    edition: "5.0",
+    title: "Dexterix 5.0",
+    year: 2026,
+    startDate: "2026-02-14",
+    endDate: "2026-02-15",
+    durationHours: 36,
+    format: "in-person",
+    venue: "Galgotias University, Greater Noida",
+    tagline: "Finding the next gen Dexters",
+    summary:
+      "Dexterix returned to campus as a 36-hour offline build, organised by Team TechnoJam with the School of Computing Science & Engineering.",
+    themes: [],
+    tracks: [],
+    participantsTarget: { value: 600, suffix: "+", verification: S.dx5Site },
+    institutionsTarget: { value: 100, suffix: "+", verification: S.dx5Site },
+    prizes: [
+      { label: "Winner", amount: "₹50,000" },
+      { label: "Runner-up", amount: "₹35,000" },
+      { label: "Second runner-up", amount: "₹20,000" },
+      { label: "Best girls' team", amount: "₹7,500" },
+    ],
+    prizeNote: "Prize tiers as advertised on the official site before the event.",
+    winners: [],
+    sponsors: [],
+    microsite: "https://dexterix.technojam.in",
+    links: [{ label: "Linktree", url: "https://linktr.ee/Dexterix_5.0" }],
+    event: { slug: "dexterix-5-0", title: "Dexterix 5.0" },
+    postEventDataAvailable: false,
+    verification: {
+      ...S.dx5LinkedIn,
+      notes:
+        "Dates and format from TechnoJam's LinkedIn call for mentors & judges. No post-event report (participation, winners) located as of last check.",
+    },
+  },
+  {
+    slug: "dexterix-4-0",
+    edition: "4.0",
+    title: "Dexterix 4.0",
+    year: 2024,
+    startDate: "2024-04-13",
+    endDate: "2024-04-14",
+    durationHours: 36,
+    format: "in-person",
+    venue: "Galgotias University, Greater Noida",
+    summary:
+      "Twelve domains, corporate and student tracks, and a dedicated prize each for all-girls and all-freshers teams.",
+    themes: [
+      "Fintech",
+      "Sustainability",
+      "Health & wellness",
+      "Web3 & blockchain",
+      "Security & cloud",
+      "Education & accessibility",
+      "Gaming & entertainment",
+      "AR & VR",
+      "AI / ML",
+      "Open innovation",
+      "Transportation & logistics",
+      "IoT, robotics & drones",
+    ],
+    tracks: ["Corporate level", "Student level"],
+    participantsActual: {
+      value: 700,
+      suffix: "+",
+      verification: S.pending(
+        "University reporting (cited in project brief)",
+        "Brief cites ~700+ participants from 30 institutions. Neither figure appears on the university or Commudle pages reachable on 2026-10-04 — attach the source before publishing.",
+      ),
+    },
+    institutionsActual: {
+      value: 30,
+      verification: S.pending(
+        "University reporting (cited in project brief)",
+        "See participantsActual — source URL not yet located.",
+      ),
+    },
+    institutionsTarget: { value: 100, suffix: "+", verification: S.dx4Commudle },
+    prizes: [
+      { label: "First", amount: "₹21,000" },
+      { label: "Second", amount: "₹15,000" },
+      { label: "Third", amount: "₹10,000" },
+      { label: "All-girls team", amount: "₹5,000" },
+      { label: "All-freshers team", amount: "₹5,000" },
+    ],
+    prizeNote:
+      "Prize tiers from the university page. Commudle lists a ₹21,000 total pool — the two first-party sources differ.",
+    winners: [],
+    judgesNote: "Around fifteen judges are listed on the university's Dexterix 4.0 page.",
+    sponsors: [],
+    links: [
+      { label: "University page", url: "https://www.galgotiasuniversity.edu.in/p/Dexterix-40" },
+      {
+        label: "Commudle",
+        url: "https://www.commudle.com/communities/technojam/hackathons/dexterix-4-0",
+      },
+    ],
+    event: { slug: "dexterix-4-0", title: "Dexterix 4.0" },
+    postEventDataAvailable: false,
+    verification: S.dx4Page,
+  },
+  {
+    slug: "dexterix-3-0",
+    edition: "3.0",
+    title: "Dexterix 3.0",
+    year: 2022,
+    startDate: "2022-03-11",
+    endDate: "2022-03-12",
+    durationHours: 24,
+    durationNote:
+      "The university report says 24 hours; the event's GitHub repository describes it as 36 hours.",
+    format: "hybrid",
+    venue: "Galgotias University & online",
+    tagline: "Finding the new Dexters",
+    summary:
+      "An international hybrid hackathon with SIH 2022 problem statements, hosted by TechnoJam with SCSE and ACM.",
+    themes: [
+      "EdTech",
+      "FinTech, blockchain & cyber security",
+      "HealthTech, fitness & sports",
+      "AutoTech, transport & logistics",
+      "UAV, drones, robotics & hardware",
+      "Sustainable energy, AgriTech & disaster management",
+      "Tourism, heritage & culture",
+      "General tech",
+    ],
+    tracks: ["Corporate", "Student"],
+    prizes: [{ label: "Cash prizes", amount: "₹2 lakh+" }],
+    prizeNote:
+      "The university report states ₹2 lakh+; a separate university page states ₹2.5 lakh.",
+    winners: [],
+    sponsors: [],
+    microsite: "https://technojam.github.io/dexterix3/",
+    links: [
+      { label: "University report (PDF)", url: "https://www.galgotiasuniversity.edu.in/pdfs/DEXTERIX-REPORT.pdf" },
+      { label: "Repository", url: "https://github.com/technojam/dexterix3" },
+    ],
+    event: { slug: "dexterix-3-0", title: "Dexterix 3.0" },
+    postEventDataAvailable: true,
+    verification: S.dx3Report,
+  },
+  {
+    slug: "dexterix-2-0",
+    edition: "2.0",
+    title: "Dexterix 2.0",
+    year: 2019,
+    summary: "The second edition. Listed in the official Dexterix archive; dates still being verified.",
+    themes: [],
+    tracks: [],
+    prizes: [],
+    winners: [],
+    sponsors: [],
+    links: [],
+    postEventDataAvailable: false,
+    verification: S.pending(
+      "Dexterix 5.0 site — archive section",
+      "Edition existence is first-party; the year (likely 2019) is inferred and unconfirmed.",
+      "https://dexterix.technojam.in",
+    ),
+  },
+  {
+    slug: "dexterix-1-0",
+    edition: "1.0",
+    title: "Dexterix",
+    year: 2018,
+    startDate: "2018-11-20",
+    endDate: "2018-11-20",
+    durationHours: 12,
+    format: "in-person",
+    venue: "Galgotias University, Greater Noida",
+    tagline: "Smart Sustainable Solutions",
+    summary:
+      "Where it started: a hackathon on smart, sustainable solutions with awards in six categories.",
+    themes: ["Smart Sustainable Solutions"],
+    tracks: [],
+    participantsActual: { value: 500, suffix: "+", verification: S.tennews2018 },
+    prizes: [],
+    winners: [],
+    sponsors: [],
+    links: [
+      {
+        label: "TenNews coverage",
+        url: "https://tennews.in/hackathon-named-dexterix-organised-at-galgotias-university-greater-noida/",
+      },
+    ],
+    event: { slug: "dexterix-2018", title: "Dexterix (2018)" },
+    postEventDataAvailable: true,
+    verification: {
+      ...S.tennews2018,
+      notes:
+        "The Dexterix 5.0 site dates the series to 2018; a Commudle page says 2019. The 2018 press report settles it.",
+    },
+  },
+];
