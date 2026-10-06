@@ -127,13 +127,16 @@ Integrity rules baked into the model:
 - `gallery.approved` must be true to render.
 - Event status (upcoming / live / past) is derived from dates; editors only override for cancelled/postponed.
 
-## 9. Design direction
+## 9. Design direction — “The Young Indian Computer Lab”
 
-- **Base**: graphite `#0b0c10`, warm off-white `#f3f0ea`, neutral greys (all text ≥ 4.5:1).
-- **Signal spectrum**: volt blue `#4c7dff` → violet `#9d74ff` → pulse pink `#ff4d94` — reinterpreting the previous site's cyan/blue/violet and Dexterix's pink. Used for status, interaction and storytelling only.
-- **Type**: Archivo variable (width axis 62–125). Expanded widths carry headlines — the width axis *is* the throttle. JetBrains Mono for metadata, dates, repo info and the console.
-- **Motifs**: node networks (people → ideas → projects → events), git-graph history, coordinate grids, a scroll-progress “throttle” gauge, mono micro-labels. The terminal survives as an optional `>_ console`.
-- **Avoid**: matrix rain, neon everywhere, stock photos, glass, gradients on every surface.
+The homepage is a document (TJ-026) in eleven chapters. It starts in India's 1984–1995 computer-lab era and ends with today's connected India and the people who choose to understand it. The history is the prologue; the subject is the students.
+
+- **Palette:** aged copier paper , printer ink , beige hardware . One technological accent, CRT phosphor green ( printed,  on glass), and one physical accent, rubber-stamp red . No gradients, no glass. All text ≥ 4.5:1.
+- **Type, three voices:** Archivo (wide, black) for statements; Newsreader serif for narrative; JetBrains Mono only for metadata, timestamps and terminal output.
+- **Graphic language:** chapter headers with registration marks, document IDs, revisions and page numbers; dot-matrix perforations and green-bar stationery; one stamp per section at most; a signal cable that draws itself with scroll (CSS scroll timeline, no JS); the CRT is the only dark surface.
+- **Photography:** documentary photos only, monochrome until hover. Until real photos exist, plates show a halftone *shot list* and **[ REAL DATA REQUIRED ]**.
+- **Honesty rule:** anything without real data prints **[ REAL DATA REQUIRED ]** — Jam Night's schedule, member cards, makers, photos. Every timeline date and statistic carries a source.
+- **One Hindi moment:** “कुछ बनाते हैं?” on the Jam Night notice.
 
 ## 10. Technology architecture
 

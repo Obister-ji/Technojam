@@ -16,6 +16,5 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     kicker: "TechnoJam / projects",
     title: project.title,
     meta: `${project.year} · ${project.stack.slice(0, 3).join(" · ")}`,
-    accent: "#31a8df",
   });
 }

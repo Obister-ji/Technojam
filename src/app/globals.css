@@ -1,31 +1,37 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   TechnoJam design tokens
-   Graphite base, warm off-white type, the logo's cyan → blue → purple → pink
-   spectrum used sparingly for interaction, status and storytelling.
+   TechnoJam — The Young Indian Computer Lab
+   Aged copier paper, printer ink, beige hardware. One technological
+   accent (CRT phosphor green) and one physical accent (rubber-stamp red).
+   No gradients, no glass.
    ------------------------------------------------------------------ */
 
 @theme {
-  --color-bg: #0b0c10;
-  --color-bg-raised: #111318;
-  --color-bg-sunken: #08090c;
-  --color-surface: #16181e;
-  --color-surface-hover: #1c1f27;
-  --color-line: rgb(255 255 255 / 0.08);
-  --color-line-strong: rgb(255 255 255 / 0.16);
+  --color-bg: #f1ece1; /* aged copier paper */
+  --color-bg-raised: #e7e0d1; /* second sheet */
+  --color-bg-sunken: #ddd5c3; /* beige hardware */
+  --color-surface: #e7e0d1;
+  --color-surface-hover: #ddd5c3;
+  --color-line: rgb(28 27 24 / 0.14);
+  --color-line-strong: rgb(28 27 24 / 0.32);
 
-  --color-fg: #f3f0ea;
-  --color-fg-muted: #a5a3ab;
-  --color-fg-subtle: #85838d;
+  --color-fg: #1c1b18; /* printer ink */
+  --color-fg-muted: #57534a;
+  --color-fg-subtle: #625d52;
 
-  /* Sampled from the official TechnoJam logo ribbon (lifted where needed for AA contrast) */
-  --color-cyan: #56d3e4;
-  --color-volt: #31a8df;
-  --color-violet: #b06fdc;
-  --color-pulse: #ec3f86;
+  /* Accents. Legacy names kept so every component re-themes at once. */
+  --color-cyan: #1f6b3b; /* phosphor green, printed */
+  --color-volt: #1f6b3b;
+  --color-violet: #4a4639; /* neutral ink, no second hue */
+  --color-pulse: #a8362a; /* rubber-stamp red */
+
+  /* The CRT: the only dark surface on the site */
+  --color-crt: #121410;
+  --color-phosphor: #9cf0b0;
 
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
 
   --text-display-xl: clamp(3.25rem, 12.5vw, 12rem);
@@ -47,10 +53,11 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
     --gutter: 1rem;
     --nav-h: 4rem;
-    --spectrum: linear-gradient(90deg, var(--color-cyan), var(--color-volt) 30%, #7b3fa6 62%, var(--color-pulse));
+    /* Kept for components that reference it: now a solid ink rule, not a gradient. */
+    --spectrum: linear-gradient(90deg, var(--color-fg), var(--color-fg));
   }
 
   @media (min-width: 48rem) {
@@ -213,20 +220,6 @@
   margin-bottom: -0.06em;
 }
 
-/* The hero word opens its own throttle: condensed → expanded.
-   Done with scaleX (compositor-only) rather than animating the
-   font width axis, which would re-layout the page every frame. */
-@keyframes tj-throttle {
-  from {
-    transform: scaleX(0.52);
-  }
-}
-
-.throttle-word {
-  display: inline-block;
-  transform-origin: left center;
-}
-
 /* CSS-only so the hero never waits on hydration (protects LCP). */
 @keyframes tj-rise {
   from {
@@ -242,18 +235,221 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .crt-on {
+    transform-origin: center;
+    animation: tj-crt-on 0.9s var(--ease-out-expo) 0.15s both;
+  }
+
   /* Above-the-fold headlines: same masked-line look as [data-reveal=lines], no JS. */
   .rise-lines .line > span {
     display: inline-block;
     animation: tj-line 1s var(--ease-out-expo) calc(var(--line-index, 0) * 90ms + 60ms) both;
   }
 
-  .throttle-word {
-    animation: tj-throttle 1.5s var(--ease-throttle) 0.2s both;
-  }
-
   .rise {
     animation: tj-rise 0.9s var(--ease-out-expo) var(--rise-delay, 0ms) both;
+  }
+}
+
+/* ================= Lab graphic language ================= */
+
+/* A CRT surface: everything inside re-themes to phosphor on glass. */
+.crt {
+  --color-fg: #e4f3e6;
+  --color-fg-muted: #9cc7a6;
+  --color-fg-subtle: #7fa98a;
+  --color-line: rgb(156 240 176 / 0.16);
+  --color-line-strong: rgb(156 240 176 / 0.32);
+  --color-pulse: #ff8a7a;
+  --color-volt: var(--color-phosphor);
+  --color-bg-raised: #1a1d17;
+  --color-surface-hover: #22261e;
+  background-color: var(--color-crt);
+  color: var(--color-fg);
+}
+
+/* Rubber stamp: slightly rotated, inked border, uneven opacity */
+.stamp {
+  display: inline-block;
+  border: 2px solid currentColor;
+  padding: 0.3em 0.7em 0.25em;
+  color: var(--color-pulse);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: rotate(-4deg);
+  opacity: 0.88;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: radial-gradient(circle at 30% 40%, #000 60%, rgb(0 0 0 / 0.72) 100%);
+  mask-image: radial-gradient(circle at 30% 40%, #000 60%, rgb(0 0 0 / 0.72) 100%);
+}
+
+@keyframes tj-stamp {
+  0% {
+    transform: rotate(-4deg) scale(1.6);
+    opacity: 0;
+  }
+  60% {
+    transform: rotate(-4deg) scale(0.96);
+    opacity: 0.95;
+  }
+  100% {
+    transform: rotate(-4deg) scale(1);
+    opacity: 0.88;
+  }
+}
+
+.js [data-revealed="true"] .stamp-in,
+.stamp-in.is-open {
+  animation: tj-stamp 0.45s var(--ease-out-expo) both;
+}
+
+/* Missing-data marker — the honest placeholder */
+.data-required {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--color-pulse);
+  white-space: nowrap;
+}
+
+/* Dot-matrix tractor-feed perforations down both edges */
+.perforated {
+  position: relative;
+  padding-inline: 2.25rem;
+}
+
+.perforated::before,
+.perforated::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0.7rem;
+  background-image: radial-gradient(circle, var(--color-bg) 0.22rem, transparent 0.24rem);
+  background-size: 0.7rem 1.1rem;
+  background-position: center top;
+}
+
+.perforated::before {
+  left: 0.55rem;
+}
+.perforated::after {
+  right: 0.55rem;
+}
+
+/* Green-bar continuous stationery */
+.greenbar {
+  background-image: repeating-linear-gradient(to bottom, rgb(31 107 59 / 0.07) 0 1.6rem, transparent 1.6rem 3.2rem);
+}
+
+/* Registration mark */
+.reg-mark {
+  position: relative;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--color-fg);
+  border-radius: 50%;
+}
+
+.reg-mark::before,
+.reg-mark::after {
+  content: "";
+  position: absolute;
+  background: var(--color-fg);
+}
+
+.reg-mark::before {
+  left: 50%;
+  top: -5px;
+  bottom: -5px;
+  width: 1px;
+}
+.reg-mark::after {
+  top: 50%;
+  left: -5px;
+  right: -5px;
+  height: 1px;
+}
+
+/* Photocopy grain, very light — only where asked for */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Halftone screen for empty photo plates */
+.halftone {
+  background-color: var(--color-bg-sunken);
+  background-image: radial-gradient(circle, rgb(28 27 24 / 0.32) 0.9px, transparent 1.15px);
+  background-size: 6px 6px;
+}
+
+/* Documentary photos: monochrome first, colour on hover/focus */
+.plate img {
+  filter: grayscale(1) contrast(1.15);
+  transition: filter 0.6s var(--ease-out-expo);
+}
+
+.plate:hover img,
+.plate:focus-within img {
+  filter: none;
+}
+
+/* CRT power-on: a bright line opens into the picture — once */
+@keyframes tj-crt-on {
+  0% {
+    transform: scaleY(0.004) scaleX(0.6);
+    filter: brightness(3);
+    opacity: 0.2;
+  }
+  45% {
+    transform: scaleY(0.004) scaleX(1);
+    filter: brightness(2.5);
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+    filter: none;
+    opacity: 1;
+  }
+}
+
+/* The signal cable draws itself as the reader scrolls (no JS). */
+@keyframes tj-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.cable-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .cable-path {
+      stroke-dashoffset: 1;
+      animation: tj-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 60%;
+    }
   }
 }
 

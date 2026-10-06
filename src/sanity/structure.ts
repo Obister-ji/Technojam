@@ -10,6 +10,8 @@ export const structure: StructureResolver = (S) =>
       S.divider(),
       S.documentTypeListItem("homepageFeature").title("Homepage features"),
       S.documentTypeListItem("announcement").title("Announcements"),
+      S.documentTypeListItem("ritual").title("Jam Night"),
+      S.documentTypeListItem("labFact").title("Lab story facts"),
       S.divider(),
       S.documentTypeListItem("recruitmentCycle").title("Recruitment"),
       S.documentTypeListItem("event").title("Events"),

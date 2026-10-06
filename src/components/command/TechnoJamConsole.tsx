@@ -242,7 +242,7 @@ export default function TechnoJamConsole({ index, data, onClose }: { index: Sear
       aria-label="TechnoJam console"
       className="m-0 mx-auto mt-[6vh] w-[min(52rem,calc(100vw-2rem))] max-w-none bg-transparent p-0 text-fg backdrop:bg-bg/85 backdrop:backdrop-blur-sm"
     >
-      <div className="flex h-[min(78vh,40rem)] flex-col border border-line-strong bg-bg-sunken font-mono text-[0.85rem] shadow-2xl shadow-black/60">
+      <div className="crt flex h-[min(78vh,40rem)] flex-col border border-line-strong font-mono text-[0.85rem] shadow-2xl shadow-black/60">
         <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
           <p className="label-mono text-fg-muted">
             <span style={{ color: ACCENTS[accent] }}>{">_"}</span> technojam — console

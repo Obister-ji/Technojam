@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "The student-led technical community at Galgotias University.",
     start_url: "/",
     display: "standalone",
-    background_color: "#0b0c10",
-    theme_color: "#0b0c10",
+    background_color: "#f1ece1",
+    theme_color: "#f1ece1",
     icons: [{ src: "/icon.png", sizes: "192x192", type: "image/png" }],
   };
 }

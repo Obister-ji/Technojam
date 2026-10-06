@@ -49,9 +49,9 @@ export function Footer({ settings }: { settings: SiteSettings }) {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 text-sm text-fg-subtle">
+        <div className="crt mt-14 flex flex-wrap items-center justify-between gap-4 rounded-[14px] px-5 py-4 text-sm">
           <ConsoleButton />
-          <p>
+          <p className="font-mono text-[0.75rem] text-fg-muted">
             Est. {settings.foundedYear} · © {new Date().getFullYear()} {settings.name}
           </p>
         </div>

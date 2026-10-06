@@ -17,6 +17,5 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   return renderOg({
     title: e.title,
     meta: e.durationHours ? `${e.durationHours} hours of building · ${when}` : when,
-    accent: "#b06fdc",
   });
 }

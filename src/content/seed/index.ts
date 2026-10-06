@@ -8,3 +8,4 @@ export { recruitmentCycles } from "./recruitment";
 export { resources } from "./resources";
 export { metrics } from "./metrics";
 export { teamYears, announcements, partners } from "./community";
+export { labFacts, jamNight } from "./lab";

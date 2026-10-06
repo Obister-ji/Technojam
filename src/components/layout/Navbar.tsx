@@ -9,7 +9,6 @@ import { Search } from "@/components/ui/Icon";
 import { cx } from "@/components/ui/primitives";
 import { JOIN_NAV, PRIMARY_NAV } from "@/lib/nav";
 import { MobileMenu } from "./MobileMenu";
-import { ThrottleMeter } from "./ThrottleMeter";
 
 export function Navbar({ recruitmentOpen }: { recruitmentOpen: boolean }) {
   const pathname = usePathname();
@@ -66,9 +65,6 @@ export function Navbar({ recruitmentOpen }: { recruitmentOpen: boolean }) {
           </ul>
 
           <div className="flex items-center gap-2">
-            {pathname === "/" ? (
-              <ThrottleMeter className={cx("hidden transition-opacity duration-500 xl:flex", scrolled ? "opacity-100" : "opacity-0")} />
-            ) : null}
             <button
               type="button"
               onClick={openPalette}

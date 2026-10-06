@@ -168,6 +168,12 @@ export const project = defineType({
       },
       validation: (r) => r.required(),
     }),
+    defineField({
+      name: "statusNote",
+      type: "string",
+      group: "details",
+      description: "Optional honest status stamp, e.g. MOSTLY WORKS, VERSION 0.3, WE LEARNED A LOT. Must be true.",
+    }),
     defineField({ name: "year", type: "number", group: "details", validation: (r) => r.required().min(2015) }),
     defineField({ name: "repository", type: "url", group: "details" }),
     defineField({
@@ -368,6 +374,9 @@ export const person = defineType({
     defineField({ name: "batch", type: "string", group: "details", description: "Academic batch, e.g. 2023–27" }),
     defineField({ name: "tenure", type: "string", group: "details", description: "e.g. 2024–2026" }),
     defineField({ name: "bio", type: "text", rows: 3, group: "content" }),
+    defineField({ name: "obsession", title: "Currently obsessed with", type: "string", group: "content" }),
+    defineField({ name: "lastShipped", title: "Last shipped", type: "string", group: "content" }),
+    defineField({ name: "askMeAbout", title: "Ask me about", type: "string", group: "content" }),
     defineField({ name: "github", type: "url", group: "details" }),
     defineField({ name: "linkedin", type: "url", group: "details" }),
     defineField({ name: "portfolio", type: "url", group: "details" }),
@@ -648,6 +657,56 @@ export const metric = defineType({
   ],
   orderings: [{ title: "Order", name: "order", by: [{ field: "order", direction: "asc" }] }],
   preview: { select: { title: "label", subtitle: "value" } },
+});
+
+/* ---------------- Lab story ---------------- */
+
+export const labFact = defineType({
+  name: "labFact",
+  title: "Lab story fact",
+  type: "document",
+  description: "Dated, sourced facts for the homepage prologue (timeline) and the infrastructure chapter (stats).",
+  fields: [
+    defineField({
+      name: "kind",
+      type: "string",
+      options: { list: ["timeline", "stat"], layout: "radio" },
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "when",
+      type: "string",
+      description: "Printed as an annotation: 1995, 15 AUG 1995, MAR 2026",
+      validation: (r) => r.required(),
+    }),
+    defineField({ name: "label", type: "string", validation: (r) => r.required() }),
+    defineField({ name: "value", type: "string", description: "Stats only, e.g. 1,092.79 M" }),
+    defineField({ name: "detail", type: "text", rows: 2, validation: (r) => r.required() }),
+    defineField({ name: "ours", type: "boolean", initialValue: false, description: "A TechnoJam milestone on the national timeline" }),
+    defineField({ name: "order", type: "number", initialValue: 0 }),
+    defineField({ name: "verification", type: "verification", validation: (r) => r.required() }),
+  ],
+  orderings: [{ title: "Order", name: "order", by: [{ field: "order", direction: "asc" }] }],
+  preview: { select: { title: "label", subtitle: "when" } },
+});
+
+export const ritual = defineType({
+  name: "ritual",
+  title: "Ritual (Jam Night)",
+  type: "document",
+  description: "The recurring build night shown on the homepage. Leave a field empty and the site prints [ REAL DATA REQUIRED ].",
+  fields: [
+    defineField({ name: "name", type: "string", initialValue: "Jam Night", validation: (r) => r.required() }),
+    defineField({ name: "day", type: "string", description: "e.g. FRIDAY" }),
+    defineField({ name: "startTime", type: "string", description: "24h, e.g. 19:00" }),
+    defineField({ name: "endTime", type: "string", description: "e.g. UNTIL WE'RE DONE" }),
+    defineField({ name: "venue", type: "string" }),
+    defineField({ name: "bring", type: "array", of: [{ type: "string" }] }),
+    defineField({ name: "experience", type: "string", initialValue: "none" }),
+    defineField({ name: "signupUrl", type: "url" }),
+    defineField({ name: "verification", type: "verification" }),
+  ],
+  preview: { select: { title: "name", subtitle: "day" } },
 });
 
 /** Created by the Collaborate form — read-only for editors. */

@@ -23,10 +23,6 @@ export default async function DexterixPage() {
   return (
     <>
       <header className="relative isolate overflow-hidden bg-bg-sunken pt-[calc(var(--nav-h)+4rem)] pb-24 md:pb-32">
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_85%_10%,color-mix(in_oklab,var(--color-violet)_26%,transparent),transparent_70%),radial-gradient(50%_50%_at_0%_100%,color-mix(in_oklab,var(--color-pulse)_18%,transparent),transparent_70%)]"
-        />
         <div className="container-site">
           <Eyebrow>TechnoJam × Galgotias University · since {first}</Eyebrow>
           <h1 className="rise-lines mt-8 text-[clamp(3rem,12.6vw,14rem)] leading-[0.8] font-black tracking-[-0.05em] uppercase font-wide">

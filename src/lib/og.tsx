@@ -32,7 +32,7 @@ export async function renderOg({
   kicker = "TechnoJam",
   title,
   meta,
-  accent = "#ec3f86",
+  accent = "#a8362a",
 }: {
   kicker?: string;
   title: string;
@@ -62,11 +62,11 @@ export async function renderOg({
         flexDirection: "column",
         justifyContent: "space-between",
         padding: 72,
-        background: "#0b0c10",
-        color: "#f3f0ea",
+        background: "#f1ece1",
+        color: "#1c1b18",
         fontFamily: "Archivo",
         backgroundImage:
-          "linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)",
+          "linear-gradient(to right, rgba(28,27,24,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(28,27,24,0.07) 1px, transparent 1px)",
         backgroundSize: "80px 80px",
       }}
     >
@@ -76,14 +76,14 @@ export async function renderOg({
           <img src={logo} alt="" height={64} width={40} />
           <span style={{ fontSize: 30, fontWeight: 900, letterSpacing: 1 }}>{kickerText}</span>
         </div>
-        <span style={{ fontSize: 22, fontWeight: 500, color: "#a5a3ab", letterSpacing: 3 }}>TECHNOJAM.IN</span>
+        <span style={{ fontSize: 22, fontWeight: 500, color: "#57534a", letterSpacing: 3 }}>DOC TJ-026 · TECHNOJAM.IN</span>
       </div>
       <div style={{ display: "flex", fontSize: size, fontWeight: 900, lineHeight: 0.9, letterSpacing: -3, maxWidth: 1050 }}>
         {upperTitle}
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-        <div style={{ width: 120, height: 8, background: `linear-gradient(90deg, #31a8df, #b06fdc, ${accent})` }} />
-        <span style={{ fontSize: 28, fontWeight: 500, color: "#a5a3ab", letterSpacing: 3 }}>{metaText}</span>
+        <div style={{ width: 120, height: 8, background: accent }} />
+        <span style={{ fontSize: 28, fontWeight: 500, color: "#57534a", letterSpacing: 3 }}>{metaText}</span>
       </div>
     </div>,
     { ...OG_SIZE, fonts: fonts.length ? fonts : undefined },

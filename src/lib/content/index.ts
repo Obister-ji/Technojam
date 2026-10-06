@@ -19,12 +19,14 @@ import type {
   Announcement,
   DexterixEdition,
   Domain,
+  LabFact,
   Metric,
   Milestone,
   Partner,
   Project,
   RecruitmentCycle,
   Resource,
+  Ritual,
   SiteSettings,
   SocialLink,
   TeamYear,
@@ -139,6 +141,16 @@ export const getAchievements = source<Achievement[]>(
 export const getMetrics = source<Metric[]>(
   async () => (await sanityFetch<Metric[]>(Q.metricsQuery, ["metric"])).filter((m) => isPublishable(m.verification)),
   () => seed.metrics.filter((m) => isPublishable(m.verification)),
+);
+
+export const getLabFacts = source<LabFact[]>(
+  async () => (await sanityFetch<LabFact[]>(Q.labFactsQuery, ["labFact"])).filter((f) => isPublishable(f.verification)),
+  () => seed.labFacts.filter((f) => isPublishable(f.verification)),
+);
+
+export const getJamNight = source<Ritual>(
+  async () => (await sanityFetch<Ritual | null>(Q.ritualQuery, ["ritual"])) ?? seed.jamNight,
+  () => seed.jamNight,
 );
 
 /* ---------------- Derived lookups ---------------- */

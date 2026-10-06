@@ -36,7 +36,7 @@ export const domainsQuery = defineQuery(`*[_type == "domain"] | order(order asc)
 }`);
 
 const PROJECT = `{
-  "slug": slug.current, title, summary, "description": description${RICH}, status, year, repository, repoFullName, liveUrl, language,
+  "slug": slug.current, title, summary, "description": description${RICH}, status, statusNote, year, repository, repoFullName, liveUrl, language,
   "stack": coalesce(stack, []),
   "domains": coalesce(domains[]->${DOMAIN_REF}, []),
   "maintainers": coalesce(maintainers[]->${CONSENTED}${PERSON_REF}, []),
@@ -96,7 +96,7 @@ export const dexterixQuery = defineQuery(`*[_type == "dexterixEdition" && define
 const PERSON = `{
   "slug": slug.current, name, "image": image${IMG}, role,
   "domains": coalesce(domains[]->${DOMAIN_REF}, []),
-  batch, tenure, bio, github, linkedin, portfolio,
+  batch, tenure, bio, obsession, lastShipped, askMeAbout, github, linkedin, portfolio,
   "currentMember": coalesce(currentMember, false),
   ${VERIFICATION}
 }`;
@@ -143,4 +143,12 @@ export const metricsQuery = defineQuery(`*[_type == "metric"] | order(order asc)
 
 export const achievementsQuery = defineQuery(`*[_type == "achievement"] | order(date desc){
   title, date, "description": coalesce(description, ""), url, ${VERIFICATION}
+}`);
+
+export const labFactsQuery = defineQuery(`*[_type == "labFact"] | order(order asc){
+  kind, when, label, value, detail, "ours": coalesce(ours, false), ${VERIFICATION}
+}`);
+
+export const ritualQuery = defineQuery(`*[_type == "ritual"][0]{
+  name, day, startTime, endTime, venue, "bring": coalesce(bring, []), experience, signupUrl, ${VERIFICATION}
 }`);

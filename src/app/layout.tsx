@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, JetBrains_Mono } from "next/font/google";
+import { Archivo, JetBrains_Mono, Newsreader } from "next/font/google";
 import Script from "next/script";
 import { RevealObserver } from "@/components/layout/RevealObserver";
 import "./globals.css";
@@ -8,6 +8,15 @@ const archivo = Archivo({
   variable: "--font-archivo",
   subsets: ["latin"],
   axes: ["wdth"],
+  display: "swap",
+});
+
+// Narrative voice: the serif of a printed publication.
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  axes: ["opsz"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -24,8 +33,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0c10",
-  colorScheme: "dark",
+  themeColor: "#f1ece1",
+  colorScheme: "light",
 };
 
 /**
@@ -37,7 +46,7 @@ const JS_FLAG = `(function(d){d.classList.add('js');setTimeout(function(){if(!d.
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-IN" className={`${archivo.variable} ${jetbrains.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={`${archivo.variable} ${newsreader.variable} ${jetbrains.variable}`} suppressHydrationWarning>
       <body className="min-h-dvh">
         <Script id="tj-js-flag" strategy="beforeInteractive">
           {JS_FLAG}

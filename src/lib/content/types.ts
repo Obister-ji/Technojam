@@ -86,6 +86,8 @@ export interface Project {
   summary: string;
   description?: RichText;
   status: ProjectStatus;
+  /** Honest one-liner printed as the status stamp, e.g. STOPPED AT THE PLAN */
+  statusNote?: string;
   year: number;
   repository?: string;
   /** owner/name — used for cached GitHub metadata */
@@ -171,6 +173,10 @@ export interface Person {
   linkedin?: string;
   portfolio?: string;
   currentMember: boolean;
+  /** Maker-card fields: personality over skill badges */
+  obsession?: string;
+  lastShipped?: string;
+  askMeAbout?: string;
   verification?: Verification;
 }
 
@@ -325,5 +331,34 @@ export interface Achievement {
   date?: string;
   description: string;
   url?: string;
+  verification?: Verification;
+}
+
+/* ---------------- The lab story (homepage chapters) ---------------- */
+
+/** A dated, sourced fact about computing in India — timeline or statistic. */
+export interface LabFact {
+  kind: "timeline" | "stat";
+  /** "1995" or "AUG 2026" — printed like an engineering annotation */
+  when: string;
+  label: string;
+  /** Big figure for stats, e.g. "1,092.79 M" */
+  value?: string;
+  detail: string;
+  /** Marks TechnoJam's own milestone on the national timeline */
+  ours?: boolean;
+  verification: Verification;
+}
+
+/** A recurring club ritual, e.g. Jam Night. Empty fields render as [ REAL DATA REQUIRED ]. */
+export interface Ritual {
+  name: string;
+  day?: string;
+  startTime?: string;
+  endTime?: string;
+  venue?: string;
+  bring: string[];
+  experience?: string;
+  signupUrl?: string;
   verification?: Verification;
 }

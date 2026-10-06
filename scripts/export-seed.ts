@@ -180,6 +180,10 @@ seed.partners.forEach((p) =>
   docs.push({ _id: `partner-${p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`, _type: "partner", ...p, verification: ver(p.verification) }),
 );
 
+seed.labFacts.forEach((f, i) => docs.push({ _id: `labfact-${i}`, _type: "labFact", ...f, order: i, verification: ver(f.verification) }));
+
+docs.push({ _id: "ritual-jam-night", _type: "ritual", ...seed.jamNight, verification: ver(seed.jamNight.verification) });
+
 const outDir = join(process.cwd(), "scripts", "out");
 mkdirSync(outDir, { recursive: true });
 const file = join(outDir, "seed.ndjson");
