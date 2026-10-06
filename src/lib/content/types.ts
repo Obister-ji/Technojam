@@ -88,6 +88,8 @@ export interface Project {
   status: ProjectStatus;
   /** Honest one-liner printed as the status stamp, e.g. STOPPED AT THE PLAN */
   statusNote?: string;
+  /** One line, completing “Built because …”. Must be true to the repo/README. */
+  builtBecause?: string;
   year: number;
   repository?: string;
   /** owner/name — used for cached GitHub metadata */

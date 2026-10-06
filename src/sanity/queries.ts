@@ -36,7 +36,7 @@ export const domainsQuery = defineQuery(`*[_type == "domain"] | order(order asc)
 }`);
 
 const PROJECT = `{
-  "slug": slug.current, title, summary, "description": description${RICH}, status, statusNote, year, repository, repoFullName, liveUrl, language,
+  "slug": slug.current, title, summary, "description": description${RICH}, status, statusNote, builtBecause, year, repository, repoFullName, liveUrl, language,
   "stack": coalesce(stack, []),
   "domains": coalesce(domains[]->${DOMAIN_REF}, []),
   "maintainers": coalesce(maintainers[]->${CONSENTED}${PERSON_REF}, []),

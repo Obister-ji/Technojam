@@ -453,6 +453,71 @@
   }
 }
 
+/* ---------- THEN / NOW: one visual turns into another as you scroll ---------- */
+.tn-stage {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+  justify-items: center;
+}
+
+@media (min-width: 48rem) {
+  .tn-stage {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@keyframes tn-out {
+  to {
+    opacity: 0;
+    transform: scale(0.9) translateY(-1rem);
+  }
+}
+@keyframes tn-in {
+  from {
+    opacity: 0;
+    transform: translateY(2.5rem);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .then-now {
+      view-timeline: --tn block;
+      min-height: 230svh;
+    }
+    .then-now .tn-sticky {
+      position: sticky;
+      top: 0;
+      min-height: 100svh;
+    }
+    .then-now .tn-stage {
+      grid-template-columns: 1fr;
+    }
+    .then-now .tn-old,
+    .then-now .tn-new {
+      grid-area: 1 / 1;
+    }
+    .then-now .tn-old {
+      animation: tn-out linear both;
+      animation-timeline: --tn;
+      animation-range: cover 37% cover 50%;
+    }
+    .then-now .tn-new {
+      animation: tn-in linear both;
+      animation-timeline: --tn;
+      animation-range: cover 45% cover 58%;
+    }
+  }
+}
+
+/* Delayed second line on the opening screen */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-late {
+    animation: tj-rise 0.9s var(--ease-out-expo) 1.5s both;
+  }
+}
+
 /* Status pulse */
 @keyframes tj-pulse {
   0%,

@@ -169,6 +169,14 @@ export const project = defineType({
       validation: (r) => r.required(),
     }),
     defineField({
+      name: "builtBecause",
+      title: "Built because…",
+      type: "string",
+      group: "content",
+      description: "One line for the homepage reel. Finish the sentence: Built because …",
+      validation: (r) => r.max(110),
+    }),
+    defineField({
       name: "statusNote",
       type: "string",
       group: "details",

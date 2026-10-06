@@ -3,33 +3,12 @@ import type { ReactNode } from "react";
 import type { ImageAsset } from "@/lib/content/types";
 import { cx } from "@/components/ui/primitives";
 
-export const DOC_ID = "TJ-026";
-
 /** The honest placeholder. Never replaced by invented content. */
 export function DataRequired({ what }: { what?: string }) {
   return (
     <span className="data-required" title={what ? `Needed: ${what}` : undefined}>
       [ REAL DATA REQUIRED ]{what ? <span className="sr-only"> — {what}</span> : null}
     </span>
-  );
-}
-
-/**
- * Document header that opens every chapter:
- * ⊕ CH.03 — INFRASTRUCTURE ············ TJ-026 · REV 3 · P.04
- */
-export function ChapterHead({ n, title, page }: { n: number; title: string; page?: number }) {
-  return (
-    <div className="flex items-center gap-4 border-t border-fg pt-3 font-mono text-[0.72rem] tracking-[0.12em] uppercase">
-      <span aria-hidden className="reg-mark shrink-0" />
-      <span>
-        CH.{String(n).padStart(2, "0")} — {title}
-      </span>
-      <span aria-hidden className="h-px flex-1 border-t border-dotted border-fg/40" />
-      <span className="hidden text-fg-muted sm:inline">
-        {DOC_ID} · REV {n} · P.{String(page ?? n + 1).padStart(2, "0")}
-      </span>
-    </div>
   );
 }
 
@@ -95,22 +74,5 @@ export function Plate({ image, shot, caption, className }: { image?: ImageAsset;
       )}
       {caption ? <figcaption className="mt-2 font-mono text-[0.7rem] tracking-wide text-fg-muted uppercase">{caption}</figcaption> : null}
     </figure>
-  );
-}
-
-/** Small source line under a fact — provenance without noise. */
-export function Cite({ name, url }: { name: string; url?: string }) {
-  return (
-    <span className="font-mono text-[0.68rem] tracking-wide text-fg-subtle">
-      SRC:{" "}
-      {url ? (
-        <a href={url} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-fg">
-          {name}
-          <span className="sr-only"> (opens in a new tab)</span>
-        </a>
-      ) : (
-        name
-      )}
-    </span>
   );
 }

@@ -129,7 +129,7 @@ Integrity rules baked into the model:
 
 ## 9. Design direction — “The Young Indian Computer Lab”
 
-The homepage is a document (TJ-026) in eleven chapters. It starts in India's 1984–1995 computer-lab era and ends with today's connected India and the people who choose to understand it. The history is the prologue; the subject is the students.
+The homepage is nine screens for a fast-scrolling audience: **one screen = one idea = one strong line + one visual + one small interaction.** Opening (WE OPEN IT.) → Then/Now (CRT turns into a phone on scroll) → Question → Project reel (one project per screen) → Jam Night → People strip → The lab is alive (real GitHub feed) → Archive flash (collage of real artifacts) → Make something worth remembering. Rhythm alternates quiet and loud screens; motion is limited to reveals, the CRT power-on, the scroll crossfade, the teletype feed and a few-pixel cursor drift on the collage.
 
 - **Palette:** aged copier paper , printer ink , beige hardware . One technological accent, CRT phosphor green ( printed,  on glass), and one physical accent, rubber-stamp red . No gradients, no glass. All text ≥ 4.5:1.
 - **Type, three voices:** Archivo (wide, black) for statements; Newsreader serif for narrative; JetBrains Mono only for metadata, timestamps and terminal output.

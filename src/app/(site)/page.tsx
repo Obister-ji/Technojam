@@ -1,16 +1,29 @@
-import type { ArchiveYear, Artifact } from "@/components/lab/Archive";
-import { JamNight, Shipped, TechnoJamChapter } from "@/components/lab/Club";
-import { Archive, LabOpen, People, Relay, Transmission } from "@/components/lab/Epilogue";
-import { Access, Boot, Connection, Infrastructure } from "@/components/lab/Prologue";
+import { ArchiveFlash, type Scrap } from "@/components/lab/ArchiveFlash";
+import { PeopleStrip, type Maker } from "@/components/lab/PeopleStrip";
+import { ProjectReel } from "@/components/lab/ProjectReel";
+import { Final, JamNightScreen, Opening, Question, ThenNow } from "@/components/lab/Screens";
+import { TransmissionLog } from "@/components/lab/Transmission";
 import { getEvents, getJamNight, getLabFacts, getProjects, getRecruitmentCycles, getSiteSettings, getTeamYears } from "@/lib/content";
-import { formatDateRange, formatStamp } from "@/lib/content/derive";
+import { EVENT_TYPE_LABEL, formatStamp } from "@/lib/content/derive";
 import { getOrgActivity } from "@/lib/github";
 
 export const revalidate = 3600;
 
-/** Projects featured in CH.06, in this order when present. */
-const SHIPPED = ["dexterix-5-0-platform", "techxpo-registration", "cryptic-hunt", "deepfake-detection"];
-const ARCHIVE_YEARS = [2022, 2023, 2024, 2025, 2026];
+/** The reel, in order — real repositories with a true “built because”. */
+const REEL = ["dexterix-5-0-platform", "techxpo-registration", "tj-tasks-2026", "cryptic-hunt", "deepfake-detection"];
+
+/** Until members add themselves, the strip shows one honest frame per real 2026 track. */
+const OPEN_FRAMES: Maker[] = [
+  { key: "hardware", builds: "hardware / robotics & IoT" },
+  { key: "web", builds: "web" },
+  { key: "design", builds: "design / UI·UX" },
+  { key: "ai", builds: "AI" },
+  { key: "games", builds: "game dev" },
+  { key: "dsa", builds: "DSA" },
+];
+
+const IST_TIME = (iso: string) =>
+  new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata" });
 
 export default async function HomePage() {
   const [settings, facts, ritual, projects, events, cycles, teams] = await Promise.all([
@@ -24,39 +37,47 @@ export default async function HomePage() {
   ]);
   const activity = await getOrgActivity(settings.githubOrg);
 
-  const timeline = facts.filter((f) => f.kind === "timeline");
-  const stats = facts.filter((f) => f.kind === "stat");
-  const accessFact = timeline.find((f) => f.when.includes("1995"));
+  const then = facts.find((f) => f.kind === "timeline" && f.when.includes("1995"));
+  const now = facts.find((f) => f.kind === "stat");
+  const reel = REEL.map((slug) => projects.find((p) => p.slug === slug)).filter((p) => p !== undefined);
 
-  const shipped = SHIPPED.map((slug) => projects.find((p) => p.slug === slug)).filter((p) => p !== undefined);
-  const people = (teams.find((t) => t.current) ?? teams[0])?.members.map((m) => m.person) ?? [];
+  const members = (teams.find((t) => t.current) ?? teams[0])?.members ?? [];
+  const makers: Maker[] = members.length
+    ? members.map(({ person }) => ({
+        key: person.slug,
+        name: person.name,
+        builds: person.domains[0]?.title ?? person.role ?? "",
+        detail: person.obsession ? `currently obsessed with ${person.obsession}` : person.askMeAbout,
+        image: person.image,
+      }))
+    : OPEN_FRAMES;
 
-  // CH.08 — only artifacts we can prove, filed by year
-  const archive: ArchiveYear[] = ARCHIVE_YEARS.map((year) => {
-    const artifacts: Artifact[] = [
-      ...events
-        .filter((e) => e.startDate.startsWith(String(year)))
-        .map((e) => ({
-          kind: e.type === "hackathon" ? ("HACKATHON" as const) : ("EVENT" as const),
-          title: e.title,
-          date: formatDateRange(e.startDate, e.endDate),
-          href: `/events/${e.slug}`,
-        })),
-      ...projects
-        .filter((p) => p.year === year)
-        .map((p) => ({ kind: "PROJECT" as const, title: p.title, date: String(p.year), href: `/projects/${p.slug}` })),
-      ...cycles
-        .filter((c) => c.year === year && c.tasksRepository)
-        .map((c) => ({
-          kind: "RECRUITMENT" as const,
-          title: c.title,
-          date: c.deadline ? `deadline ${formatStamp(c.deadline)}` : String(c.year),
-          href: c.tasksRepository!,
-          external: true,
-        })),
-    ];
-    return { year, artifacts };
-  });
+  // Archive flash: only real artifacts — event posters, GitHub slips, recruitment tags.
+  const posters: Scrap[] = events.slice(0, 8).map((e) => ({
+    kind: "poster",
+    title: e.title,
+    date: formatStamp(e.startDate),
+    tag: EVENT_TYPE_LABEL[e.type],
+    href: `/events/${e.slug}`,
+  }));
+  const slips: Scrap[] = activity
+    .slice(0, 4)
+    .map((a) => ({ kind: "slip", line: `${IST_TIME(a.at)}  ${a.who} ${a.verb} / ${a.repo}`, href: a.url }));
+  const tags: Scrap[] = cycles
+    .filter((c) => c.tasksRepository)
+    .map((c) => ({
+      kind: "tag",
+      line: `${c.tasksRepository!.split("/").pop()}${c.deadline ? ` · due ${formatStamp(c.deadline)}` : ""}`,
+      href: c.tasksRepository!,
+    }));
+  const scraps: Scrap[] = [];
+  for (let i = 0; i < posters.length || slips.length || tags.length; i++) {
+    const p = posters.shift();
+    const s = i % 2 === 0 ? slips.shift() : undefined;
+    const t = i % 3 === 1 ? tags.shift() : undefined;
+    for (const x of [p, s, t]) if (x) scraps.push(x);
+    if (!posters.length && i > 12) break;
+  }
 
   const syncedAt = new Date().toLocaleString("en-GB", {
     day: "2-digit",
@@ -67,20 +88,31 @@ export default async function HomePage() {
   });
 
   return (
-    // Rotated paper (notices, relay sheets) must never widen the page on phones.
+    // Rotated paper must never widen the page on phones.
     <div className="overflow-x-clip">
-      <Boot institution={settings.institution} />
-      <Access fact={accessFact} />
-      <Connection timeline={timeline} />
-      <Infrastructure stats={stats} />
-      <TechnoJamChapter />
-      <JamNight ritual={ritual} />
-      <Shipped projects={shipped} />
-      <Transmission lines={activity} org={settings.githubOrg} syncedAt={syncedAt} />
-      <Archive years={archive} />
-      <People people={people} />
-      <Relay cycles={cycles} />
-      <LabOpen />
+      {/* quiet */}
+      <Opening foundedYear={settings.foundedYear} />
+      {/* visual moment */}
+      <ThenNow then={then} now={now} />
+      {/* quiet */}
+      <Question />
+      {/* real work */}
+      <ProjectReel projects={reel} />
+      {/* photograph */}
+      <JamNightScreen ritual={ritual} />
+      {/* people */}
+      <PeopleStrip makers={makers} />
+      {/* interactive moment */}
+      <section aria-labelledby="live-title" className="container-site flex min-h-[90svh] flex-col justify-center gap-10 py-24">
+        <h2 id="live-title" className="text-[clamp(2.4rem,6.5vw,6.5rem)] leading-[0.9] font-black tracking-[-0.04em] uppercase font-wide">
+          The lab is alive.
+        </h2>
+        <TransmissionLog lines={activity} org={settings.githubOrg} syncedAt={syncedAt} />
+      </section>
+      {/* visual explosion */}
+      <ArchiveFlash scraps={scraps} />
+      {/* quiet ending */}
+      <Final />
     </div>
   );
 }

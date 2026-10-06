@@ -25,6 +25,7 @@ export const projects: Project[] = [
     ...base,
     ...gh("Dexterix-5.0"),
     slug: "dexterix-5-0-platform",
+    builtBecause: "Dexterix 5.0 needed a site — and a hub where teams could pick a challenge.",
     title: "Dexterix 5.0 platform",
     summary:
       "The site and team hub for Dexterix 5.0 — schedule, prizes, and a hub where teams managed participation and picked challenges.",
@@ -46,6 +47,7 @@ export const projects: Project[] = [
     ...base,
     ...gh("TechXPO-Registration"),
     slug: "techxpo-registration",
+    builtBecause: "TechXPO 2026 had thirteen kinds of events and one registration desk.",
     title: "TechXPO registration",
     summary:
       "An event registration platform built for TechXPO 2026 — custom form builder, admin dashboard, CSV export and 13 event categories.",
@@ -65,6 +67,7 @@ export const projects: Project[] = [
     ...base,
     ...gh("TJ-TASKS-2026"),
     slug: "tj-tasks-2026",
+    builtBecause: "recruitment should happen in the open: tasks on GitHub, answers on GitHub.",
     title: "TJ-TASKS-2026",
     summary: "Recruitment, in the open: tiered tasks across eleven domains, from balanced brackets to voice agents and Solana programs.",
     description: [
@@ -110,6 +113,7 @@ export const projects: Project[] = [
     ...base,
     ...gh("cryptic-hunt"),
     slug: "cryptic-hunt",
+    builtBecause: "a multi-round puzzle hunt needed somewhere to run.",
     title: "Cryptic Hunt",
     summary: "A multi-round online puzzle hunt platform with authentication and a live quiz flow.",
     status: "event",
@@ -194,6 +198,7 @@ export const projects: Project[] = [
     ...base,
     ...gh("Ultimate_Algorithms_Repository"),
     slug: "ultimate-algorithms-repository",
+    builtBecause: "Hacktoberfest needed a place for everyone's first algorithm.",
     title: "Ultimate Algorithms Repository",
     summary: "A community-built collection of data structures and algorithms, grown largely through Hacktoberfest contributions.",
     status: "archived",
@@ -208,6 +213,7 @@ export const projects: Project[] = [
     ...base,
     ...gh("deepfake_project"),
     slug: "deepfake-detection",
+    builtBecause: "someone wanted to tell a deepfake from the real thing.",
     title: "Deepfake detection",
     summary: "An experiment to tell deepfakes from original video and images. It reached the planning and data-collection stage in 2020.",
     description: [
