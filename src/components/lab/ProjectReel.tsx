@@ -81,7 +81,7 @@ export function ProjectReel({ projects }: { projects: Project[] }) {
                 <p className="font-mono text-sm tracking-[0.1em] text-fg-muted">
                   {String(i + 1).padStart(2, "0")} / {p.year}
                 </p>
-                <h3 className="mt-3 text-[clamp(2.2rem,5vw,4.5rem)] leading-[0.9] font-black tracking-[-0.03em] uppercase font-wide">
+                <h3 className="mt-3 text-[clamp(1.75rem,3.2vw,3rem)] leading-[0.9] font-black tracking-[-0.03em] uppercase font-wide">
                   {p.title}
                 </h3>
                 <p className="mt-6 max-w-md font-serif text-[clamp(1.25rem,2vw,1.6rem)] leading-snug">

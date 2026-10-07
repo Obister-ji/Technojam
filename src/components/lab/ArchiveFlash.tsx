@@ -46,7 +46,7 @@ export function ArchiveFlash({ scraps }: { scraps: Scrap[] }) {
       <div className="container-site">
         <h2
           id="archive-title"
-          className="text-[clamp(2.4rem,6.5vw,6.5rem)] leading-[0.9] font-black tracking-[-0.04em] uppercase font-wide"
+          className="text-[clamp(1.9rem,4.2vw,4rem)] leading-[0.9] font-black tracking-[-0.04em] uppercase font-wide"
         >
           We leave
           <br />

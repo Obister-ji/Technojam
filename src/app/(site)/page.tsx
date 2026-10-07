@@ -104,7 +104,7 @@ export default async function HomePage() {
       <PeopleStrip makers={makers} />
       {/* interactive moment */}
       <section aria-labelledby="live-title" className="container-site flex min-h-[90svh] flex-col justify-center gap-10 py-24">
-        <h2 id="live-title" className="text-[clamp(2.4rem,6.5vw,6.5rem)] leading-[0.9] font-black tracking-[-0.04em] uppercase font-wide">
+        <h2 id="live-title" className="text-[clamp(1.9rem,4.2vw,4rem)] leading-[0.9] font-black tracking-[-0.04em] uppercase font-wide">
           The lab is alive.
         </h2>
         <TransmissionLog lines={activity} org={settings.githubOrg} syncedAt={syncedAt} />

@@ -45,7 +45,7 @@ export function Opening({ foundedYear }: { foundedYear: number }) {
       </p>
 
       <div className="flex flex-1 flex-col items-start justify-center gap-14 py-12 lg:flex-row lg:items-center lg:justify-between">
-        <h1 id="open-title" className={`${giant} text-[clamp(2.6rem,7vw,7rem)]`}>
+        <h1 id="open-title" className={`${giant} text-[clamp(2rem,4.4vw,4.4rem)]`}>
           <span className="rise block">We don&apos;t just use technology.</span>
           <span className="reveal-late mt-4 block text-pulse">We open it.</span>
         </h1>
@@ -65,12 +65,12 @@ export function ThenNow({ then, now }: { then?: LabFact; now?: LabFact }) {
       <div className="tn-sticky container-site flex flex-col justify-center gap-12 py-20">
         <div className="tn-stage">
           <div className="tn-old flex w-full flex-col items-center gap-8 text-center">
-            <p className={`${giant} text-[clamp(2.2rem,5.6vw,5.5rem)]`}>Computers used to be rare.</p>
+            <p className={`${giant} text-[clamp(1.7rem,3.6vw,3.4rem)]`}>Computers used to be rare.</p>
             <CrtMonitor lines={["LAB 2 — ONE MACHINE", "NEXT SLOT ....... 45 MIN"]} prompt="C:\> wait" />
             {then ? <Meta fact={then} /> : null}
           </div>
           <div className="tn-new flex w-full flex-col items-center gap-8 text-center">
-            <p className={`${giant} text-[clamp(2.2rem,5.6vw,5.5rem)]`}>
+            <p className={`${giant} text-[clamp(1.7rem,3.6vw,3.4rem)]`}>
               Now there&apos;s one in <span className="text-pulse">every pocket.</span>
             </p>
             <Phone />
@@ -123,7 +123,7 @@ function Phone() {
 export function Question() {
   return (
     <section aria-labelledby="q-title" className={screen}>
-      <h2 id="q-title" data-reveal="lines" className={`${giant} text-[clamp(3rem,10vw,10rem)]`}>
+      <h2 id="q-title" data-reveal="lines" className={`${giant} text-[clamp(2.4rem,6.2vw,6rem)]`}>
         <span className="line">
           <span>So what</span>
         </span>
@@ -161,7 +161,7 @@ export function JamNightScreen({ ritual }: { ritual: Ritual }) {
               </>
             )}
           </p>
-          <h2 id="jam-title" className={`${giant} mt-3 text-[clamp(4rem,14vw,11rem)] leading-[0.82]`}>
+          <h2 id="jam-title" className={`${giant} mt-3 text-[clamp(2.8rem,8vw,6.5rem)] leading-[0.82]`}>
             Jam night
           </h2>
           <p className="mt-5 font-serif text-2xl italic">Bring something unfinished.</p>
@@ -180,7 +180,7 @@ export function JamNightScreen({ ritual }: { ritual: Ritual }) {
 export function Final() {
   return (
     <section aria-labelledby="final-title" className={screen}>
-      <h2 id="final-title" data-reveal="lines" className={`${giant} text-[clamp(2.8rem,9vw,9rem)]`}>
+      <h2 id="final-title" data-reveal="lines" className={`${giant} text-[clamp(2.1rem,5.4vw,5.25rem)]`}>
         <span className="line">
           <span>Make something</span>
         </span>

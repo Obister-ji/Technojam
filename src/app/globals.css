@@ -34,9 +34,9 @@
   --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
 
-  --text-display-xl: clamp(3.25rem, 12.5vw, 12rem);
+  --text-display-xl: clamp(2.6rem, 8vw, 8rem);
   --text-display-xl--line-height: 0.86;
-  --text-display: clamp(2.3rem, 7.6vw, 7.25rem);
+  --text-display: clamp(2.1rem, 5.4vw, 5.25rem);
   --text-display--line-height: 0.9;
   --text-headline: clamp(1.75rem, 3.6vw, 3.25rem);
   --text-headline--line-height: 1;
