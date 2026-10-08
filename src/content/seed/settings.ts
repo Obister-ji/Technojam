@@ -6,7 +6,7 @@ export const siteSettings: SiteSettings = {
   tagline: "Throttle to Learn",
   positioning: "Where curious students become builders.",
   description:
-    "TechnoJam is the student-led technical community of the School of Computing Science & Engineering at Galgotias University. We learn technology by building it — projects, hackathons, workshops, open source and Dexterix.",
+    "TechnoJam is a student tech club and a community for curious people. Hackathons, open source, robots, AI and games — that's our stuff.",
   foundedYear: 2015,
   institution: "Galgotias University",
   school: "School of Computing Science & Engineering",

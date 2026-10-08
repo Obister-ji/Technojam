@@ -54,7 +54,7 @@ export function SectionHeading({
           data-reveal="lines"
           className={cx(
             "mt-4 font-extrabold tracking-[-0.03em] uppercase",
-            size === "display" ? "text-display font-wide" : "text-headline font-wide",
+            size === "display" ? "font-wide text-display" : "font-wide text-headline",
           )}
         >
           <Lines text={title} />
@@ -81,10 +81,11 @@ type ButtonProps = {
 export function ButtonLink({ href, children, variant = "primary", external, className, ...rest }: ButtonProps) {
   const isExternal = external ?? /^(https?:|mailto:)/.test(href);
   const classes = cx(
-    "group inline-flex min-h-12 items-center justify-center gap-3 px-6 text-[0.95rem] font-semibold transition-colors duration-300",
-    variant === "primary" && "bg-fg text-bg hover:bg-pulse hover:text-bg",
-    variant === "secondary" && "border border-line-strong text-fg hover:border-fg hover:bg-fg/5",
-    variant === "ghost" && "px-0 text-fg underline decoration-line-strong underline-offset-8 hover:decoration-pulse",
+    "group",
+    variant === "primary" && "btn-pixel",
+    variant === "secondary" && "btn-ghost",
+    variant === "ghost" &&
+      "inline-flex min-h-12 items-center gap-3 font-semibold text-fg underline decoration-line-strong underline-offset-8 transition-colors hover:decoration-pulse",
     className,
   );
   const icon = isExternal ? (

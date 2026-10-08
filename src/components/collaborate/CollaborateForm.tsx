@@ -66,7 +66,7 @@ export function CollaborateForm({ email }: { email: string }) {
     return (
       <div role="status" className="border border-line-strong p-8">
         <p className="label-mono text-pulse">Received</p>
-        <p className="mt-4 text-3xl font-extrabold uppercase font-wide">Thanks — we&apos;ll be in touch.</p>
+        <p className="mt-4 font-wide text-3xl font-extrabold uppercase">Thanks — we&apos;ll be in touch.</p>
         <p className="mt-3 text-fg-muted">A TechnoJam lead will reply by email. For anything urgent, write to {email}.</p>
       </div>
     );
@@ -167,11 +167,7 @@ export function CollaborateForm({ email }: { email: string }) {
       ) : null}
 
       <div className="flex flex-wrap items-center gap-6">
-        <button
-          type="submit"
-          disabled={state.kind === "sending"}
-          className="group inline-flex min-h-12 items-center gap-3 bg-fg px-6 font-semibold text-bg transition-colors hover:bg-pulse disabled:opacity-60"
-        >
+        <button type="submit" disabled={state.kind === "sending"} className="btn-pixel group disabled:opacity-60">
           {state.kind === "sending" ? "Sending…" : "Send inquiry"}
           <ArrowRight className="transition-transform group-hover:translate-x-1" />
         </button>

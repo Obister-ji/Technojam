@@ -120,10 +120,7 @@ export default function TechnoJamConsole({ index, data, onClose }: { index: Sear
       case "about":
       case "whoami":
         if (cmd.toLowerCase() === "whoami") return print("out", "guest — but that's easy to change. Try `join`.");
-        print(
-          "out",
-          "TechnoJam is the student-led technical community at Galgotias University's School of Computing Science & Engineering.",
-        );
+        print("out", "TechnoJam is a student tech club and a community for curious people.");
         print("out", "We learn technology by building it: projects, hackathons, workshops, open source — and Dexterix.");
         return;
       case "projects":

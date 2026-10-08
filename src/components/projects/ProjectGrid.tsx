@@ -24,7 +24,7 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
   const chip = (active: boolean) =>
     cx(
       "label-mono h-9 border px-3 transition-colors",
-      active ? "border-fg bg-fg text-bg" : "border-line text-fg-muted hover:border-line-strong hover:text-fg",
+      active ? "border-cyan bg-cyan text-bg" : "border-line text-fg-muted hover:border-line-strong hover:text-fg",
     );
 
   return (

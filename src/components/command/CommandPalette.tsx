@@ -3,7 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useId, useMemo, useState, type KeyboardEvent } from "react";
 import { search, type SearchGroup, type SearchItem } from "@/lib/search/types";
-import { ArrowRight, ArrowUpRight, Search, Terminal } from "@/components/ui/Icon";
+import { ArrowRight, ArrowUpRight, Terminal } from "@/components/ui/Icon";
+import { PixelGlass } from "@/components/vibe/SearchTrigger";
 import { useModalDialog } from "./useModalDialog";
 
 const GROUP_ORDER: SearchGroup[] = ["Actions", "Pages", "Projects", "Events", "Dexterix", "Domains", "People", "Resources"];
@@ -59,9 +60,12 @@ export default function CommandPalette({
       aria-label="Search TechnoJam"
       className="m-0 mx-auto mt-[8vh] w-[min(42rem,calc(100vw-2rem))] max-w-none bg-transparent p-0 text-fg backdrop:bg-bg/80 backdrop:backdrop-blur-sm"
     >
-      <div className="border border-line-strong bg-bg-raised shadow-2xl shadow-black/60">
-        <div className="flex items-center gap-3 border-b border-line px-4">
-          <Search className="size-5 shrink-0 text-fg-muted" />
+      <div className="pixel-panel border-2 border-cyan/60 shadow-[0_0_60px_-12px_rgb(59_227_255/0.45)]">
+        <div className="flex items-center gap-3 border-b-2 border-line px-4 font-mono">
+          <PixelGlass className="size-4 shrink-0 text-cyan" />
+          <span aria-hidden className="shrink-0 text-pulse">
+            find
+          </span>
           <input
             autoFocus
             role="combobox"
@@ -70,28 +74,34 @@ export default function CommandPalette({
             aria-activedescendant={results[active] ? optionId(active) : undefined}
             aria-autocomplete="list"
             aria-label="Search pages, projects, events, domains and people"
-            placeholder="Search pages, projects, events, people…"
+            placeholder="projects, events, people…"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
               setActive(0);
             }}
             onKeyDown={onKeyDown}
-            className="h-14 w-full bg-transparent text-lg outline-none placeholder:text-fg-subtle"
+            className="h-14 w-full bg-transparent text-lg caret-cyan outline-none placeholder:text-fg-subtle"
           />
-          <kbd className="hidden border border-line px-1.5 py-0.5 label-mono text-fg-subtle sm:block">ESC</kbd>
+          <kbd className="hidden border border-b-[3px] border-line-strong px-1.5 py-px font-pixel text-[0.58rem] text-fg-muted sm:block">
+            esc
+          </kbd>
         </div>
 
         <ul id={listId} role="listbox" aria-label="Results" className="max-h-[min(60vh,32rem)] overflow-y-auto overscroll-contain p-2">
           {results.length === 0 ? (
             <li className="px-3 py-10 text-center text-fg-muted" role="presentation">
-              No matches for “{query}”. Try a domain, an event or a year.
+              404: nothing for “{query}”. Try a domain, an event or a year.
             </li>
           ) : null}
           {results.map((item, i) => {
             const header =
               item.group !== results[i - 1]?.group ? (
-                <li key={`h-${item.group}`} role="presentation" className="px-3 pt-3 pb-1.5 label-mono text-fg-subtle">
+                <li
+                  key={`h-${item.group}`}
+                  role="presentation"
+                  className="px-3 pt-3 pb-1.5 font-pixel text-[0.62rem] tracking-[0.08em] text-pulse uppercase"
+                >
                   {item.group}
                 </li>
               ) : null;
@@ -105,9 +115,11 @@ export default function CommandPalette({
                 aria-selected={selected}
                 onMouseMove={() => setActive(i)}
                 onClick={() => go(item)}
-                className={`flex cursor-pointer items-center gap-3 px-3 py-2.5 ${selected ? "bg-surface-hover" : ""}`}
+                className={`flex cursor-pointer items-center gap-3 px-3 py-2.5 transition-colors ${selected ? "bg-cyan/10" : ""}`}
               >
-                <span className={`h-5 w-0.5 shrink-0 ${selected ? "bg-pulse" : "bg-transparent"}`} aria-hidden />
+                <span className={`w-3 shrink-0 font-pixel text-xs ${selected ? "text-cyan" : "text-transparent"}`} aria-hidden>
+                  ▶
+                </span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate font-medium">{item.title}</span>
                   {item.subtitle ? <span className="block truncate text-sm text-fg-muted">{item.subtitle}</span> : null}
@@ -115,14 +127,14 @@ export default function CommandPalette({
                 {item.external ? (
                   <ArrowUpRight className="shrink-0 text-fg-subtle" />
                 ) : (
-                  <ArrowRight className={`shrink-0 ${selected ? "text-fg" : "text-fg-subtle"}`} />
+                  <ArrowRight className={`shrink-0 ${selected ? "text-cyan" : "text-fg-subtle"}`} />
                 )}
               </li>,
             ];
           })}
         </ul>
 
-        <div className="flex items-center justify-between gap-4 border-t border-line px-4 py-2.5">
+        <div className="flex items-center justify-between gap-4 border-t-2 border-line px-4 py-2.5">
           <p className="hidden label-mono text-fg-subtle sm:block">↑↓ navigate · ↵ open</p>
           <button
             type="button"
@@ -130,7 +142,7 @@ export default function CommandPalette({
               onClose();
               setTimeout(onOpenConsole, 0);
             }}
-            className="inline-flex items-center gap-2 label-mono text-fg-muted hover:text-fg"
+            className="inline-flex items-center gap-2 label-mono text-phosphor hover:text-fg"
           >
             <Terminal className="size-4" /> Open console
           </button>

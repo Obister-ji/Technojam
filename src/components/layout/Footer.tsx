@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ConsoleButton } from "@/components/command/ConsoleButton";
 import type { SiteSettings } from "@/lib/content/types";
 import { JOIN_NAV, PRIMARY_NAV, SECONDARY_NAV } from "@/lib/nav";
 
@@ -7,18 +6,19 @@ export function Footer({ settings }: { settings: SiteSettings }) {
   const navigation = [...PRIMARY_NAV, JOIN_NAV, ...SECONDARY_NAV];
   const socials = settings.socials.filter((s) => s.platform !== "email");
   return (
-    <footer className="relative mt-24 border-t border-line bg-bg-sunken cv-auto">
+    <footer className="relative border-t-2 border-cyan/40 bg-bg-raised cv-auto">
       <div className="container-site py-16">
         <div className="grid gap-12 md:grid-cols-2">
           <div>
-            <p className="text-headline font-black tracking-[-0.03em] uppercase font-wide">
-              Throttle to learn<span className="text-pulse">.</span>
+            <p className="font-pixel text-headline uppercase">
+              Throttle to <span className="text-cyan">learn</span>
+              <span className="text-pulse">.</span>
             </p>
             <p className="mt-4 text-fg-muted">Built by students who probably broke production at least once.</p>
             <p className="mt-8 text-sm leading-relaxed text-fg-muted">
-              {settings.school}, {settings.institution}, {settings.location}
+              {settings.location}
               <br />
-              <a href={`mailto:${settings.email}`} className="break-all text-fg hover:text-pulse">
+              <a href={`mailto:${settings.email}`} className="break-all text-fg hover:text-cyan">
                 {settings.email}
               </a>
             </p>
@@ -47,13 +47,6 @@ export function Footer({ settings }: { settings: SiteSettings }) {
               ))}
             </ul>
           </div>
-        </div>
-
-        <div className="crt mt-14 flex flex-wrap items-center justify-between gap-4 rounded-[14px] px-5 py-4 text-sm">
-          <ConsoleButton />
-          <p className="font-mono text-[0.75rem] text-fg-muted">
-            Est. {settings.foundedYear} · © {new Date().getFullYear()} {settings.name}
-          </p>
         </div>
       </div>
     </footer>

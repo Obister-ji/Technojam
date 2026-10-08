@@ -12,7 +12,7 @@ export default function GlobalNotFound() {
         404<span className="text-pulse">.</span>
       </h1>
       <p className="max-w-lg text-lg text-fg-muted">This page doesn&apos;t exist — or someone broke production.</p>
-      <Link href="/" className="inline-flex min-h-12 w-fit items-center bg-fg px-6 font-semibold text-bg hover:bg-pulse">
+      <Link href="/" className="btn-pixel w-fit">
         Back to home →
       </Link>
     </main>

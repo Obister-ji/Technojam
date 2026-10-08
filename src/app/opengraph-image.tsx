@@ -5,5 +5,5 @@ export const size = OG_SIZE;
 export const contentType = "image/png";
 
 export default function Image() {
-  return renderOg({ title: "Throttle to learn.", meta: "Student-led tech community · Galgotias University" });
+  return renderOg({ title: "Throttle to learn.", meta: "Student tech club · community for curious people" });
 }

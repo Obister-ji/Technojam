@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "TechnoJam — Throttle to Learn",
     short_name: "TechnoJam",
-    description: "The student-led technical community at Galgotias University.",
+    description: "A student tech club and a community for curious people.",
     start_url: "/",
     display: "standalone",
     background_color: "#f1ece1",

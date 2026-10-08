@@ -1,22 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, JetBrains_Mono, Newsreader } from "next/font/google";
+import { JetBrains_Mono, Silkscreen, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import { RevealObserver } from "@/components/layout/RevealObserver";
 import "./globals.css";
 
-const archivo = Archivo({
-  variable: "--font-archivo",
+// Body voice: a geometric grotesk that reads well small on dark.
+const grotesk = Space_Grotesk({
+  variable: "--font-grotesk",
   subsets: ["latin"],
-  axes: ["wdth"],
   display: "swap",
 });
 
-// Narrative voice: the serif of a printed publication.
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
+// Display voice: chunky 8-bit capitals, like a game title screen.
+const pixel = Silkscreen({
+  variable: "--font-silkscreen",
+  weight: ["400", "700"],
   subsets: ["latin"],
-  axes: ["opsz"],
-  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -33,8 +32,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f1ece1",
-  colorScheme: "light",
+  themeColor: "#05050b",
+  colorScheme: "dark",
 };
 
 /**
@@ -46,7 +45,7 @@ const JS_FLAG = `(function(d){d.classList.add('js');setTimeout(function(){if(!d.
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-IN" className={`${archivo.variable} ${newsreader.variable} ${jetbrains.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={`${grotesk.variable} ${pixel.variable} ${jetbrains.variable}`} suppressHydrationWarning>
       <body className="min-h-dvh">
         <Script id="tj-js-flag" strategy="beforeInteractive">
           {JS_FLAG}

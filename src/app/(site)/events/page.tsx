@@ -1,4 +1,4 @@
-import { EventList } from "@/components/events/EventList";
+import { EventTimeline } from "@/components/events/EventTimeline";
 import { EventCard } from "@/components/events/EventRow";
 import { EmptyState, ExternalLink } from "@/components/ui/primitives";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -56,11 +56,11 @@ export default async function EventsPage() {
       </section>
 
       <section aria-labelledby="past-title" className="container-site mt-28">
-        <h2 id="past-title" className="text-headline font-black tracking-[-0.03em] uppercase font-wide">
+        <h2 id="past-title" className="font-wide text-headline font-black tracking-[-0.03em] uppercase">
           Past events
         </h2>
         <div className="mt-8">
-          <EventList events={past} />
+          <EventTimeline events={past} />
         </div>
       </section>
     </>

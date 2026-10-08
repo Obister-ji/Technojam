@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { track } from "@/lib/analytics";
 import type { SearchItem } from "@/lib/search/types";
+import { useAchievements } from "@/components/vibe/Achievements";
 import type { ConsoleData } from "./TechnoJamConsole";
 
 // Both overlays are code-split: they cost nothing until someone opens them.
@@ -30,6 +31,7 @@ export function ChromeProvider({ consoleData, children }: { consoleData: Console
   const [overlay, setOverlay] = useState<Overlay>(null);
   const [index, setIndex] = useState<SearchItem[]>([]);
   const requested = useRef(false);
+  const { unlock } = useAchievements();
 
   // The search index is a static JSON file, loaded on first open only.
   const loadIndex = useCallback(() => {
@@ -48,8 +50,9 @@ export function ChromeProvider({ consoleData, children }: { consoleData: Console
       loadIndex();
       setOverlay(which);
       track(which === "palette" ? "command_palette_open" : "console_open");
+      if (which === "console") unlock("terminal");
     },
-    [loadIndex],
+    [loadIndex, unlock],
   );
   const openPalette = useCallback(() => open("palette"), [open]);
   const openConsole = useCallback(() => open("console"), [open]);

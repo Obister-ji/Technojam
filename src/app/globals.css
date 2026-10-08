@@ -1,63 +1,64 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   TechnoJam — The Young Indian Computer Lab
-   Aged copier paper, printer ink, beige hardware. One technological
-   accent (CRT phosphor green) and one physical accent (rubber-stamp red).
-   No gradients, no glass.
+   TechnoJam — Night Shift
+   Deep space, 8-bit type, the logo's cyan → violet → pink as light.
+   It should feel like a game title screen at 2am: dark, glowing,
+   a little playful, never corporate.
    ------------------------------------------------------------------ */
 
 @theme {
-  --color-bg: #f1ece1; /* aged copier paper */
-  --color-bg-raised: #e7e0d1; /* second sheet */
-  --color-bg-sunken: #ddd5c3; /* beige hardware */
-  --color-surface: #e7e0d1;
-  --color-surface-hover: #ddd5c3;
-  --color-line: rgb(28 27 24 / 0.14);
-  --color-line-strong: rgb(28 27 24 / 0.32);
+  --color-bg: #05050b; /* deep space */
+  --color-bg-raised: #0b0b17; /* panel */
+  --color-bg-sunken: #11112a; /* inset / plate */
+  --color-surface: #0b0b17;
+  --color-surface-hover: #15152e;
+  --color-line: rgb(170 178 255 / 0.13);
+  --color-line-strong: rgb(170 178 255 / 0.3);
 
-  --color-fg: #1c1b18; /* printer ink */
-  --color-fg-muted: #57534a;
-  --color-fg-subtle: #625d52;
+  --color-fg: #eef0ff;
+  --color-fg-muted: #a6abcb;
+  --color-fg-subtle: #8187ab;
 
-  /* Accents. Legacy names kept so every component re-themes at once. */
-  --color-cyan: #1f6b3b; /* phosphor green, printed */
-  --color-volt: #1f6b3b;
-  --color-violet: #4a4639; /* neutral ink, no second hue */
-  --color-pulse: #a8362a; /* rubber-stamp red */
+  /* The logo's ribbon: cyan → violet → pink. Legacy names kept so every component re-themes at once. */
+  --color-cyan: #3be3ff;
+  --color-volt: #3be3ff;
+  --color-violet: #a46bff;
+  --color-pulse: #ff4d9d;
 
-  /* The CRT: the only dark surface on the site */
-  --color-crt: #121410;
-  --color-phosphor: #9cf0b0;
+  /* Terminals keep their phosphor green */
+  --color-crt: #04080a;
+  --color-phosphor: #6dffa8;
 
-  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-sans: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
+  --font-pixel: var(--font-silkscreen), var(--font-jetbrains), ui-monospace, monospace;
 
-  --text-display-xl: clamp(2.6rem, 8vw, 8rem);
-  --text-display-xl--line-height: 0.86;
-  --text-display: clamp(2.1rem, 5.4vw, 5.25rem);
-  --text-display--line-height: 0.9;
-  --text-headline: clamp(1.75rem, 3.6vw, 3.25rem);
-  --text-headline--line-height: 1;
-  --text-title: clamp(1.5rem, 2.6vw, 2.25rem);
-  --text-title--line-height: 1.08;
+  --text-display-xl: clamp(2.4rem, 7vw, 6.5rem);
+  --text-display-xl--line-height: 0.95;
+  --text-display: clamp(1.9rem, 4.6vw, 4.25rem);
+  --text-display--line-height: 1;
+  --text-headline: clamp(1.6rem, 3.2vw, 2.8rem);
+  --text-headline--line-height: 1.05;
+  --text-title: clamp(1.35rem, 2.3vw, 2rem);
+  --text-title--line-height: 1.1;
   --text-meta: 0.75rem;
   --text-meta--line-height: 1.4;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-throttle: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   --breakpoint-xs: 26rem;
 }
 
 @layer base {
   :root {
-    color-scheme: light;
+    color-scheme: dark;
     --gutter: 1rem;
     --nav-h: 4rem;
-    /* Kept for components that reference it: now a solid ink rule, not a gradient. */
-    --spectrum: linear-gradient(90deg, var(--color-fg), var(--color-fg));
+    --spectrum: linear-gradient(90deg, var(--color-cyan), var(--color-violet) 50%, var(--color-pulse));
   }
 
   @media (min-width: 48rem) {
@@ -79,13 +80,64 @@
   }
 
   body {
-    background: var(--color-bg);
+    position: relative;
+    /* transparent so the fixed star field (z-index -1) shows; html carries the colour */
+    background: transparent;
     color: var(--color-fg);
     font-family: var(--font-sans);
-    font-feature-settings: "ss01", "kern";
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /*
+   * The star field behind every page: three depths of pixel stars (prime-ish
+   * tile sizes so it never reads as a grid), a faint nebula glow in the logo's
+   * colours, and a second layer that slowly twinkles.
+   */
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    image-rendering: pixelated;
+  }
+
+  body::before {
+    background-image:
+      radial-gradient(1px 1px at 23px 41px, rgb(255 255 255 / 0.75), transparent 100%),
+      radial-gradient(1px 1px at 97px 113px, rgb(170 230 255 / 0.6), transparent 100%),
+      radial-gradient(1.5px 1.5px at 151px 29px, rgb(255 255 255 / 0.55), transparent 100%),
+      radial-gradient(1px 1px at 61px 181px, rgb(255 170 215 / 0.5), transparent 100%),
+      radial-gradient(1px 1px at 12px 77px, rgb(255 255 255 / 0.45), transparent 100%),
+      radial-gradient(2px 2px at 190px 140px, rgb(200 240 255 / 0.6), transparent 100%),
+      radial-gradient(60rem 40rem at 110% -10%, rgb(59 227 255 / 0.08), transparent 70%),
+      radial-gradient(50rem 40rem at -10% 110%, rgb(164 107 255 / 0.08), transparent 70%),
+      radial-gradient(40rem 30rem at 50% 60%, rgb(255 77 157 / 0.03), transparent 70%);
+    background-size:
+      137px 151px,
+      211px 199px,
+      293px 271px,
+      173px 233px,
+      89px 97px,
+      331px 317px,
+      100% 100%,
+      100% 100%,
+      100% 100%;
+  }
+
+  body::after {
+    background-image:
+      radial-gradient(1.5px 1.5px at 40px 60px, rgb(255 255 255 / 0.9), transparent 100%),
+      radial-gradient(1.5px 1.5px at 160px 20px, rgb(170 240 255 / 0.85), transparent 100%),
+      radial-gradient(2px 2px at 260px 210px, rgb(255 255 255 / 0.8), transparent 100%);
+    background-size:
+      223px 257px,
+      379px 349px,
+      419px 401px;
+    animation: tj-twinkle 4.5s ease-in-out infinite;
   }
 
   ::selection {
@@ -94,9 +146,8 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-volt);
+    outline: 2px solid var(--color-cyan);
     outline-offset: 3px;
-    border-radius: 2px;
   }
 
   h1,
@@ -119,8 +170,6 @@
     display: none !important;
   }
 
-  /* Implicit grid tracks size to max-content and overflow on phones.
-     Default to one shrinkable column; grid-cols-* utilities override. */
   .grid {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -135,7 +184,6 @@
   padding-inline: var(--gutter);
 }
 
-/* Monospace technical micro-label */
 @utility label-mono {
   font-family: var(--font-mono);
   font-size: var(--text-meta);
@@ -144,15 +192,17 @@
   text-transform: uppercase;
 }
 
-/* Expanded display face — Archivo's width axis is our "throttle" */
+/*
+ * The display face. Every headline on the site already opts in through
+ * `font-wide`, so redefining it here turns them all into 8-bit type.
+ * Pixel glyphs need air, so negative tracking from older markup is undone,
+ * and the regular cut is used: the bold one turns to mush at display sizes.
+ */
 @utility font-wide {
-  font-stretch: 125%;
-  font-variation-settings: "wdth" 125;
-}
-
-@utility font-condensed {
-  font-stretch: 72%;
-  font-variation-settings: "wdth" 72;
+  font-family: var(--font-pixel);
+  font-weight: 400 !important;
+  letter-spacing: 0.01em !important;
+  font-synthesis: none;
 }
 
 @utility text-spectrum {
@@ -162,22 +212,125 @@
   color: transparent;
 }
 
+/* Soft neon bloom on text */
+@utility glow {
+  text-shadow:
+    0 0 12px color-mix(in srgb, currentColor 55%, transparent),
+    0 0 42px color-mix(in srgb, currentColor 25%, transparent);
+}
+
 @utility hairline {
   border-color: var(--color-line);
 }
 
-/* Skip layout/paint of offscreen sections until they approach the viewport */
 @utility cv-auto {
   content-visibility: auto;
   contain-intrinsic-size: auto 900px;
 }
 
-/* Faint coordinate grid used behind a few compositions */
 @utility bg-grid {
   background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
-  background-size: 4rem 4rem;
+    linear-gradient(to right, rgb(170 178 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(170 178 255 / 0.05) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+}
+
+@utility pixelated {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ---------- Pixel UI kit ---------- */
+
+/* In the components layer so utilities on the element can still adjust size. */
+@layer components {
+  /* Chunky arcade button: hard offset shadow that you "press" into. */
+  .btn-pixel {
+    --shadow: var(--color-pulse);
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding-inline: 1.4rem;
+    background: var(--color-cyan);
+    color: #05050b;
+    font-family: var(--font-pixel);
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0 var(--shadow);
+    transition:
+      transform 0.15s var(--ease-out-expo),
+      box-shadow 0.15s var(--ease-out-expo),
+      background-color 0.2s;
+  }
+
+  .btn-pixel:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--shadow);
+  }
+
+  .btn-pixel:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 var(--shadow);
+  }
+
+  .btn-pixel[data-tone="pink"] {
+    --shadow: var(--color-cyan);
+    background: var(--color-pulse);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding-inline: 1.4rem;
+    border: 2px solid var(--color-line-strong);
+    color: var(--color-fg);
+    font-family: var(--font-pixel);
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition:
+      border-color 0.2s,
+      color 0.2s,
+      background-color 0.2s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--color-cyan);
+    color: var(--color-cyan);
+    background: rgb(59 227 255 / 0.06);
+  }
+
+  /* A panel with notched 8-bit corners. */
+  .pixel-panel {
+    position: relative;
+    background: var(--color-bg-raised);
+    clip-path: polygon(
+      0 6px,
+      6px 6px,
+      6px 0,
+      calc(100% - 6px) 0,
+      calc(100% - 6px) 6px,
+      100% 6px,
+      100% calc(100% - 6px),
+      calc(100% - 6px) calc(100% - 6px),
+      calc(100% - 6px) 100%,
+      6px 100%,
+      6px calc(100% - 6px),
+      0 calc(100% - 6px)
+    );
+  }
+
+  /* Dithered checker texture, like a low-colour screen. */
+  .dither {
+    background-image: conic-gradient(rgb(255 255 255 / 0.05) 25%, transparent 0 50%, rgb(255 255 255 / 0.05) 0 75%, transparent 0);
+    background-size: 4px 4px;
+  }
 }
 
 /* ---------- Reveal-on-scroll (progressive enhancement) ---------- */
@@ -196,7 +349,6 @@
   transform: none;
 }
 
-/* Masked line reveal for editorial headlines */
 .js [data-reveal="lines"] {
   opacity: 1;
   transform: none;
@@ -216,11 +368,10 @@
 .line {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.06em;
-  margin-bottom: -0.06em;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
 }
 
-/* CSS-only so the hero never waits on hydration (protects LCP). */
 @keyframes tj-rise {
   from {
     opacity: 0;
@@ -235,12 +386,6 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .crt-on {
-    transform-origin: center;
-    animation: tj-crt-on 0.9s var(--ease-out-expo) 0.15s both;
-  }
-
-  /* Above-the-fold headlines: same masked-line look as [data-reveal=lines], no JS. */
   .rise-lines .line > span {
     display: inline-block;
     animation: tj-line 1s var(--ease-out-expo) calc(var(--line-index, 0) * 90ms + 60ms) both;
@@ -251,39 +396,37 @@
   }
 }
 
-/* ================= Lab graphic language ================= */
+/* ================= Graphic language ================= */
 
-/* A CRT surface: everything inside re-themes to phosphor on glass. */
+/* A terminal surface: phosphor on black glass. */
 .crt {
   --color-fg: #e4f3e6;
   --color-fg-muted: #9cc7a6;
   --color-fg-subtle: #7fa98a;
-  --color-line: rgb(156 240 176 / 0.16);
-  --color-line-strong: rgb(156 240 176 / 0.32);
-  --color-pulse: #ff8a7a;
+  --color-line: rgb(109 255 168 / 0.16);
+  --color-line-strong: rgb(109 255 168 / 0.32);
   --color-volt: var(--color-phosphor);
-  --color-bg-raised: #1a1d17;
-  --color-surface-hover: #22261e;
+  --color-bg-raised: #0a120d;
+  --color-surface-hover: #102016;
   background-color: var(--color-crt);
   color: var(--color-fg);
+  box-shadow:
+    0 0 0 1px rgb(109 255 168 / 0.18),
+    0 0 40px -10px rgb(109 255 168 / 0.25);
 }
 
-/* Rubber stamp: slightly rotated, inked border, uneven opacity */
+/* Status sticker: tilted, outlined, in neon */
 .stamp {
   display: inline-block;
   border: 2px solid currentColor;
-  padding: 0.3em 0.7em 0.25em;
+  padding: 0.35em 0.7em 0.3em;
   color: var(--color-pulse);
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
+  font-family: var(--font-pixel);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   transform: rotate(-4deg);
-  opacity: 0.88;
-  mix-blend-mode: multiply;
-  -webkit-mask-image: radial-gradient(circle at 30% 40%, #000 60%, rgb(0 0 0 / 0.72) 100%);
-  mask-image: radial-gradient(circle at 30% 40%, #000 60%, rgb(0 0 0 / 0.72) 100%);
+  box-shadow: 0 0 18px -4px currentColor;
 }
 
 @keyframes tj-stamp {
@@ -293,11 +436,10 @@
   }
   60% {
     transform: rotate(-4deg) scale(0.96);
-    opacity: 0.95;
+    opacity: 1;
   }
   100% {
     transform: rotate(-4deg) scale(1);
-    opacity: 0.88;
   }
 }
 
@@ -306,7 +448,6 @@
   animation: tj-stamp 0.45s var(--ease-out-expo) both;
 }
 
-/* Missing-data marker — the honest placeholder */
 .data-required {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -315,67 +456,6 @@
   white-space: nowrap;
 }
 
-/* Dot-matrix tractor-feed perforations down both edges */
-.perforated {
-  position: relative;
-  padding-inline: 2.25rem;
-}
-
-.perforated::before,
-.perforated::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 0.7rem;
-  background-image: radial-gradient(circle, var(--color-bg) 0.22rem, transparent 0.24rem);
-  background-size: 0.7rem 1.1rem;
-  background-position: center top;
-}
-
-.perforated::before {
-  left: 0.55rem;
-}
-.perforated::after {
-  right: 0.55rem;
-}
-
-/* Green-bar continuous stationery */
-.greenbar {
-  background-image: repeating-linear-gradient(to bottom, rgb(31 107 59 / 0.07) 0 1.6rem, transparent 1.6rem 3.2rem);
-}
-
-/* Registration mark */
-.reg-mark {
-  position: relative;
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  border: 1px solid var(--color-fg);
-  border-radius: 50%;
-}
-
-.reg-mark::before,
-.reg-mark::after {
-  content: "";
-  position: absolute;
-  background: var(--color-fg);
-}
-
-.reg-mark::before {
-  left: 50%;
-  top: -5px;
-  bottom: -5px;
-  width: 1px;
-}
-.reg-mark::after {
-  top: 50%;
-  left: -5px;
-  right: -5px;
-  height: 1px;
-}
-
-/* Photocopy grain, very light — only where asked for */
 .grain {
   position: relative;
   isolation: isolate;
@@ -385,21 +465,20 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.07;
-  mix-blend-mode: multiply;
+  opacity: 0.12;
+  mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Halftone screen for empty photo plates */
+/* Empty photo plates: a dithered screen waiting for a picture */
 .halftone {
   background-color: var(--color-bg-sunken);
-  background-image: radial-gradient(circle, rgb(28 27 24 / 0.32) 0.9px, transparent 1.15px);
+  background-image: radial-gradient(circle, rgb(164 107 255 / 0.28) 0.9px, transparent 1.15px);
   background-size: 6px 6px;
 }
 
-/* Documentary photos: monochrome first, colour on hover/focus */
 .plate img {
-  filter: grayscale(1) contrast(1.15);
+  filter: grayscale(0.85) contrast(1.1) brightness(0.9);
   transition: filter 0.6s var(--ease-out-expo);
 }
 
@@ -408,117 +487,6 @@
   filter: none;
 }
 
-/* CRT power-on: a bright line opens into the picture — once */
-@keyframes tj-crt-on {
-  0% {
-    transform: scaleY(0.004) scaleX(0.6);
-    filter: brightness(3);
-    opacity: 0.2;
-  }
-  45% {
-    transform: scaleY(0.004) scaleX(1);
-    filter: brightness(2.5);
-    opacity: 1;
-  }
-  100% {
-    transform: none;
-    filter: none;
-    opacity: 1;
-  }
-}
-
-/* The signal cable draws itself as the reader scrolls (no JS). */
-@keyframes tj-draw {
-  from {
-    stroke-dashoffset: 1;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-.cable-path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .cable-path {
-      stroke-dashoffset: 1;
-      animation: tj-draw linear both;
-      animation-timeline: view();
-      animation-range: entry 10% cover 60%;
-    }
-  }
-}
-
-/* ---------- THEN / NOW: one visual turns into another as you scroll ---------- */
-.tn-stage {
-  display: grid;
-  gap: 2rem;
-  align-items: center;
-  justify-items: center;
-}
-
-@media (min-width: 48rem) {
-  .tn-stage {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@keyframes tn-out {
-  to {
-    opacity: 0;
-    transform: scale(0.9) translateY(-1rem);
-  }
-}
-@keyframes tn-in {
-  from {
-    opacity: 0;
-    transform: translateY(2.5rem);
-  }
-}
-
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .then-now {
-      view-timeline: --tn block;
-      min-height: 230svh;
-    }
-    .then-now .tn-sticky {
-      position: sticky;
-      top: 0;
-      min-height: 100svh;
-    }
-    .then-now .tn-stage {
-      grid-template-columns: 1fr;
-    }
-    .then-now .tn-old,
-    .then-now .tn-new {
-      grid-area: 1 / 1;
-    }
-    .then-now .tn-old {
-      animation: tn-out linear both;
-      animation-timeline: --tn;
-      animation-range: cover 37% cover 50%;
-    }
-    .then-now .tn-new {
-      animation: tn-in linear both;
-      animation-timeline: --tn;
-      animation-range: cover 45% cover 58%;
-    }
-  }
-}
-
-/* Delayed second line on the opening screen */
-@media (prefers-reduced-motion: no-preference) {
-  .reveal-late {
-    animation: tj-rise 0.9s var(--ease-out-expo) 1.5s both;
-  }
-}
-
-/* Status pulse */
 @keyframes tj-pulse {
   0%,
   100% {
@@ -556,6 +524,422 @@
 
 .marquee-track {
   animation: tj-marquee 40s linear infinite;
+}
+
+@keyframes tj-bob {
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.bob {
+  animation: tj-bob 1.4s steps(2) infinite;
+}
+
+@keyframes tj-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Shooting stars past the TechnoJam name in the navbar */
+.logo-sky .sky-shot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 46px;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgb(191 246 255 / 0.9) 70%, #fff);
+  transform: rotate(-24deg);
+  opacity: 0;
+  animation: tj-sky-shot 6s linear infinite;
+}
+
+.logo-sky .sky-shot-2 {
+  top: 18px;
+  width: 34px;
+  animation-delay: 2.1s;
+  animation-duration: 7s;
+}
+
+.logo-sky .sky-shot-3 {
+  top: -6px;
+  width: 28px;
+  background: linear-gradient(90deg, transparent, rgb(255 160 210 / 0.9) 70%, #fff);
+  animation-delay: 4.3s;
+  animation-duration: 8s;
+}
+
+@keyframes tj-sky-shot {
+  0% {
+    opacity: 0;
+    translate: -30px 14px;
+  }
+  3% {
+    opacity: 1;
+  }
+  14% {
+    opacity: 0;
+    translate: 190px -40px;
+  }
+  100% {
+    opacity: 0;
+    translate: 190px -40px;
+  }
+}
+
+/* ---- Page wipe (10): columns of night drop over the page, then lift off ---- */
+.wipe-bar {
+  flex: 1;
+  height: 100%;
+  background: var(--color-bg);
+  border-bottom: 4px solid var(--color-cyan);
+  box-shadow: 0 6px 24px -4px rgb(59 227 255 / 0.55);
+  transform-origin: top;
+  animation-delay: var(--d, 0ms);
+  animation-fill-mode: both;
+  animation-duration: 0.42s;
+  animation-timing-function: steps(7);
+}
+
+.wipe-in {
+  animation-name: tj-wipe-in;
+}
+
+.wipe-out {
+  transform-origin: bottom;
+  animation-name: tj-wipe-out;
+  border-bottom: 0;
+  border-top: 4px solid var(--color-pulse);
+  box-shadow: 0 -6px 24px -4px rgb(255 77 157 / 0.5);
+}
+
+@keyframes tj-wipe-in {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes tj-wipe-out {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0);
+  }
+}
+
+/* ---- The five cards are dealt (1) ---- */
+.js .deal > li {
+  opacity: 0;
+  transform: translateY(3.5rem) rotate(calc((var(--i, 0) - 2) * 5deg)) scale(0.9);
+}
+
+.js .deal[data-dealt="true"] > li {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.35s steps(5) calc(var(--i, 0) * 140ms),
+    transform 0.8s var(--ease-bounce) calc(var(--i, 0) * 140ms);
+}
+
+/* ---- Things we shipped: projects orbiting a small planet ---- */
+@keyframes tj-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.orbit-ring {
+  animation: tj-orbit 90s linear infinite;
+}
+
+/* moons spin back the other way so their labels stay upright */
+.orbit-ring .moon-upright {
+  animation: tj-orbit 90s linear infinite reverse;
+  /* pivot on the moon's own centre (the li origin), or it wobbles in and out of its ring */
+  transform-origin: 0 0;
+}
+
+/* the orbit drifts to a stop while you're looking at it */
+.orbit:hover .orbit-ring,
+.orbit:hover .moon-upright,
+.orbit:focus-within .orbit-ring,
+.orbit:focus-within .moon-upright,
+.orbit[data-paused="true"] .orbit-ring,
+.orbit[data-paused="true"] .moon-upright {
+  animation-play-state: paused;
+}
+
+/* Scroll zoom: --z runs 0 → 1 as you scroll in (set by the component) */
+.orbit-zoom {
+  /* starts as a close-up of the planet and pulls back to the whole orbit */
+  transform: scale(calc(1 + (1 - var(--z, 1)) * 2.6));
+  transform-origin: center;
+  will-change: transform;
+}
+
+.orbit-moons {
+  opacity: min(1, calc(var(--z, 1) * 4));
+  /* the moons spiral out as they arrive; each one turns back by the same amount to stay upright */
+  rotate: calc((1 - var(--z, 1)) * -100deg);
+}
+
+.orbit-moons .moon-upright {
+  rotate: calc((1 - var(--z, 1)) * 100deg);
+}
+
+/* the rings widen with the moons, so every moon is always exactly on its ring */
+.orbit-rings {
+  opacity: var(--z, 1);
+  transform: scale(var(--z, 1));
+}
+
+/* names appear last, once the moons are nearly in place */
+.orbit-label {
+  opacity: max(0, min(1, calc((var(--z, 1) - 0.65) * 3)));
+}
+
+.orbit-title {
+  opacity: max(0, min(1, calc((var(--z, 1) - 0.3) * 2.2)));
+}
+
+/* can't poke a moon until it has arrived */
+.orbit[data-ready="false"] .orbit-moons {
+  pointer-events: none;
+}
+
+.orbit-pop {
+  transform: translateY(-50%);
+  /* opacity only, so it doesn't fight the positioning transform */
+  animation: tj-fade 0.3s var(--ease-out-expo) both;
+}
+
+/* phones: no room beside the moon, so the pop-up sits under the orbit */
+@media (max-width: 47.99rem) {
+  .orbit-pop {
+    top: 100% !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translate(-50%, 0.75rem);
+  }
+}
+
+/* ---- Scratch-off cards: the foil fades and lifts away once revealed ---- */
+.scratch-cover {
+  touch-action: pan-x pan-y;
+  transition:
+    opacity 0.55s steps(8),
+    transform 0.55s steps(8);
+}
+
+.scratch-gone {
+  opacity: 0;
+  transform: scale(1.06);
+  pointer-events: none;
+}
+
+/* ---- Events timeline ---- */
+.timeline .tl-spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1.25rem;
+  width: 2px;
+  margin-left: -1px;
+  /* a faint dotted line for the road ahead */
+  background: repeating-linear-gradient(to bottom, rgb(170 178 255 / 0.28) 0 6px, transparent 6px 12px);
+}
+
+.timeline .tl-spine-fill {
+  bottom: auto;
+  height: calc(var(--tl, 0) * 100%);
+  background: linear-gradient(to bottom, #3be3ff, #a46bff 60%, #ff4d9d);
+  box-shadow: 0 0 12px rgb(59 227 255 / 0.55);
+}
+
+@media (min-width: 48rem) {
+  .timeline .tl-spine {
+    left: 50%;
+  }
+}
+
+.tl-node {
+  z-index: 10;
+  background: var(--color-bg);
+  border: 2px solid var(--color-line-strong);
+  color: var(--color-fg-subtle);
+  transition:
+    border-color 0.3s steps(3),
+    color 0.3s steps(3),
+    box-shadow 0.3s steps(3);
+}
+
+.tl-node[data-lit="true"] {
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+  box-shadow: 0 0 16px -2px rgb(59 227 255 / 0.7);
+}
+
+/* dashed link from the node to its card */
+.tl-link {
+  position: absolute;
+  top: 2.75rem;
+  left: -1rem;
+  width: 1rem;
+  border-top: 2px dashed rgb(59 227 255 / 0.5);
+}
+
+@media (min-width: 48rem) {
+  .tl-link {
+    top: 50%;
+    width: 2.25rem;
+  }
+
+  .tl-link-r {
+    left: 0;
+  }
+
+  .tl-link-l {
+    left: auto;
+    right: 0;
+  }
+}
+
+/* ---- Finale: buttons with little corner brackets, and twinkling sparkles ---- */
+.btn-corner {
+  --corner: currentColor;
+  position: relative;
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding-inline: 1.35rem;
+  font-family: var(--font-pixel);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    box-shadow 0.3s,
+    border-color 0.2s;
+}
+
+/* four corner ticks sitting just outside the button */
+.btn-corner::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--corner), var(--corner)) 0 0 / 7px 2px no-repeat,
+    linear-gradient(var(--corner), var(--corner)) 0 0 / 2px 7px no-repeat,
+    linear-gradient(var(--corner), var(--corner)) 100% 0 / 7px 2px no-repeat,
+    linear-gradient(var(--corner), var(--corner)) 100% 0 / 2px 7px no-repeat,
+    linear-gradient(var(--corner), var(--corner)) 0 100% / 7px 2px no-repeat,
+    linear-gradient(var(--corner), var(--corner)) 0 100% / 2px 7px no-repeat,
+    linear-gradient(var(--corner), var(--corner)) 100% 100% / 7px 2px no-repeat,
+    linear-gradient(var(--corner), var(--corner)) 100% 100% / 2px 7px no-repeat;
+  transition: inset 0.25s var(--ease-out-expo);
+}
+
+.btn-corner:hover::after {
+  inset: -7px;
+}
+
+.btn-corner-pink {
+  --corner: var(--color-pulse);
+  background: var(--color-pulse);
+  color: #1c0412;
+  box-shadow: 0 0 24px -6px rgb(255 77 157 / 0.6);
+}
+
+.btn-corner-pink:hover {
+  background: #ff6fae;
+  box-shadow: 0 0 46px -4px rgb(255 77 157 / 0.85);
+}
+
+.btn-corner-ghost {
+  --corner: rgb(215 222 255 / 0.7);
+  border: 1px solid rgb(215 222 255 / 0.5);
+  color: var(--color-fg);
+}
+
+.btn-corner-ghost:hover {
+  --corner: var(--color-cyan);
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+}
+
+.finale-sparkle {
+  transform: translate(-50%, -50%);
+  animation: tj-twinkle 4.5s ease-in-out infinite;
+}
+
+/* Arcade "press start" blink */
+.blink-step {
+  animation: tj-caret 0.9s steps(1) infinite;
+}
+
+/* Achievement toast: drops in like a game notification */
+@keyframes tj-toast {
+  0% {
+    transform: translateY(120%);
+  }
+  12%,
+  88% {
+    transform: none;
+  }
+  100% {
+    transform: translateY(120%);
+  }
+}
+
+.toast-in {
+  animation: tj-toast 4.2s var(--ease-bounce) both;
+}
+
+/* Konami party mode */
+@keyframes tj-party {
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.party main {
+  animation: tj-party 1.2s linear infinite;
+}
+
+/* Rule cards flip on click */
+.flip {
+  perspective: 1200px;
+}
+.flip-inner {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s var(--ease-out-expo);
+}
+.flip[data-flipped="true"] .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
 }
 
 /* Mobile menu: staggered entrance */
@@ -599,5 +983,10 @@ dialog[open]:not(.mobile-menu) > div {
   .js [data-reveal="lines"] .line > span {
     opacity: 1;
     transform: none;
+  }
+
+  .party main,
+  .toast-in {
+    animation: none;
   }
 }

@@ -27,7 +27,7 @@ export function BracketLink({
   const external = /^https?:/.test(href);
   const classes = cx(
     "group inline-flex min-h-12 items-center gap-2 font-mono text-sm font-bold tracking-[0.14em] uppercase transition-colors",
-    tone === "ink" ? "text-fg hover:text-pulse" : "text-bg hover:text-phosphor",
+    tone === "ink" ? "text-fg hover:text-cyan" : "text-bg hover:text-phosphor",
     className,
   );
   const body = (
@@ -68,7 +68,7 @@ export function Plate({ image, shot, caption, className }: { image?: ImageAsset;
       ) : (
         <div className="halftone grain flex h-full min-h-48 flex-col justify-between p-4" role="img" aria-label={`Photo needed: ${shot}`}>
           <span className="font-mono text-[0.68rem] tracking-[0.12em] text-fg-muted uppercase">Plate — photo needed</span>
-          <span className="max-w-[16rem] bg-bg/90 px-2 py-1.5 font-serif text-[0.95rem] leading-snug italic">{shot}</span>
+          <span className="max-w-[16rem] bg-bg/90 px-2 py-1.5 text-[0.9rem] leading-snug">{shot}</span>
           <DataRequired />
         </div>
       )}
