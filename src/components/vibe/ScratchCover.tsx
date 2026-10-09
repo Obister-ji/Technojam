@@ -63,8 +63,8 @@ function paintFoil(ctx: CanvasRenderingContext2D, w: number, h: number, n: strin
 }
 
 /**
- * A scratch-off layer over a card. With a mouse you drag to scratch it away; once about half
- * is gone the rest clears itself. Touch, pen and keyboard users (and a plain click) reveal it
+ * A scratch-off layer over a card. Drag with a mouse, finger or pen to scratch it away; once
+ * about half is gone the rest clears itself. A plain tap or click, or the keyboard, reveals it
  * in one go, so nothing depends on a drag gesture. `onDragEnd` lets the card ignore the
  * click that ends a scratch.
  */
@@ -161,7 +161,7 @@ export function ScratchCover({
   };
 
   const onDown = (e: PointerEvent<HTMLCanvasElement>) => {
-    if (done.current || e.pointerType !== "mouse" || e.button !== 0) return;
+    if (done.current || e.button !== 0) return;
     down.current = true;
     travelled.current = 0;
     last.current = pos(e);

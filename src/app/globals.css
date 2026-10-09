@@ -735,7 +735,8 @@
 
 /* ---- Scratch-off cards: the foil fades and lifts away once revealed ---- */
 .scratch-cover {
-  touch-action: pan-x pan-y;
+  /* sideways swipes still move the row of cards; any other finger drag scratches */
+  touch-action: pan-x;
   transition:
     opacity 0.55s steps(8),
     transform 0.55s steps(8);

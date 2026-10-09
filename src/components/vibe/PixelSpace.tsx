@@ -399,6 +399,13 @@ export function PixelSpace({ className }: { className?: string }) {
     const onDown = (e: PointerEvent) => {
       if ((e.target as Element).closest("a, button, input, [role=button]")) return;
       const p = toLocal(e);
+      if (e.pointerType !== "mouse") {
+        // no hover on touch: the comet begins where the finger lands
+        cx = p.x;
+        cy = p.y;
+        seen = t;
+        trail.push({ x: p.x, y: p.y, t });
+      }
       if (!reduce) {
         for (let i = 0; i < 64; i++) {
           const a = (i / 64) * Math.PI * 2;

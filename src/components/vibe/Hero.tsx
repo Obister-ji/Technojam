@@ -139,7 +139,8 @@ export function Hero() {
   return (
     // One screen. A scroll gesture here plays the move to screen 2 (see above).
     <section ref={pin} data-pin aria-labelledby="hero-title" className="relative">
-      <div className="relative isolate h-[100svh] min-h-[32rem] overflow-hidden">
+      {/* touch-pan-y: up/down still scrolls the page, but sideways finger drags reach the sky and draw the trail */}
+      <div className="relative isolate h-[100svh] min-h-[32rem] touch-pan-y overflow-hidden">
         <PixelSpace className="absolute inset-0 -z-10 h-full w-full" />
         {/* keeps copy readable where it crosses the planet on narrow screens */}
         <div
