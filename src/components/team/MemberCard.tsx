@@ -19,7 +19,7 @@ export function MemberCard({ person, role }: { person: Person; role: string }) {
             src={`${person.image.url}?w=600&h=750&fit=crop&auto=format`}
             alt={person.image.alt || person.name}
             loading="lazy"
-            className="h-full w-full object-cover grayscale transition-[filter] duration-700 group-hover:grayscale-0"
+            className="h-full w-full object-cover transition-[filter] [@media(hover:hover)]:grayscale duration-700 group-hover:grayscale-0"
           />
         ) : (
           <div aria-hidden className="flex h-full items-center justify-center">
@@ -34,7 +34,7 @@ export function MemberCard({ person, role }: { person: Person; role: string }) {
           {[person.domains[0]?.title, person.batch && `Batch ${person.batch}`].filter(Boolean).join(" · ")}
         </p>
         {person.bio ? <p className="mt-3 text-sm text-fg-muted">{person.bio}</p> : null}
-        <ul className="mt-4 flex gap-3">
+        <ul className="mt-2 -ml-3 flex">
           {person.github ? (
             <li>
               <a
@@ -42,7 +42,7 @@ export function MemberCard({ person, role }: { person: Person; role: string }) {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`${person.name} on GitHub`}
-                className="text-fg-muted hover:text-fg"
+                className="grid size-11 place-items-center text-fg-muted hover:text-fg"
               >
                 <GitHub />
               </a>
@@ -55,7 +55,7 @@ export function MemberCard({ person, role }: { person: Person; role: string }) {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`${person.name} on LinkedIn`}
-                className="text-fg-muted hover:text-fg"
+                className="grid size-11 place-items-center text-fg-muted hover:text-fg"
               >
                 <LinkedIn />
               </a>
@@ -68,7 +68,7 @@ export function MemberCard({ person, role }: { person: Person; role: string }) {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`${person.name}'s portfolio`}
-                className="text-fg-muted hover:text-fg"
+                className="grid size-11 place-items-center text-fg-muted hover:text-fg"
               >
                 <ArrowUpRight />
               </a>

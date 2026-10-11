@@ -22,14 +22,14 @@ export function PageHeader({
         <nav aria-label="Breadcrumb" className="mb-10 label-mono text-fg-subtle">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
-              <Link href="/" className="hover:text-fg">
+              <Link href="/" className="inline-flex min-h-11 min-w-6 items-center hover:text-fg md:min-h-0">
                 ~
               </Link>
             </li>
             {crumbs.map((c) => (
               <li key={c.href} className="flex items-center gap-2">
                 <span aria-hidden>/</span>
-                <Link href={c.href} className="hover:text-fg">
+                <Link href={c.href} className="inline-flex min-h-11 items-center hover:text-fg md:min-h-0">
                   {c.label}
                 </Link>
               </li>

@@ -134,7 +134,7 @@ export function ProjectReel({ projects }: { projects: Project[] }) {
 
   return (
     <section ref={track} aria-labelledby="reel-title" className="relative h-[190svh] motion-reduce:h-auto" style={{ ["--z" as string]: 1 }}>
-      <div className="sticky top-0 container-site flex h-[100svh] min-h-[32rem] min-w-0 flex-col justify-center overflow-hidden py-[6svh] motion-reduce:static">
+      <div className="sticky top-0 container-site flex h-[100svh] min-h-[min(32rem,100svh)] min-w-0 flex-col justify-center overflow-hidden py-[6svh] motion-reduce:static">
         <div className="orbit-title">
           <p className="font-mono text-[0.7rem] tracking-[0.14em] text-fg-subtle uppercase">
             {"// shipped · "}
@@ -187,7 +187,7 @@ export function ProjectReel({ projects }: { projects: Project[] }) {
                       onPointerLeave={(e) => e.pointerType === "mouse" && closeSoon()}
                       onFocus={(e) => open(i, e.currentTarget)}
                       onClick={(e) => (on ? setPop(null) : open(i, e.currentTarget))}
-                      className="group relative block -translate-x-1/2 -translate-y-1/2"
+                      className="group relative block -translate-x-1/2 -translate-y-1/2 after:absolute after:-inset-3 after:content-['']"
                     >
                       <span
                         aria-hidden
@@ -236,7 +236,7 @@ export function ProjectReel({ projects }: { projects: Project[] }) {
                   type="button"
                   onClick={() => setPop(null)}
                   aria-label="Close"
-                  className="-mt-1 -mr-1 px-1 font-mono text-sm text-fg-subtle hover:text-fg"
+                  className="-mt-3 -mr-3 grid size-11 place-items-center font-mono text-lg text-fg-subtle hover:text-fg"
                 >
                   ×
                 </button>
@@ -251,13 +251,13 @@ export function ProjectReel({ projects }: { projects: Project[] }) {
                     href={p.repository}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-cyan underline underline-offset-4 hover:text-pulse"
+                    className="inline-flex min-h-11 items-center text-cyan underline underline-offset-4 hover:text-pulse"
                   >
                     Source ↗
                   </a>
                 ) : null}
                 {p.liveUrl ? (
-                  <a href={p.liveUrl} target="_blank" rel="noreferrer" className="text-cyan underline underline-offset-4 hover:text-pulse">
+                  <a href={p.liveUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center text-cyan underline underline-offset-4 hover:text-pulse">
                     Demo ↗
                   </a>
                 ) : null}
@@ -267,7 +267,10 @@ export function ProjectReel({ projects }: { projects: Project[] }) {
           ) : null}
         </div>
 
-        <p aria-hidden className="orbit-title mt-[2svh] text-center font-mono text-[0.66rem] tracking-[0.14em] text-fg-subtle uppercase">
+        <p
+          aria-hidden
+          className="orbit-title mt-[2svh] text-center font-mono text-[0.66rem] tracking-[0.14em] text-fg-subtle uppercase [@media(max-height:30rem)]:hidden"
+        >
           hover or tap a moon
         </p>
       </div>

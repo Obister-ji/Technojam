@@ -68,7 +68,7 @@ export function PeopleStrip({ makers }: { makers: Maker[] }) {
                   <span className="font-mono text-[0.68rem] tracking-[0.12em] text-fg-muted uppercase">Photo needed</span>
                 </div>
               )}
-              <figcaption className="absolute inset-x-0 bottom-0 translate-y-[calc(100%-2.75rem)] bg-bg-raised px-4 py-3 transition-transform duration-500 ease-(--ease-out-expo) group-hover:translate-y-0 group-focus-visible:translate-y-0">
+              <figcaption className="absolute inset-x-0 bottom-0 translate-y-[calc(100%-2.75rem)] bg-bg-raised px-4 py-3 transition-transform duration-500 ease-(--ease-out-expo) group-hover:translate-y-0 group-focus-visible:translate-y-0 [@media(hover:none)]:translate-y-0">
                 <p className="font-pixel text-base uppercase">{m.name ?? <span className="data-required">[ NAME REQUIRED ]</span>}</p>
                 <p className="mt-1 font-mono text-[0.78rem]">{m.builds}</p>
                 <p className="mt-0.5 text-[0.9rem] text-fg-muted">{m.detail ?? "[ real detail required ]"}</p>

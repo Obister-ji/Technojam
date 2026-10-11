@@ -241,7 +241,11 @@ export function HouseRules() {
   }, [seen, unlock]);
 
   return (
-    <section id="vibe" aria-labelledby="rules-title" className="flex h-[100svh] min-h-[30rem] scroll-mt-0 flex-col pt-[4svh] pb-[3svh]">
+    <section
+      id="vibe"
+      aria-labelledby="rules-title"
+      className="flex h-[100svh] min-h-[min(30rem,100svh)] scroll-mt-0 flex-col pt-[4svh] pb-[3svh]"
+    >
       <div className="container-site">
         <div>
           <h2 id="rules-title" className="font-pixel text-[length:clamp(1.5rem,min(4vw,6vh),3.4rem)] leading-[1.02] uppercase">

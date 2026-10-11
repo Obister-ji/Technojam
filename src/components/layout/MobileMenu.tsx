@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import { Wordmark } from "@/components/brand/Logo";
 import { useChrome } from "@/components/command/ChromeProvider";
 import { useModalDialog } from "@/components/command/useModalDialog";
+import { AchievementBadge } from "@/components/vibe/Achievements";
 import { ArrowRight, Close, Search, Terminal } from "@/components/ui/Icon";
 import { JOIN_NAV, PRIMARY_NAV, SECONDARY_NAV } from "@/lib/nav";
 
@@ -32,9 +33,12 @@ export function MobileMenu({ onClose, recruitmentOpen }: { onClose: () => void; 
       <div className="container-site flex h-full flex-col">
         <div className="flex h-(--nav-h) shrink-0 items-center justify-between">
           <Wordmark />
-          <button type="button" onClick={onClose} className="inline-flex h-11 items-center gap-2 text-sm font-semibold" autoFocus>
-            Close <Close className="size-5" />
-          </button>
+          <div className="flex items-center gap-3">
+            <AchievementBadge />
+            <button type="button" onClick={onClose} className="inline-flex h-11 items-center gap-2 text-sm font-semibold" autoFocus>
+              Close <Close className="size-5" />
+            </button>
+          </div>
         </div>
 
         <nav aria-label="Mobile" className="flex-1 overflow-y-auto py-6">
@@ -51,7 +55,7 @@ export function MobileMenu({ onClose, recruitmentOpen }: { onClose: () => void; 
                   >
                     <span className="w-6 label-mono text-fg-subtle">{String(i + 1).padStart(2, "0")}</span>
                     <span className="flex-1">
-                      <span className={`block text-3xl font-extrabold uppercase font-wide ${active ? "text-pulse" : ""}`}>
+                      <span className={`block font-wide text-[clamp(1.2rem,6.2vw,1.8rem)] uppercase ${active ? "text-pulse" : ""}`}>
                         {item.label}
                         {item.href === JOIN_NAV.href && recruitmentOpen ? (
                           <span className="ml-3 align-middle label-mono text-pulse">● open</span>

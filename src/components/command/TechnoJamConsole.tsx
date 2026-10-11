@@ -244,7 +244,7 @@ export default function TechnoJamConsole({ index, data, onClose }: { index: Sear
           <p className="label-mono text-fg-muted">
             <span style={{ color: ACCENTS[accent] }}>{">_"}</span> technojam — console
           </p>
-          <button type="button" onClick={onClose} className="p-1 text-fg-muted hover:text-fg" aria-label="Close console">
+          <button type="button" onClick={onClose} className="grid size-11 place-items-center text-fg-muted hover:text-fg" aria-label="Close console">
             <Close />
           </button>
         </div>

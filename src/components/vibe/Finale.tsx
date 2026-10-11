@@ -143,7 +143,7 @@ export function Finale({ jam }: { jam: { when?: string; href: string } }) {
 
       <p className="mt-[clamp(2.5rem,8svh,4.5rem)] font-mono text-[0.68rem] tracking-[0.18em] text-fg-subtle uppercase">
         jam night · {jam.when ?? "schedule soon"} ·{" "}
-        <Link href={jam.href} className="text-cyan underline-offset-4 hover:underline">
+        <Link href={jam.href} className="inline-flex min-h-11 items-center text-cyan underline-offset-4 hover:underline">
           come build
         </Link>
       </p>

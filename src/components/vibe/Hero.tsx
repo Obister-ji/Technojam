@@ -140,7 +140,7 @@ export function Hero() {
     // One screen. A scroll gesture here plays the move to screen 2 (see above).
     <section ref={pin} data-pin aria-labelledby="hero-title" className="relative">
       {/* touch-pan-y: up/down still scrolls the page, but sideways finger drags reach the sky and draw the trail */}
-      <div className="relative isolate h-[100svh] min-h-[32rem] touch-pan-y overflow-hidden">
+      <div className="relative isolate h-[100svh] min-h-[min(32rem,100svh)] touch-pan-y overflow-hidden">
         <PixelSpace className="absolute inset-0 -z-10 h-full w-full" />
         {/* keeps copy readable where it crosses the planet on narrow screens */}
         <div
@@ -149,14 +149,14 @@ export function Hero() {
         />
 
         <div
-          className="container-site flex h-full flex-col justify-center pt-(--nav-h) pb-[17svh] will-change-transform"
+          className="container-site flex h-full flex-col justify-center pt-(--nav-h) pb-[17svh] will-change-transform [@media(max-height:34rem)]:pt-14 [@media(max-height:34rem)]:pb-[14svh]"
           style={{ transform: "translateY(calc(var(--p, 0) * -24svh))", opacity: "calc(1 - var(--p, 0) * 1.5)" }}
         >
           <div className="max-w-6xl">
             {/* sized to the screen's height too, and kept to one line, so nothing jumps or overflows */}
             <h1
               id="hero-title"
-              className="font-pixel text-[length:clamp(1.7rem,min(11.5vw_-_0.2rem,12.5vh),7rem)] leading-[1.08] uppercase glow lg:text-[length:clamp(1.7rem,min(7.5vw,12.5vh),7rem)]"
+              className="font-pixel text-[length:clamp(1.7rem,min(11.5vw_-_0.2rem,12.5vh),7rem)] leading-[1.08] uppercase glow lg:text-[length:clamp(1.7rem,min(7.5vw,12.5vh),7rem)] [@media(max-height:34rem)]:!text-[length:clamp(1.5rem,11vh,3.2rem)]"
             >
               <span className="rise block">We build</span>
               <span className="rise block min-h-[1.08em] whitespace-nowrap text-cyan" style={{ ["--rise-delay" as string]: "120ms" }}>
@@ -172,7 +172,7 @@ export function Hero() {
               that&apos;s our stuff.
             </p>
             <p
-              className="rise mt-[clamp(0.75rem,2vh,1.25rem)] text-[length:clamp(0.9rem,min(1.05vw,2vh),1rem)] leading-snug font-medium"
+              className="rise mt-[clamp(0.75rem,2vh,1.25rem)] text-[length:clamp(0.9rem,min(1.05vw,2vh),1rem)] leading-snug font-medium [@media(max-height:30rem)]:hidden"
               style={{ ["--rise-delay" as string]: "360ms" }}
             >
               Where others gatekeep,

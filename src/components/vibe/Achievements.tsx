@@ -158,7 +158,7 @@ export function AchievementBadge() {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-controls="achievement-list"
-        className="inline-flex h-10 items-center gap-2 border-2 border-line-strong px-2.5 font-pixel text-[0.7rem] text-fg transition-colors hover:border-cyan hover:text-cyan"
+        className="inline-flex h-11 items-center gap-2 border-2 border-line-strong px-2.5 font-pixel text-[0.7rem] text-fg transition-colors hover:border-cyan hover:text-cyan md:h-10"
       >
         <Trophy className="size-4 text-cyan" />
         <span>
@@ -169,7 +169,7 @@ export function AchievementBadge() {
       {open ? (
         <div
           id="achievement-list"
-          className="pixel-panel absolute top-[calc(100%+0.75rem)] right-0 w-[min(22rem,calc(100vw-2rem))] border border-line-strong p-5 shadow-2xl shadow-black/60"
+          className="pixel-panel absolute top-[calc(100%+0.75rem)] right-0 z-50 w-[min(22rem,calc(100vw-2rem))] border border-line-strong p-5 shadow-2xl shadow-black/60 max-md:fixed max-md:inset-x-4 max-md:top-[4.5rem] max-md:right-4 max-md:w-auto"
         >
           <div className="flex items-baseline justify-between">
             <p className="font-pixel text-sm text-fg">Achievements</p>
