@@ -93,7 +93,7 @@ export function Navbar({ recruitmentOpen }: { recruitmentOpen: boolean }) {
             <Link
               href={JOIN_NAV.href}
               aria-current={isActive(JOIN_NAV.href) ? "page" : undefined}
-              className="group inline-flex h-11 items-center gap-2 border-2 border-line-strong px-2.5 font-pixel text-[0.7rem] text-fg uppercase transition-colors hover:border-cyan hover:text-cyan md:h-10"
+              className="group hidden h-11 items-center gap-2 border-2 border-line-strong px-2.5 font-pixel text-[0.7rem] text-fg uppercase transition-colors hover:border-cyan hover:text-cyan md:inline-flex md:h-10"
             >
               {recruitmentOpen ? (
                 <span aria-hidden className="pulse-dot size-1.5 bg-phosphor" />
