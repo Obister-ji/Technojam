@@ -1335,27 +1335,6 @@ dialog[open]:not(.mobile-menu) > div {
     opacity: 1;
   }
 }
-.sg-coin {
-  opacity: 0;
-  animation: sg-coin 0.9s ease-out calc(2.3s + var(--d)) both;
-}
-@keyframes sg-coin {
-  0% {
-    opacity: 0;
-    transform: translateY(0);
-  }
-  10% {
-    opacity: 1;
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-16px);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-11px);
-  }
-}
 
 /* arcade-style text, in the site's palette */
 .sg-hud {
@@ -1407,14 +1386,6 @@ dialog[open]:not(.mobile-menu) > div {
   text-shadow:
     0 0 26px rgb(59 227 255 / 0.65),
     0 3px 0 #05050b;
-}
-.sg-sub {
-  margin-top: 0.8rem;
-  font-size: clamp(0.58rem, 2.4vw, 1rem);
-  letter-spacing: 0.22em;
-  color: var(--color-pulse);
-  text-shadow: 0 0 16px rgb(255 77 157 / 0.55);
-  animation: sg-pop 0.45s cubic-bezier(0.2, 1.6, 0.4, 1) 2.6s both;
 }
 @keyframes sg-pop {
   0% {

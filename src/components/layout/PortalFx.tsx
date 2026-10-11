@@ -176,20 +176,6 @@ export function PortalFx({ onSkip }: { onSkip: () => void }) {
           <Block x={44} hit />
           <Block x={56} />
 
-          {/* coins from the middle block */}
-          {[0, 1, 2].map((i) => (
-            <ellipse
-              key={i}
-              className="sg-coin"
-              cx={49 + (i - 1) * 3}
-              cy="43"
-              rx="1.6"
-              ry="2.6"
-              fill="#3be3ff"
-              style={{ ["--d" as string]: `${i * 0.12}s` }}
-            />
-          ))}
-
           {/* the maker, clipped so he rises out of and drops into the pipe's mouth */}
           <g clipPath="url(#sg-pipe-clip)">
             <g className="sg-walk">
@@ -213,14 +199,12 @@ export function PortalFx({ onSkip }: { onSkip: () => void }) {
 
         <div className="sg-hud">
           <span>SARVAGYA</span>
-          <span>COINS ×07</span>
           <span>WORLD 1-1</span>
         </div>
         <div className="sg-text">
           <p className="sg-title">
             Hi, I&apos;m <span>Sarvagya</span>
           </p>
-          <p className="sg-sub">owner · developer · maker</p>
         </div>
         <p className="sg-hint">▼ opening github</p>
       </div>
