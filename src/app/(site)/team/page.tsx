@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PixelSquad } from "@/components/team/PixelSquad";
 import { TeamRoster } from "@/components/team/TeamRoster";
 import { ArrowRight } from "@/components/ui/Icon";
 import { EmptyState, ExternalLink } from "@/components/ui/primitives";
@@ -32,7 +33,9 @@ export default async function TeamPage() {
         }
       />
 
-      <section aria-labelledby="current-title" className="container-site">
+      <PixelSquad />
+
+      <section aria-labelledby="current-title" className="container-site mt-28">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6">
           <h2 id="current-title" className="text-title font-extrabold uppercase font-wide">
             Current team{current ? ` · ${current.label}` : ""}

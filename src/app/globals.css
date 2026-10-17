@@ -1424,3 +1424,19 @@ dialog[open]:not(.mobile-menu) > div {
     transform: scale(1.06);
   }
 }
+
+/* ------------------------------------------------------------------
+   Team · Pixel squad — the vibe wallpapers, with a hero on each.
+   ------------------------------------------------------------------ */
+/* hover flips on pointer devices; the li doesn't rotate, so the card can't flicker away from the cursor */
+@media (hover: hover) {
+  .pcard:hover .flip-inner {
+    transform: rotateY(180deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pcard .flip-inner {
+    transition: none;
+  }
+}
