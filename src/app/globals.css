@@ -1143,261 +1143,241 @@ dialog[open]:not(.mobile-menu) > div {
   color: var(--color-cyan);
 }
 
-/* signature click: sling-ring portal -> pixel world (PortalFx.tsx) */
-.sg {
+/* signature click: web-shots splat the screen, then Spider-Man drops in (SpideyFx.tsx) */
+.sp {
   position: fixed;
   inset: 0;
   z-index: 200;
   overflow: hidden;
   cursor: pointer;
-  background: radial-gradient(circle at 50% 50%, rgb(40 14 0 / 0.55), rgb(5 5 11 / 0.95));
+  background:
+    radial-gradient(circle at 50% 35%, rgb(120 10 20 / 0.35), transparent 60%),
+    radial-gradient(circle at 50% 50%, rgb(10 12 40 / 0.86), rgb(5 5 11 / 0.96));
   animation:
-    sg-in 0.25s ease-out both,
-    sg-out 0.45s ease-in 3.5s forwards;
+    sp-fade-in 0.2s ease-out both,
+    sp-fade-out 0.4s ease-in 3.7s forwards;
 }
-@keyframes sg-in {
+@keyframes sp-fade-in {
   from {
     opacity: 0;
   }
 }
-@keyframes sg-out {
+@keyframes sp-fade-out {
   to {
     opacity: 0;
   }
 }
 
-/* the world lives inside a circle that opens, holds, then swallows the screen */
-.sg-world {
-  position: absolute;
-  inset: 0;
-  clip-path: circle(0 at 50% 50%);
-  animation: sg-clip 1.5s cubic-bezier(0.55, 0, 0.25, 1) 0.1s forwards;
+/* web-shots: a white line that draws itself from the corner */
+.sp-shot {
+  stroke: #f4f6ff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 4px rgb(255 255 255 / 0.6));
+  animation: sp-draw 0.16s ease-out forwards;
 }
-@keyframes sg-clip {
-  0% {
-    clip-path: circle(0 at 50% 50%);
-  }
-  24% {
-    clip-path: circle(33.8vmin at 50% 50%);
-  }
-  40% {
-    clip-path: circle(33.8vmin at 50% 50%);
-  }
-  100% {
-    clip-path: circle(150vmax at 50% 50%);
-  }
+.sp-shot-a {
+  animation-delay: 0.15s;
 }
-
-/* the ring: orange sparks, like a sling ring */
-.sg-ring {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 72vmin;
-  height: 72vmin;
-  margin: -36vmin 0 0 -36vmin;
-  pointer-events: none;
-  filter: drop-shadow(0 0 5px #ff8a1f) drop-shadow(0 0 22px #ff6a00);
-  animation: sg-ring 1.7s cubic-bezier(0.3, 0, 0.2, 1) 0.05s forwards;
+.sp-shot-b {
+  animation-delay: 0.5s;
 }
-@keyframes sg-ring {
-  0% {
-    opacity: 0;
-    transform: scale(0) rotate(-120deg);
-  }
-  22% {
-    opacity: 1;
-    transform: scale(1) rotate(0);
-  }
-  42% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(5);
-  }
-}
-.sg-spin {
-  animation: sg-spin 3.2s linear infinite;
-}
-.sg-spin-rev {
-  animation-direction: reverse;
-  animation-duration: 4.4s;
-}
-.sg-spin-fast {
-  animation-duration: 1.8s;
-}
-@keyframes sg-spin {
+@keyframes sp-draw {
   to {
-    transform: rotate(360deg);
-  }
-}
-.sg-spark {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 0;
-  height: 0;
-  transform: rotate(var(--a));
-}
-.sg-spark i {
-  position: absolute;
-  left: -1.5px;
-  top: -33.5vmin;
-  width: 3px;
-  height: 3px;
-  background: #ffd27a;
-  box-shadow: 0 0 8px 2px #ff8a1f;
-  animation: sg-fly 1.1s ease-out var(--d) infinite;
-}
-@keyframes sg-fly {
-  0% {
-    opacity: 1;
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(var(--dx), -9vmin) scale(0.2);
+    stroke-dashoffset: 0;
   }
 }
 
-/* the maker walks in, bumps the middle block, then drops down the pipe */
-.sg-walk {
-  animation: sg-walk 2.4s linear 1.1s both;
+/* the splats burst open in pixel-ish steps */
+.sp-splat {
+  position: absolute;
+  width: clamp(9rem, 34vmin, 20rem);
+  aspect-ratio: 1;
+  color: #f4f6ff;
+  translate: -50% -50%;
+  scale: 0;
+  filter: drop-shadow(0 0 6px rgb(255 255 255 / 0.45));
+  animation: sp-splat 0.24s steps(4) forwards;
 }
-@keyframes sg-walk {
-  0%,
-  4% {
-    transform: translate(70px, 78px) scale(-1, 1);
-  }
-  14% {
-    transform: translate(70px, 46px) scale(-1, 1);
-  }
-  22% {
-    transform: translate(63px, 41px) scale(-1, 1);
-  }
-  31%,
-  42% {
-    transform: translate(55px, 59px) scale(-1, 1);
-  }
-  47% {
-    transform: translate(55px, 51px) scale(-1, 1);
-  }
-  52%,
-  55% {
-    transform: translate(55px, 59px) scale(-1, 1);
-  }
-  56% {
-    transform: translate(43px, 59px) scale(1, 1);
-  }
-  84% {
-    transform: translate(56px, 59px) scale(1, 1);
-  }
-  91% {
-    transform: translate(58px, 59px) scale(1, 1);
-  }
-  100% {
-    transform: translate(58px, 79px) scale(1, 1);
-  }
+.sp-splat-a {
+  left: 27%;
+  top: 30%;
+  rotate: -8deg;
+  animation-delay: 0.3s;
 }
-.sg-star {
-  animation: ft-twinkle 3s ease-in-out infinite;
+.sp-splat-b {
+  left: 75%;
+  top: 47%;
+  rotate: 14deg;
+  animation-delay: 0.65s;
 }
-.sg-leg-a {
-  animation: sg-step 0.26s steps(1) infinite;
-}
-.sg-leg-b {
-  animation: sg-step 0.26s steps(1) infinite reverse;
-}
-@keyframes sg-step {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-.sg-bump {
-  animation: sg-bump 0.3s ease-out 2.2s both;
-}
-@keyframes sg-bump {
-  50% {
-    transform: translateY(-3px);
-  }
-}
-.sg-used {
-  opacity: 0;
-  animation: sg-show 0.01s linear 2.3s forwards;
-}
-@keyframes sg-show {
+@keyframes sp-splat {
   to {
-    opacity: 1;
+    scale: 1;
   }
 }
 
-/* arcade-style text, in the site's palette */
-.sg-hud {
+.sp-thwip {
   position: absolute;
-  left: 1rem;
-  right: 1rem;
-  top: max(1rem, env(safe-area-inset-top));
-  display: flex;
-  justify-content: space-between;
-  gap: 0.5rem;
   font-family: var(--font-pixel);
-  font-size: clamp(0.55rem, 2.3vw, 0.95rem);
-  letter-spacing: 0.1em;
-  color: var(--color-fg-muted);
-  text-shadow: 0 0 12px rgb(5 5 11 / 0.9);
+  font-size: clamp(1rem, 4.4vw, 2.2rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow:
+    3px 3px 0 #d6192b,
+    6px 6px 0 #05050b;
   opacity: 0;
-  animation: sg-fade 0.3s ease-out 1.5s forwards;
+  animation: sp-pop 0.45s cubic-bezier(0.2, 1.6, 0.4, 1) forwards;
 }
-.sg-hud span:first-child {
-  color: var(--color-cyan);
+.sp-thwip-a {
+  left: 8%;
+  top: 14%;
+  rotate: -10deg;
+  animation-delay: 0.3s;
 }
-@keyframes sg-fade {
-  to {
+.sp-thwip-b {
+  right: 6%;
+  top: 62%;
+  rotate: 8deg;
+  animation-delay: 0.65s;
+}
+@keyframes sp-pop {
+  0% {
+    opacity: 0;
+    scale: 0.2;
+  }
+  100% {
     opacity: 1;
+    scale: 1;
   }
 }
-.sg-text {
+
+/* the drop-in. Three wrappers so each motion has its own timing */
+.sp-zip {
   position: absolute;
+  left: 50%;
+  top: 30vh;
+  animation: sp-zip 0.35s cubic-bezier(0.55, 0, 0.9, 0.4) 3.05s forwards;
+}
+@keyframes sp-zip {
+  to {
+    translate: 0 -140vh;
+  }
+}
+.sp-drop {
+  translate: 0 -100vh;
+  animation: sp-drop 0.75s cubic-bezier(0.25, 1.45, 0.45, 1) 0.95s forwards;
+}
+@keyframes sp-drop {
+  to {
+    translate: 0 0;
+  }
+}
+.sp-sway {
+  position: relative;
+  width: clamp(5.5rem, 18vmin, 9.5rem);
+  translate: -50% 0;
+  /* pivot far above, where the line is anchored, so it swings like a pendulum */
+  transform-origin: 44% -30vh;
+  animation: sp-sway 1.4s ease-in-out 1.6s both;
+}
+@keyframes sp-sway {
+  25% {
+    rotate: 4deg;
+  }
+  60% {
+    rotate: -3deg;
+  }
+  85% {
+    rotate: 1.2deg;
+  }
+}
+.sp-line {
+  position: absolute;
+  left: 44%;
+  bottom: calc(100% - 0.4rem);
+  width: 2px;
+  height: 140vh;
+  background: linear-gradient(to bottom, rgb(244 246 255 / 0.4), #f4f6ff);
+  translate: -50% 0;
+}
+.sp-sprite {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.55));
+}
+
+/* the speech bubble: under him on phones, beside him on wider screens */
+.sp-bubble {
+  position: absolute;
+  top: calc(clamp(5.5rem, 18vmin, 9.5rem) * 1.15 + 1rem);
   left: 0;
-  right: 0;
-  top: 20%;
-  padding: 0 1rem;
-  text-align: center;
+  width: max-content;
+  max-width: min(78vw, 22rem);
+  translate: -50% 0;
+  padding: 0.8rem 1rem;
+  background: #fff;
+  color: #05050b;
   font-family: var(--font-pixel);
   text-transform: uppercase;
+  text-align: center;
+  box-shadow:
+    4px 4px 0 #d6192b,
+    8px 8px 0 #05050b;
+  opacity: 0;
+  animation: sp-pop 0.45s cubic-bezier(0.2, 1.6, 0.4, 1) 1.7s forwards;
 }
-.sg-title {
-  font-size: clamp(1.15rem, 6vw, 3.2rem);
+.sp-bubble::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  translate: -50% 0;
+  border: 0.55rem solid transparent;
+  border-bottom-color: #fff;
+}
+.sp-bubble p {
+  font-size: clamp(0.95rem, 4vw, 1.6rem);
   line-height: 1.15;
-  letter-spacing: 0.06em;
-  color: var(--color-fg);
-  text-shadow:
-    0 0 28px rgb(164 107 255 / 0.7),
-    0 3px 0 #05050b;
-  animation: sg-pop 0.5s cubic-bezier(0.2, 1.6, 0.4, 1) 2.35s both;
+  letter-spacing: 0.04em;
 }
-.sg-title span {
-  color: var(--color-cyan);
-  text-shadow:
-    0 0 26px rgb(59 227 255 / 0.65),
-    0 3px 0 #05050b;
+.sp-bubble span {
+  color: #d6192b;
 }
-@keyframes sg-pop {
-  0% {
-    opacity: 0;
-    transform: translateY(24px) scale(0.2);
+.sp-bubble .sp-bubble-sub {
+  margin-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: clamp(0.6rem, 2.4vw, 0.75rem);
+  letter-spacing: 0.14em;
+  color: #3a3d5c;
+}
+@media (min-width: 40rem) {
+  .sp-bubble {
+    top: 18%;
+    left: calc(clamp(5.5rem, 18vmin, 9.5rem) * 0.6 + 1.25rem);
+    /* never past the right edge: only the room beside him */
+    max-width: min(22rem, calc(50vw - clamp(5.5rem, 18vmin, 9.5rem) * 0.6 - 2.5rem));
+    translate: 0 0;
+    text-align: left;
   }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+  .sp-bubble::before {
+    left: auto;
+    right: 100%;
+    bottom: auto;
+    top: 1.2rem;
+    translate: 0 0;
+    border-bottom-color: transparent;
+    border-right-color: #fff;
   }
 }
-.sg-hint {
+
+.sp-hint {
   position: absolute;
   left: 0;
   right: 0;
@@ -1410,12 +1390,17 @@ dialog[open]:not(.mobile-menu) > div {
   color: var(--color-fg-muted);
   opacity: 0;
   animation:
-    sg-fade 0.2s ease-out 3s forwards,
-    sg-blink 0.5s steps(1) 3s infinite;
+    sp-show 0.2s ease-out 3s forwards,
+    sp-blink 0.5s steps(1) 3s infinite;
 }
-@keyframes sg-blink {
+@keyframes sp-show {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes sp-blink {
   50% {
-    color: var(--color-cyan);
+    color: #ff5a6a;
   }
 }
 

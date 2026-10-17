@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { Mark } from "@/components/brand/Logo";
-import { PortalFx } from "@/components/layout/PortalFx";
+import { SpideyFx } from "@/components/layout/SpideyFx";
 import { GitHub } from "@/components/ui/Icon";
 
 const GITHUB = "https://github.com/Obister-ji";
@@ -89,7 +89,7 @@ export function FooterStage({
     if (fx || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     e.preventDefault();
     setFx(true);
-    fxTimers.current = [window.setTimeout(() => finishSignature(true, true), 3500)];
+    fxTimers.current = [window.setTimeout(() => finishSignature(true, true), 3700)];
   };
 
   useEffect(() => {
@@ -236,7 +236,7 @@ export function FooterStage({
           </div>
         </div>
       </div>
-      {fx ? <PortalFx onSkip={() => finishSignature(true)} /> : null}
+      {fx ? <SpideyFx onSkip={() => finishSignature(true)} /> : null}
     </div>
   );
 }
